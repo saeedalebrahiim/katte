@@ -1,6 +1,7 @@
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/routs/routs.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ApiResult> login(
@@ -15,13 +16,22 @@ Future<ApiResult> login(
 
   if (postResult.isSuccessful == true) {
     print(postResult.error);
+    if (postResult.body!.isSuccess == true) {
+    } else {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oops...',
+        text: postResult.error.toString(),
+      );
+    }
   } else {
-    // QuickAlert.show(
-    //   context: context,
-    //   type: QuickAlertType.error,
-    //   title: 'Oops...',
-    //   text: postResult.error.toString(),
-    // );
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
   }
   final response = ApiResult.fromJson(postResult.body!.toJson());
 

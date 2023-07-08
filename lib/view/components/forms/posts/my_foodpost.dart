@@ -49,7 +49,7 @@ class MyFoodPost extends StatelessWidget {
                 ],
               ),
               Image(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
                 width: 150,
                 height: 150,
