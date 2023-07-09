@@ -4,6 +4,7 @@ import 'package:delivery/view/components/forms/my_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
+import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -31,15 +32,11 @@ class _IndexScreenState extends State<IndexScreen> {
     getData();
   }
 
-  List<CategoryDto> allCatgeroies = [];
-  List<ProductDto> allProducts = [];
-
   getData() {
     ctg_controller.getCategories(context: context).then((value) {
-      allCatgeroies = value.data!;
+      context.read<HomeIndexProvider>().setCategories(value.data!);
       products_controller.getAllProducts(context: context).then((products) {
-        allProducts = products.data!;
-        setState(() {});
+        context.read<HomeIndexProvider>().setProducts(products.data!);
       });
     });
   }
@@ -142,641 +139,656 @@ class _IndexScreenState extends State<IndexScreen> {
         child: Center(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: Wrap(
-              spacing: 115,
-              runSpacing: 100,
-              alignment: WrapAlignment.spaceAround,
-              children: [
-                for (var index = 0; index < allCatgeroies.length; index++)
-                  AnimationLimiter(
-                    child: Wrap(
-                        direction: Axis.vertical,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: AnimationConfiguration.toStaggeredList(
-                          duration: const Duration(milliseconds: 500),
-                          childAnimationBuilder: (widget) => SlideAnimation(
-                              horizontalOffset: 50.0,
-                              child: FadeInAnimation(child: widget)),
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Image(
-                              image: NetworkImage(
-                                allCatgeroies[index]
-                                    .imageLink
-                                    .toString()
-                                    .replaceAll("https://localhost:44381",
-                                        "http://103.75.197.248:90"),
+            child: Consumer<HomeIndexProvider>(
+              builder: (context, value, child) => Wrap(
+                spacing: 115,
+                runSpacing: 100,
+                alignment: WrapAlignment.spaceAround,
+                children: [
+                  for (var index = 0;
+                      index < HomeIndexProvider.allCatgeroies.length;
+                      index++)
+                    AnimationLimiter(
+                      child: Wrap(
+                          direction: Axis.vertical,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: AnimationConfiguration.toStaggeredList(
+                            duration: const Duration(milliseconds: 500),
+                            childAnimationBuilder: (widget) => SlideAnimation(
+                                horizontalOffset: 50.0,
+                                child: FadeInAnimation(child: widget)),
+                            children: [
+                              const SizedBox(
+                                height: 30,
                               ),
-                              color: Colors.grey.shade900,
-                              width: 110,
-                              height: 110,
-                            ),
-                            SizedBox(
-                              width: 300,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Starters',
-                                    style: GoogleFonts.dosis(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.grey.shade900),
-                                  ),
-                                  Text(
-                                    allCatgeroies[index].name.toString(),
-                                    style: GoogleFonts.notoNaskhArabic(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.grey.shade900),
-                                  ),
-                                ],
+                              Image(
+                                image: NetworkImage(
+                                  HomeIndexProvider
+                                      .allCatgeroies[index].imageLink
+                                      .toString()
+                                      .replaceAll("https://localhost:44381",
+                                          "http://103.75.197.248:90"),
+                                ),
+                                color: Colors.grey.shade900,
+                                width: 110,
+                                height: 110,
                               ),
-                            ),
-                            for (var i = 0; i < allProducts.length; i++)
-                              if (allProducts[i].categorysId ==
-                                  allCatgeroies[index].id)
-                                Column(
+                              SizedBox(
+                                width: 300,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    MyFoodPost(
-                                      foodName: allProducts[i].name.toString(),
-                                      imagePath: allProducts[i]
-                                          .imageLink
-                                          .toString()
-                                          .replaceAll("https://localhost:44381",
-                                              "http://103.75.197.248:90"),
-                                      price: allProducts[i].price.toString(),
-                                      onTap: () {},
-                                      textDirection: i.isEven
-                                          ? TextDirection.ltr
-                                          : TextDirection.rtl,
-                                      desc:
-                                          allProducts[i].shortDetail.toString(),
+                                    Text(
+                                      'Starters',
+                                      style: GoogleFonts.dosis(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.grey.shade900),
                                     ),
-                                    const SizedBox(
-                                      width: 300,
-                                      child: Row(
-                                        children: [
-                                          MyDivider(
-                                              thickness: 0.2,
-                                              horizontalPadding: 50,
-                                              dividerColor: Colors.grey),
-                                        ],
-                                      ),
+                                    Text(
+                                      HomeIndexProvider
+                                          .allCatgeroies[index].name
+                                          .toString(),
+                                      style: GoogleFonts.notoNaskhArabic(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey.shade900),
                                     ),
                                   ],
                                 ),
-                          ],
-                        )),
-                  ),
+                              ),
+                              for (var i = 0;
+                                  i < HomeIndexProvider.allProducts.length;
+                                  i++)
+                                if (HomeIndexProvider
+                                        .allProducts[i].categorysId ==
+                                    HomeIndexProvider.allCatgeroies[index].id)
+                                  Column(
+                                    children: [
+                                      MyFoodPost(
+                                        foodName: HomeIndexProvider
+                                            .allProducts[i].name
+                                            .toString(),
+                                        imagePath: HomeIndexProvider
+                                            .allProducts[i].imageLink
+                                            .toString()
+                                            .replaceAll(
+                                                "https://localhost:44381",
+                                                "http://103.75.197.248:90"),
+                                        price: HomeIndexProvider
+                                            .allProducts[i].price
+                                            .toString(),
+                                        onTap: () {},
+                                        textDirection: i.isEven
+                                            ? TextDirection.ltr
+                                            : TextDirection.rtl,
+                                        desc: HomeIndexProvider
+                                            .allProducts[i].shortDetail
+                                            .toString(),
+                                      ),
+                                      const SizedBox(
+                                        width: 300,
+                                        child: Row(
+                                          children: [
+                                            MyDivider(
+                                                thickness: 0.2,
+                                                horizontalPadding: 50,
+                                                dividerColor: Colors.grey),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                            ],
+                          )),
+                    ),
 
-                // AnimationLimiter(
-                //   child: Wrap(
-                //       direction: Axis.vertical,
-                //       crossAxisAlignment: WrapCrossAlignment.center,
-                //       children: AnimationConfiguration.toStaggeredList(
-                //         duration: const Duration(milliseconds: 500),
-                //         childAnimationBuilder: (widget) => SlideAnimation(
-                //             horizontalOffset: 50.0,
-                //             child: FadeInAnimation(child: widget)),
-                //         children: [
-                //           const SizedBox(
-                //             height: 30,
-                //           ),
-                //           Image(
-                //             image: const AssetImage(
-                //                 'lib/assets/images/dinner.png'),
-                //             color: Colors.grey.shade900,
-                //             width: 110,
-                //             height: 110,
-                //           ),
-                //           SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Text(
-                //                   'Main Foods',
-                //                   style: GoogleFonts.dosis(
-                //                       fontSize: 16,
-                //                       fontWeight: FontWeight.w700,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //                 Text(
-                //                   'غـذای اصلی',
-                //                   style: GoogleFonts.notoNaskhArabic(
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w600,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 1,
-                //                     horizontalPadding: 0,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             height: 10,
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food1.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food2.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.rtl,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food3.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //         ],
-                //       )),
-                // ),
-                // AnimationLimiter(
-                //   child: Wrap(
-                //       direction: Axis.vertical,
-                //       crossAxisAlignment: WrapCrossAlignment.center,
-                //       children: AnimationConfiguration.toStaggeredList(
-                //         duration: const Duration(milliseconds: 500),
-                //         childAnimationBuilder: (widget) => SlideAnimation(
-                //             horizontalOffset: 50.0,
-                //             child: FadeInAnimation(child: widget)),
-                //         children: [
-                //           const SizedBox(
-                //             height: 30,
-                //           ),
-                //           Image(
-                //             image: const AssetImage(
-                //                 'lib/assets/images/chicken.png'),
-                //             color: Colors.grey.shade900,
-                //             width: 110,
-                //             height: 110,
-                //           ),
-                //           SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Text(
-                //                   'Stews',
-                //                   style: GoogleFonts.dosis(
-                //                       fontSize: 16,
-                //                       fontWeight: FontWeight.w700,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //                 Text(
-                //                   'خـوراک ها',
-                //                   style: GoogleFonts.notoNaskhArabic(
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w600,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 1,
-                //                     horizontalPadding: 0,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             height: 10,
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food1.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food2.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.rtl,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food3.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //         ],
-                //       )),
-                // ),
-                // AnimationLimiter(
-                //   child: Wrap(
-                //       direction: Axis.vertical,
-                //       crossAxisAlignment: WrapCrossAlignment.center,
-                //       children: AnimationConfiguration.toStaggeredList(
-                //         duration: const Duration(milliseconds: 500),
-                //         childAnimationBuilder: (widget) => SlideAnimation(
-                //             horizontalOffset: 50.0,
-                //             child: FadeInAnimation(child: widget)),
-                //         children: [
-                //           const SizedBox(
-                //             height: 30,
-                //           ),
-                //           Image(
-                //             image: const AssetImage(
-                //                 'lib/assets/images/dinner.png'),
-                //             color: Colors.grey.shade900,
-                //             width: 110,
-                //             height: 110,
-                //           ),
-                //           SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Text(
-                //                   'Main Foods',
-                //                   style: GoogleFonts.dosis(
-                //                       fontSize: 16,
-                //                       fontWeight: FontWeight.w700,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //                 Text(
-                //                   'غـذای اصلی',
-                //                   style: GoogleFonts.notoNaskhArabic(
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w600,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 1,
-                //                     horizontalPadding: 0,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             height: 10,
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food1.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food2.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.rtl,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food3.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //         ],
-                //       )),
-                // ),
-                // AnimationLimiter(
-                //   child: Wrap(
-                //       direction: Axis.vertical,
-                //       crossAxisAlignment: WrapCrossAlignment.center,
-                //       children: AnimationConfiguration.toStaggeredList(
-                //         duration: const Duration(milliseconds: 500),
-                //         childAnimationBuilder: (widget) => SlideAnimation(
-                //             horizontalOffset: 50.0,
-                //             child: FadeInAnimation(child: widget)),
-                //         children: [
-                //           const SizedBox(
-                //             height: 30,
-                //           ),
-                //           Image(
-                //             image:
-                //                 const AssetImage('lib/assets/images/salad.png'),
-                //             color: Colors.grey.shade900,
-                //             width: 110,
-                //             height: 110,
-                //           ),
-                //           SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Text(
-                //                   'Starters',
-                //                   style: GoogleFonts.dosis(
-                //                       fontSize: 16,
-                //                       fontWeight: FontWeight.w700,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //                 Text(
-                //                   'پـیش غذا',
-                //                   style: GoogleFonts.notoNaskhArabic(
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w600,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 1,
-                //                     horizontalPadding: 0,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             height: 10,
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food1.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food2.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.rtl,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food3.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //         ],
-                //       )),
-                // ),
-                // AnimationLimiter(
-                //   child: Wrap(
-                //       direction: Axis.vertical,
-                //       crossAxisAlignment: WrapCrossAlignment.center,
-                //       children: AnimationConfiguration.toStaggeredList(
-                //         duration: const Duration(milliseconds: 500),
-                //         childAnimationBuilder: (widget) => SlideAnimation(
-                //             horizontalOffset: 50.0,
-                //             child: FadeInAnimation(child: widget)),
-                //         children: [
-                //           const SizedBox(
-                //             height: 30,
-                //           ),
-                //           Image(
-                //             image:
-                //                 const AssetImage('lib/assets/images/meat.png'),
-                //             color: Colors.grey.shade900,
-                //             width: 110,
-                //             height: 110,
-                //           ),
-                //           SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Text(
-                //                   'Main Foods',
-                //                   style: GoogleFonts.dosis(
-                //                       fontSize: 16,
-                //                       fontWeight: FontWeight.w700,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //                 Text(
-                //                   'غـذای اصلی',
-                //                   style: GoogleFonts.notoNaskhArabic(
-                //                       fontSize: 18,
-                //                       fontWeight: FontWeight.w600,
-                //                       color: Colors.grey.shade900),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 1,
-                //                     horizontalPadding: 0,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           const SizedBox(
-                //             height: 10,
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food1.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food2.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.rtl,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             width: 300,
-                //             child: Row(
-                //               children: [
-                //                 MyDivider(
-                //                     thickness: 0.2,
-                //                     horizontalPadding: 50,
-                //                     dividerColor: Colors.grey),
-                //               ],
-                //             ),
-                //           ),
-                //           MyFoodPost(
-                //             foodName: 'مرغ گریـل شده',
-                //             imagePath: 'lib/assets/images/food3.png',
-                //             price: '160/000',
-                //             onTap: () {},
-                //             textDirection: TextDirection.ltr,
-                //             desc:
-                //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
-                //           ),
-                //           const SizedBox(
-                //             height: 60,
-                //           )
-                //         ],
-                //       )),
-                // ),
-              ],
+                  // AnimationLimiter(
+                  //   child: Wrap(
+                  //       direction: Axis.vertical,
+                  //       crossAxisAlignment: WrapCrossAlignment.center,
+                  //       children: AnimationConfiguration.toStaggeredList(
+                  //         duration: const Duration(milliseconds: 500),
+                  //         childAnimationBuilder: (widget) => SlideAnimation(
+                  //             horizontalOffset: 50.0,
+                  //             child: FadeInAnimation(child: widget)),
+                  //         children: [
+                  //           const SizedBox(
+                  //             height: 30,
+                  //           ),
+                  //           Image(
+                  //             image: const AssetImage(
+                  //                 'lib/assets/images/dinner.png'),
+                  //             color: Colors.grey.shade900,
+                  //             width: 110,
+                  //             height: 110,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 Text(
+                  //                   'Main Foods',
+                  //                   style: GoogleFonts.dosis(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //                 Text(
+                  //                   'غـذای اصلی',
+                  //                   style: GoogleFonts.notoNaskhArabic(
+                  //                       fontSize: 18,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 1,
+                  //                     horizontalPadding: 0,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food1.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food2.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.rtl,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food3.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
+                  // AnimationLimiter(
+                  //   child: Wrap(
+                  //       direction: Axis.vertical,
+                  //       crossAxisAlignment: WrapCrossAlignment.center,
+                  //       children: AnimationConfiguration.toStaggeredList(
+                  //         duration: const Duration(milliseconds: 500),
+                  //         childAnimationBuilder: (widget) => SlideAnimation(
+                  //             horizontalOffset: 50.0,
+                  //             child: FadeInAnimation(child: widget)),
+                  //         children: [
+                  //           const SizedBox(
+                  //             height: 30,
+                  //           ),
+                  //           Image(
+                  //             image: const AssetImage(
+                  //                 'lib/assets/images/chicken.png'),
+                  //             color: Colors.grey.shade900,
+                  //             width: 110,
+                  //             height: 110,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 Text(
+                  //                   'Stews',
+                  //                   style: GoogleFonts.dosis(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //                 Text(
+                  //                   'خـوراک ها',
+                  //                   style: GoogleFonts.notoNaskhArabic(
+                  //                       fontSize: 18,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 1,
+                  //                     horizontalPadding: 0,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food1.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food2.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.rtl,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food3.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
+                  // AnimationLimiter(
+                  //   child: Wrap(
+                  //       direction: Axis.vertical,
+                  //       crossAxisAlignment: WrapCrossAlignment.center,
+                  //       children: AnimationConfiguration.toStaggeredList(
+                  //         duration: const Duration(milliseconds: 500),
+                  //         childAnimationBuilder: (widget) => SlideAnimation(
+                  //             horizontalOffset: 50.0,
+                  //             child: FadeInAnimation(child: widget)),
+                  //         children: [
+                  //           const SizedBox(
+                  //             height: 30,
+                  //           ),
+                  //           Image(
+                  //             image: const AssetImage(
+                  //                 'lib/assets/images/dinner.png'),
+                  //             color: Colors.grey.shade900,
+                  //             width: 110,
+                  //             height: 110,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 Text(
+                  //                   'Main Foods',
+                  //                   style: GoogleFonts.dosis(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //                 Text(
+                  //                   'غـذای اصلی',
+                  //                   style: GoogleFonts.notoNaskhArabic(
+                  //                       fontSize: 18,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 1,
+                  //                     horizontalPadding: 0,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food1.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food2.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.rtl,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food3.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
+                  // AnimationLimiter(
+                  //   child: Wrap(
+                  //       direction: Axis.vertical,
+                  //       crossAxisAlignment: WrapCrossAlignment.center,
+                  //       children: AnimationConfiguration.toStaggeredList(
+                  //         duration: const Duration(milliseconds: 500),
+                  //         childAnimationBuilder: (widget) => SlideAnimation(
+                  //             horizontalOffset: 50.0,
+                  //             child: FadeInAnimation(child: widget)),
+                  //         children: [
+                  //           const SizedBox(
+                  //             height: 30,
+                  //           ),
+                  //           Image(
+                  //             image:
+                  //                 const AssetImage('lib/assets/images/salad.png'),
+                  //             color: Colors.grey.shade900,
+                  //             width: 110,
+                  //             height: 110,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 Text(
+                  //                   'Starters',
+                  //                   style: GoogleFonts.dosis(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //                 Text(
+                  //                   'پـیش غذا',
+                  //                   style: GoogleFonts.notoNaskhArabic(
+                  //                       fontSize: 18,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 1,
+                  //                     horizontalPadding: 0,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food1.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food2.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.rtl,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food3.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //         ],
+                  //       )),
+                  // ),
+                  // AnimationLimiter(
+                  //   child: Wrap(
+                  //       direction: Axis.vertical,
+                  //       crossAxisAlignment: WrapCrossAlignment.center,
+                  //       children: AnimationConfiguration.toStaggeredList(
+                  //         duration: const Duration(milliseconds: 500),
+                  //         childAnimationBuilder: (widget) => SlideAnimation(
+                  //             horizontalOffset: 50.0,
+                  //             child: FadeInAnimation(child: widget)),
+                  //         children: [
+                  //           const SizedBox(
+                  //             height: 30,
+                  //           ),
+                  //           Image(
+                  //             image:
+                  //                 const AssetImage('lib/assets/images/meat.png'),
+                  //             color: Colors.grey.shade900,
+                  //             width: 110,
+                  //             height: 110,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //               children: [
+                  //                 Text(
+                  //                   'Main Foods',
+                  //                   style: GoogleFonts.dosis(
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //                 Text(
+                  //                   'غـذای اصلی',
+                  //                   style: GoogleFonts.notoNaskhArabic(
+                  //                       fontSize: 18,
+                  //                       fontWeight: FontWeight.w600,
+                  //                       color: Colors.grey.shade900),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 1,
+                  //                     horizontalPadding: 0,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10,
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food1.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food2.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.rtl,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             width: 300,
+                  //             child: Row(
+                  //               children: [
+                  //                 MyDivider(
+                  //                     thickness: 0.2,
+                  //                     horizontalPadding: 50,
+                  //                     dividerColor: Colors.grey),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           MyFoodPost(
+                  //             foodName: 'مرغ گریـل شده',
+                  //             imagePath: 'lib/assets/images/food3.png',
+                  //             price: '160/000',
+                  //             onTap: () {},
+                  //             textDirection: TextDirection.ltr,
+                  //             desc:
+                  //                 'مرغ گریل شده + پنیر چدار + کاهو + سس مخصوص + سیب زمینی سرخ کرده',
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 60,
+                  //           )
+                  //         ],
+                  //       )),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),
