@@ -1,12 +1,36 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delivery/controller/profiles/profile_controller.dart'
+    as profile;
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  UserDto? user;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  getData() {
+    profile.getProfile(context: context).then((value) {
+      setState(() {
+        user = value.data;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +139,7 @@ class ProfileScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    'سعیـد',
+                                    '${user!.fname}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -149,7 +173,7 @@ class ProfileScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    'شهـاب',
+                                    '${user!.lname}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -183,7 +207,7 @@ class ProfileScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '09338680570',
+                                    '${user!.phoneNumber}',
                                     style: GoogleFonts.dosis(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.bold,
@@ -217,7 +241,7 @@ class ProfileScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: Text(
-                                    'Katteproject@gmail.com',
+                                    '${user!.email}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,

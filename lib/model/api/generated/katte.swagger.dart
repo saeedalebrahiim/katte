@@ -231,7 +231,8 @@ abstract class Katte extends ChopperService {
       {@Body() required LoginOtpDto? body});
 
   ///
-  Future<chopper.Response<UserDtoApiResult>> apiV1AuthenticationProfileGet() {
+  Future<chopper.Response<UserDtoApiResult>> apiV1AuthenticationProfileGet(
+      {required UserDtoApiResult body}) {
     generatedMapping.putIfAbsent(
         UserDtoApiResult, () => UserDtoApiResult.fromJsonFactory);
 

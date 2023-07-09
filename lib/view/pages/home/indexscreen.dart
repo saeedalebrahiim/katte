@@ -13,6 +13,8 @@ import 'package:delivery/controller/categories/categories_controller.dart'
     as ctg_controller;
 import 'package:delivery/controller/products/products_controller.dart'
     as products_controller;
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as address_controller;
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
@@ -47,11 +49,18 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
-          showDialog<Dialog>(
-              context: context,
-              builder: (BuildContext context) => MyDialog(
-                    visible: false,
-                  ));
+          address_controller.getAddresses(context: context).then((value) {
+            String? address;
+            if (value.data!.isNotEmpty) {
+              address = value.data!.last.location;
+            }
+            showDialog<Dialog>(
+                context: context,
+                builder: (BuildContext context) => MyDialog(
+                      visible: false,
+                      address: address,
+                    ));
+          });
         },
         child: Container(
           width: 55,

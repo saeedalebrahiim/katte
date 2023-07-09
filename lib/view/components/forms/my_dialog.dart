@@ -9,9 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class MyDialog extends StatefulWidget {
+  MyDialog({Key? key, required this.visible, required this.address})
+      : super(key: key);
   bool visible = false;
-
-  MyDialog({Key? key, required this.visible}) : super(key: key);
+  final String? address;
 
   @override
   State<MyDialog> createState() => _MyDialogState();
@@ -71,7 +72,7 @@ class _MyDialogState extends State<MyDialog> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       textDirection: TextDirection.rtl,
-                      'صدرا - پاسارگاد - مجتمع آسمان صدرا - طبقه اول - واحد 8',
+                      widget.address.toString(),
                       style: GoogleFonts.notoNaskhArabic(
                           color: Colors.grey.shade900,
                           fontWeight: FontWeight.w500,
@@ -652,6 +653,7 @@ class _MyDialogThreeState extends State<MyDialogThree> {
                             context: context,
                             builder: (BuildContext context) => MyDialog(
                                   visible: true,
+                                  address: "",
                                 ));
                       },
                       child: Container(
