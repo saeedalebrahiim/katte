@@ -150,98 +150,99 @@ class _IndexScreenState extends State<IndexScreen> {
                       index++)
                     AnimationLimiter(
                       child: Wrap(
-                          direction: Axis.vertical,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: AnimationConfiguration.toStaggeredList(
-                            duration: const Duration(milliseconds: 500),
-                            childAnimationBuilder: (widget) => SlideAnimation(
-                                horizontalOffset: 50.0,
-                                child: FadeInAnimation(child: widget)),
-                            children: [
-                              const SizedBox(
-                                height: 30,
+                        direction: Axis.vertical,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: AnimationConfiguration.toStaggeredList(
+                          duration: const Duration(milliseconds: 500),
+                          childAnimationBuilder: (widget) => SlideAnimation(
+                              horizontalOffset: 50.0,
+                              child: FadeInAnimation(child: widget)),
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Image(
+                              image: NetworkImage(
+                                HomeIndexProvider.allCatgeroies[index].imageLink
+                                    .toString()
+                                    .replaceAll("https://localhost:44381",
+                                        "http://103.75.197.248:90"),
                               ),
-                              Image(
-                                image: NetworkImage(
-                                  HomeIndexProvider
-                                      .allCatgeroies[index].imageLink
-                                      .toString()
-                                      .replaceAll("https://localhost:44381",
-                                          "http://103.75.197.248:90"),
-                                ),
-                                color: Colors.grey.shade900,
-                                width: 110,
-                                height: 110,
+                              color: Colors.grey.shade900,
+                              width: 110,
+                              height: 110,
+                            ),
+                            SizedBox(
+                              width: 300,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Starters',
+                                    style: GoogleFonts.dosis(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.grey.shade900),
+                                  ),
+                                  Text(
+                                    HomeIndexProvider.allCatgeroies[index].name
+                                        .toString(),
+                                    style: GoogleFonts.notoNaskhArabic(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.grey.shade900),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 300,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                            ),
+                            for (var i = 0;
+                                i < HomeIndexProvider.allProducts.length;
+                                i++)
+                              if (HomeIndexProvider
+                                      .allProducts[i].categorysId ==
+                                  HomeIndexProvider.allCatgeroies[index].id)
+                                Column(
                                   children: [
-                                    Text(
-                                      'Starters',
-                                      style: GoogleFonts.dosis(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.grey.shade900),
-                                    ),
-                                    Text(
-                                      HomeIndexProvider
-                                          .allCatgeroies[index].name
+                                    MyFoodPost(
+                                      productId: HomeIndexProvider
+                                          .allProducts[i].id
                                           .toString(),
-                                      style: GoogleFonts.notoNaskhArabic(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.grey.shade900),
+                                      foodName: HomeIndexProvider
+                                          .allProducts[i].name
+                                          .toString(),
+                                      imagePath: HomeIndexProvider
+                                          .allProducts[i].imageLink
+                                          .toString()
+                                          .replaceAll("https://localhost:44381",
+                                              "http://103.75.197.248:90"),
+                                      price: HomeIndexProvider
+                                          .allProducts[i].price
+                                          .toString(),
+                                      onTap: () {},
+                                      textDirection: i.isEven
+                                          ? TextDirection.ltr
+                                          : TextDirection.rtl,
+                                      desc: HomeIndexProvider
+                                          .allProducts[i].shortDetail
+                                          .toString(),
+                                    ),
+                                    const SizedBox(
+                                      width: 300,
+                                      child: Row(
+                                        children: [
+                                          MyDivider(
+                                              thickness: 0.2,
+                                              horizontalPadding: 50,
+                                              dividerColor: Colors.grey),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              for (var i = 0;
-                                  i < HomeIndexProvider.allProducts.length;
-                                  i++)
-                                if (HomeIndexProvider
-                                        .allProducts[i].categorysId ==
-                                    HomeIndexProvider.allCatgeroies[index].id)
-                                  Column(
-                                    children: [
-                                      MyFoodPost(
-                                        foodName: HomeIndexProvider
-                                            .allProducts[i].name
-                                            .toString(),
-                                        imagePath: HomeIndexProvider
-                                            .allProducts[i].imageLink
-                                            .toString()
-                                            .replaceAll(
-                                                "https://localhost:44381",
-                                                "http://103.75.197.248:90"),
-                                        price: HomeIndexProvider
-                                            .allProducts[i].price
-                                            .toString(),
-                                        onTap: () {},
-                                        textDirection: i.isEven
-                                            ? TextDirection.ltr
-                                            : TextDirection.rtl,
-                                        desc: HomeIndexProvider
-                                            .allProducts[i].shortDetail
-                                            .toString(),
-                                      ),
-                                      const SizedBox(
-                                        width: 300,
-                                        child: Row(
-                                          children: [
-                                            MyDivider(
-                                                thickness: 0.2,
-                                                horizontalPadding: 50,
-                                                dividerColor: Colors.grey),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                            ],
-                          )),
+                          ],
+                        ),
+                      ),
                     ),
 
                   // AnimationLimiter(

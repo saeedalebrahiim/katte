@@ -1,9 +1,12 @@
+import 'package:delivery/model/db/box/box.dart';
+import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/view/components/forms/my_addtocard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 
-class MyFoodPost extends StatelessWidget {
-  final String imagePath, foodName, price, desc;
+class MyFoodPost extends StatefulWidget {
+  final String imagePath, foodName, price, desc, productId;
   final TextDirection textDirection;
   final Function()? onTap;
   const MyFoodPost({
@@ -14,8 +17,14 @@ class MyFoodPost extends StatelessWidget {
     required this.price,
     required this.textDirection,
     required this.desc,
+    required this.productId,
   });
 
+  @override
+  State<MyFoodPost> createState() => _MyFoodPostState();
+}
+
+class _MyFoodPostState extends State<MyFoodPost> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -24,13 +33,13 @@ class MyFoodPost extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Row(
-            textDirection: textDirection,
+            textDirection: widget.textDirection,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   Text(
-                    foodName,
+                    widget.foodName,
                     style: GoogleFonts.notoNaskhArabic(
                         fontWeight: FontWeight.w600, fontSize: 16),
                   ),
@@ -38,18 +47,26 @@ class MyFoodPost extends StatelessWidget {
                     height: 3,
                   ),
                   Text(
-                    "$price T ",
+                    "${widget.price} T ",
                     style: GoogleFonts.notoNaskhArabic(
                         fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const MyAddToCard()
+                  MyAddToCard(
+                    shopCardEntity: ShopCardEntity(
+                        producyName: widget.foodName,
+                        producytId: widget.productId,
+                        productCount: 0,
+                        productImageUrl: widget.imagePath,
+                        description: widget.desc,
+                        productPrice: widget.price),
+                  ),
                 ],
               ),
               Image(
-                image: NetworkImage(imagePath),
+                image: NetworkImage(widget.imagePath),
                 fit: BoxFit.cover,
                 width: 150,
                 height: 150,
@@ -58,7 +75,7 @@ class MyFoodPost extends StatelessWidget {
           ),
           Text(
             textDirection: TextDirection.rtl,
-            desc,
+            widget.desc,
             style: GoogleFonts.notoNaskhArabic(
                 color: Colors.grey.shade600,
                 fontWeight: FontWeight.bold,

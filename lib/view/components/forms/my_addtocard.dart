@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 class MyAddToCard extends StatefulWidget {
   const MyAddToCard({
     super.key,
+    required ShopCardEntity shopCardEntity,
   });
 
   @override
@@ -176,12 +177,12 @@ class _MyAddToCardTwoState extends State<MyAddToCardTwo> {
                 MyBox.shopCardBox.putAt(
                   index,
                   ShopCardEntity(
-                      myItem.producyName,
-                      myItem.producytId,
-                      count,
-                      myItem.productImageUrl,
-                      myItem.description,
-                      myItem.productPrice),
+                      producyName: myItem.producyName,
+                      producytId: myItem.producytId,
+                      productCount: count,
+                      productImageUrl: myItem.productImageUrl,
+                      description: myItem.description,
+                      productPrice: myItem.productPrice),
                 );
                 setState(() {
                   widget.count++;
@@ -217,12 +218,12 @@ class _MyAddToCardTwoState extends State<MyAddToCardTwo> {
                   MyBox.shopCardBox.putAt(
                     index,
                     ShopCardEntity(
-                        myItem.producyName,
-                        myItem.producytId,
-                        count,
-                        myItem.productImageUrl,
-                        myItem.description,
-                        myItem.productPrice),
+                        producyName: myItem.producyName,
+                        producytId: myItem.producytId,
+                        productCount: count,
+                        productImageUrl: myItem.productImageUrl,
+                        description: myItem.description,
+                        productPrice: myItem.productPrice),
                   );
                   setState(() {
                     widget.count--;

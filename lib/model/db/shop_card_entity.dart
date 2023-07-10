@@ -16,6 +16,11 @@ class ShopCardEntity {
   @HiveField(5)
   final String productPrice;
 
-  ShopCardEntity(this.producyName, this.producytId, this.productCount,
-      this.productImageUrl, this.description, this.productPrice);
+  ShopCardEntity(
+      {required this.producyName,
+      required this.producytId,
+      required this.productCount,
+      required this.productImageUrl,
+      required this.description,
+      required this.productPrice});
 }

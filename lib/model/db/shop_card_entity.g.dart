@@ -17,12 +17,12 @@ class ShopCardEntityAdapter extends TypeAdapter<ShopCardEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ShopCardEntity(
-      fields[0] as String,
-      fields[1] as String,
-      fields[2] as int,
-      fields[3] as String,
-      fields[4] as String,
-      fields[5] as String,
+      producyName: fields[0] as String,
+      producytId: fields[1] as String,
+      productCount: fields[2] as int,
+      productImageUrl: fields[3] as String,
+      description: fields[4] as String,
+      productPrice: fields[5] as String,
     );
   }
 
