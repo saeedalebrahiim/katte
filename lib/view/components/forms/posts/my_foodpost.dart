@@ -1,6 +1,8 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/view/components/forms/my_addtocard.dart';
+import 'package:delivery/view/provider/home_index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,6 +12,7 @@ class MyFoodPost extends StatefulWidget {
   final TextDirection textDirection;
   final int? count;
   final Function()? onTap;
+  final ProductDto dto;
   const MyFoodPost({
     super.key,
     required this.imagePath,
@@ -20,6 +23,7 @@ class MyFoodPost extends StatefulWidget {
     required this.desc,
     this.count,
     required this.productId,
+    required this.dto,
   });
 
   @override
@@ -57,13 +61,7 @@ class _MyFoodPostState extends State<MyFoodPost> {
                     height: 10,
                   ),
                   MyAddToCard(
-                    shopCardEntity: ShopCardEntity(
-                        producyName: widget.foodName,
-                        producytId: widget.productId,
-                        productCount: 0,
-                        productImageUrl: widget.imagePath,
-                        description: widget.desc,
-                        productPrice: widget.price),
+                    dto: widget.dto,
                   ),
                 ],
               ),

@@ -1,3 +1,4 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
@@ -11,8 +12,9 @@ import 'package:provider/provider.dart';
 class MyAddToCard extends StatefulWidget {
   const MyAddToCard({
     super.key,
-    required ShopCardEntity shopCardEntity,
+    required this.dto,
   });
+  final ProductDto dto;
 
   @override
   State<MyAddToCard> createState() => _MyAddToCardState();
@@ -24,6 +26,21 @@ class _MyAddToCardState extends State<MyAddToCard> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
+  }
+
+  getData() async {
+    MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+    bool any = MyBox.shopCardBox.values
+        .any((element) => element.producytId == widget.dto.id);
+    if (any) {
+      int ggCount = MyBox.shopCardBox.values
+          .firstWhere((element) => element.producytId == widget.dto.id)
+          .productCount;
+      setState(() {
+        count = ggCount;
+      });
+    }
   }
 
   @override
@@ -34,7 +51,19 @@ class _MyAddToCardState extends State<MyAddToCard> {
       child: Visibility(
         visible: count > 0,
         replacement: RawMaterialButton(
-          onPressed: () {
+          onPressed: () async {
+            MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+            var userCount = count + 1;
+            MyBox.shopCardBox.add(
+              ShopCardEntity(
+                producyName: widget.dto.name.toString(),
+                producytId: widget.dto.id.toString(),
+                productCount: userCount,
+                productImageUrl: widget.dto.imageLink.toString(),
+                description: widget.dto.shortDetail.toString(),
+                productPrice: widget.dto.price.toString(),
+              ),
+            );
             setState(() {
               count++;
             });
@@ -85,7 +114,23 @@ class _MyAddToCardState extends State<MyAddToCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap: () {
+                onTap: () async {
+                  MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+                  ShopCardEntity myItem = MyBox.shopCardBox.values.firstWhere(
+                      (element) => element.producytId == widget.dto.id);
+                  int index = MyBox.shopCardBox.values.toList().indexOf(myItem);
+                  int userCount = myItem.productCount + 1;
+                  MyBox.shopCardBox.putAt(
+                    index,
+                    ShopCardEntity(
+                      producyName: myItem.producyName,
+                      producytId: myItem.producytId,
+                      productCount: userCount,
+                      productImageUrl: myItem.productImageUrl,
+                      description: myItem.description,
+                      productPrice: myItem.productPrice,
+                    ),
+                  );
                   setState(
                     () {
                       //hive
@@ -113,8 +158,39 @@ class _MyAddToCardState extends State<MyAddToCard> {
                     fontWeight: FontWeight.bold, fontSize: 17),
               ),
               InkWell(
-                onTap: () {
-                  if (count > 0) {
+                onTap: () async {
+                  if (count > 1) {
+                    MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+                    ShopCardEntity myItem = MyBox.shopCardBox.values.firstWhere(
+                        (element) => element.producytId == widget.dto.id);
+                    int index =
+                        MyBox.shopCardBox.values.toList().indexOf(myItem);
+                    int userCount = myItem.productCount - 1;
+                    MyBox.shopCardBox.putAt(
+                      index,
+                      ShopCardEntity(
+                        producyName: myItem.producyName,
+                        producytId: myItem.producytId,
+                        productCount: userCount,
+                        productImageUrl: myItem.productImageUrl,
+                        description: myItem.description,
+                        productPrice: myItem.productPrice,
+                      ),
+                    );
+                    setState(() {
+                      //hive
+                      count--;
+                    });
+                  } else {
+                    MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+                    ShopCardEntity myItem = MyBox.shopCardBox.values.firstWhere(
+                        (element) => element.producytId == widget.dto.id);
+                    int index =
+                        MyBox.shopCardBox.values.toList().indexOf(myItem);
+                    int userCount = myItem.productCount - 1;
+                    MyBox.shopCardBox.deleteAt(
+                      index,
+                    );
                     setState(() {
                       //hive
                       count--;

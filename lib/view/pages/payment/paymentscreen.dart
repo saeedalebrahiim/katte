@@ -20,22 +20,22 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   @override
   void initState() {
     super.initState();
-    addData();
+    getData();
   }
 
   List<ShopCardEntity> shopCardItems = [];
-  Future addData() async {
-    MyBox.shopCardBox = await Hive.openBox("shopCardBox");
-    MyBox.shopCardBox.add(ShopCardEntity(
-        producyName: "مرغ گریل شده",
-        producytId: "2",
-        productCount: 2,
-        productImageUrl: "lib/assets/images/food2.png",
-        description: "سیب زمینی + پنیر چدار + سس مخصوص",
-        productPrice: "10000"));
+  // Future addData() async {
+  //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+  //   MyBox.shopCardBox.add(ShopCardEntity(
+  //       producyName: "مرغ گریل شده",
+  //       producytId: "2",
+  //       productCount: 2,
+  //       productImageUrl: "lib/assets/images/food2.png",
+  //       description: "سیب زمینی + پنیر چدار + سس مخصوص",
+  //       productPrice: "10000"));
 
-    getData();
-  }
+  //   getData();
+  // }
 
   Future getData() async {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");

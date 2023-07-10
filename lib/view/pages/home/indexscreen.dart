@@ -228,6 +228,7 @@ class _IndexScreenState extends State<IndexScreen> {
                                       desc: HomeIndexProvider
                                           .allProducts[i].shortDetail
                                           .toString(),
+                                      dto: HomeIndexProvider.allProducts[i],
                                     ),
                                     const SizedBox(
                                       width: 300,
