@@ -208,6 +208,8 @@ class _IndexScreenState extends State<IndexScreen> {
                                       productId: HomeIndexProvider
                                           .allProducts[i].id
                                           .toString(),
+                                      count: HomeIndexProvider
+                                          .allProducts[index].count,
                                       foodName: HomeIndexProvider
                                           .allProducts[i].name
                                           .toString(),

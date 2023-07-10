@@ -8,6 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 class MyFoodPost extends StatefulWidget {
   final String imagePath, foodName, price, desc, productId;
   final TextDirection textDirection;
+  final int? count;
   final Function()? onTap;
   const MyFoodPost({
     super.key,
@@ -17,6 +18,7 @@ class MyFoodPost extends StatefulWidget {
     required this.price,
     required this.textDirection,
     required this.desc,
+    this.count,
     required this.productId,
   });
 

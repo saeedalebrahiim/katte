@@ -21,6 +21,12 @@ class MyAddToCard extends StatefulWidget {
 class _MyAddToCardState extends State<MyAddToCard> {
   int count = 0;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 110,
@@ -80,9 +86,12 @@ class _MyAddToCardState extends State<MyAddToCard> {
             children: [
               InkWell(
                 onTap: () {
-                  setState(() {
-                    count++;
-                  });
+                  setState(
+                    () {
+                      //hive
+                      count++;
+                    },
+                  );
                 },
                 child: Container(
                   width: 30,
@@ -107,6 +116,7 @@ class _MyAddToCardState extends State<MyAddToCard> {
                 onTap: () {
                   if (count > 0) {
                     setState(() {
+                      //hive
                       count--;
                     });
                   }
