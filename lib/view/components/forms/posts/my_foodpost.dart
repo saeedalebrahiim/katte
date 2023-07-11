@@ -1,11 +1,7 @@
 import 'package:delivery/model/api/generated/katte.swagger.dart';
-import 'package:delivery/model/db/box/box.dart';
-import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/view/components/forms/my_addtocard.dart';
-import 'package:delivery/view/provider/home_index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/adapters.dart';
 
 class MyFoodPost extends StatefulWidget {
   final String imagePath, foodName, price, desc, productId;

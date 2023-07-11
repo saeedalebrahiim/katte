@@ -178,7 +178,6 @@ class _MyAddToCardState extends State<MyAddToCard> {
                       ),
                     );
                     setState(() {
-                      //hive
                       count--;
                     });
                   } else {
@@ -192,7 +191,6 @@ class _MyAddToCardState extends State<MyAddToCard> {
                       index,
                     );
                     setState(() {
-                      //hive
                       count--;
                     });
                   }
