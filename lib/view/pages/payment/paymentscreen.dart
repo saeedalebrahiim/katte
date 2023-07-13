@@ -8,6 +8,7 @@ import 'package:delivery/view/components/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_listener/hive_listener.dart';
 
 class PaymentFirstScreen extends StatefulWidget {
   const PaymentFirstScreen({super.key});
@@ -23,7 +24,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     getData();
   }
 
-  List<ShopCardEntity> shopCardItems = [];
+  // List<ShopCardEntity> shopCardItems = [];
   // Future addData() async {
   //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
   //   MyBox.shopCardBox.add(ShopCardEntity(
@@ -39,9 +40,8 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
 
   getData() async {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
-    shopCardItems = MyBox.shopCardBox.values.toList();
-
-    setState(() {});
+    // shopCardItems = MyBox.shopCardBox.values.toList();
+    // setState(() {});
   }
 
   @override
@@ -138,24 +138,28 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: 700,
-                height: MediaQuery.of(context).size.height - 300,
-                child: Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: shopCardItems.length,
-                      itemBuilder: (context, index) {
-                        return MyCardPost(
-                          productId: shopCardItems[index].producytId,
-                          imagePath: shopCardItems[index].productImageUrl,
-                          name: shopCardItems[index].producyName,
-                          price: shopCardItems[index].productPrice,
-                          count: shopCardItems[index].productCount,
-                        );
-                      },
+              HiveListener<dynamic>(
+                box: MyBox.shopCardBox,
+                builder: (box) => SizedBox(
+                  width: 700,
+                  height: MediaQuery.of(context).size.height - 300,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: MyBox.shopCardBox.values.length,
+                        itemBuilder: (context, index) {
+                          return MyCardPost(
+                            productId: box.values.toList()[index].producytId,
+                            imagePath:
+                                box.values.toList()[index].productImageUrl,
+                            name: box.values.toList()[index].producyName,
+                            price: box.values.toList()[index].productPrice,
+                            count: box.values.toList()[index].productCount,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

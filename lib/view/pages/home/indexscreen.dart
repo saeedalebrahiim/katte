@@ -120,15 +120,20 @@ class _IndexScreenState extends State<IndexScreen> {
         leadingWidth: 40,
         scrolledUnderElevation: 1.5,
         toolbarHeight: 50,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.shopping_bag_outlined,
-            size: 25,
+        leading: Badge(
+          label: Text("2"),
+          alignment: Alignment.topRight,
+          offset: Offset.fromDirection(-3),
+          child: IconButton(
+            icon: const Icon(
+              Icons.shopping_bag_outlined,
+              size: 25,
+            ),
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("paymentScreen", (route) => false);
+            },
           ),
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil("paymentScreen", (route) => false);
-          },
         ),
         shadowColor: Colors.grey.shade800,
         iconTheme: IconThemeData(color: Colors.grey.shade900),
