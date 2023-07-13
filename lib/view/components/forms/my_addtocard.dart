@@ -3,6 +3,7 @@ import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
+import 'package:delivery/view/pages/payment/paymentscreen.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -293,7 +294,7 @@ class _MyAddToCardTwoState extends State<MyAddToCardTwo> {
             ),
             InkWell(
               onTap: () async {
-                if (widget.count > 0) {
+                if (widget.count > 1) {
                   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
                   ShopCardEntity myItem = MyBox.shopCardBox.values.firstWhere(
                       (element) => element.producytId == widget.productId);
@@ -309,6 +310,15 @@ class _MyAddToCardTwoState extends State<MyAddToCardTwo> {
                         description: myItem.description,
                         productPrice: myItem.productPrice),
                   );
+                  setState(() {
+                    widget.count--;
+                  });
+                } else {
+                  MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+                  ShopCardEntity myItem = MyBox.shopCardBox.values.firstWhere(
+                      (element) => element.producytId == widget.productId);
+                  int index = MyBox.shopCardBox.values.toList().indexOf(myItem);
+                  MyBox.shopCardBox.deleteAt(index);
                   setState(() {
                     widget.count--;
                   });

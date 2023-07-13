@@ -37,7 +37,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   //   getData();
   // }
 
-  Future getData() async {
+  getData() async {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
     shopCardItems = MyBox.shopCardBox.values.toList();
 

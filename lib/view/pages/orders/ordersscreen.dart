@@ -1,9 +1,12 @@
+import 'package:delivery/model/db/box/box.dart';
+import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_cardpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -13,6 +16,20 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  List<ShopCardEntity> shopCardItems = [];
+
+  getdataFromDB() async {
+    MyBox.shopCardBox = await Hive.openBox("shopCardBox");
+    shopCardItems = MyBox.shopCardBox.values.toList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getdataFromDB();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,12 +133,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: 2,
                     itemBuilder: (context, index) {
-                      return const MyCardPost(
-                        productId: '2',
-                        imagePath: 'lib/assets/images/food3.png',
-                        name: "مرغ گریل شده",
-                        price: "160/000",
-                        count: 2,
+                      return MyCardPost(
+                        productId: shopCardItems[index].producytId,
+                        imagePath: shopCardItems[index].productImageUrl,
+                        name: shopCardItems[index].producyName,
+                        price: shopCardItems[index].productPrice,
+                        count: shopCardItems[index].productCount,
                       );
                     },
                   ),

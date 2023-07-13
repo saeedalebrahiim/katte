@@ -1,9 +1,9 @@
-import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
+import 'package:delivery/view/provider/address_state.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +30,7 @@ class _IndexScreenState extends State<IndexScreen> {
     // TODO: implement initState
     super.initState();
     getData();
+    getAddresses();
   }
 
   getData() {
@@ -41,16 +42,24 @@ class _IndexScreenState extends State<IndexScreen> {
     });
   }
 
+  getAddresses() {
+    address_controller.getAddresses(context: context).then((address) {
+      // context.read<AddressIndexProvider>().getAddresses();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
+          // getAddresses();
           address_controller.getAddresses(context: context).then((value) {
             String? address;
             if (value.data!.isNotEmpty) {
               address = value.data!.last.location;
             }
+
             showDialog<Dialog>(
                 context: context,
                 builder: (BuildContext context) => MyDialog(
