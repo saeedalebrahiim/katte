@@ -1,4 +1,5 @@
 import 'package:delivery/controller/authentication/auth_controller.dart';
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/auth/registerotpscreen.dart';
@@ -8,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
   final nameController = TextEditingController();
+  final familyController = TextEditingController();
   final phonumberController = TextEditingController();
 
   @override
@@ -44,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
                   height: 50,
                 ),
                 Text(
-                  'جهت ثبت نام شماره خود را وارد کنید',
+                  'جهت ثبت نام , موارد زیر را وارد کنید',
                   style: GoogleFonts.notoNaskhArabic(
                       color: Colors.grey.shade900,
                       fontSize: 15,
@@ -52,6 +54,74 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 250,
+                    child: TextFormField(
+                        controller: nameController,
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.grey,
+                        decoration: InputDecoration(
+                            labelText: 'نام',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            floatingLabelStyle: GoogleFonts.notoNaskhArabic(
+                                color: secondColor,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600),
+                            floatingLabelAlignment:
+                                FloatingLabelAlignment.center,
+                            labelStyle: GoogleFonts.notoNaskhArabic(
+                                color: Colors.grey.shade900,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide:
+                                    BorderSide(color: secondColor, width: 0.7)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide:
+                                    BorderSide(color: secondColor, width: 0.7)),
+                            fillColor: primaryColor,
+                            filled: true)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 50,
+                    width: 250,
+                    child: TextFormField(
+                        controller: familyController,
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.grey,
+                        decoration: InputDecoration(
+                            labelText: 'نام خانوادگی',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            floatingLabelStyle: GoogleFonts.notoNaskhArabic(
+                                color: secondColor,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600),
+                            floatingLabelAlignment:
+                                FloatingLabelAlignment.center,
+                            labelStyle: GoogleFonts.notoNaskhArabic(
+                                color: Colors.grey.shade900,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide:
+                                    BorderSide(color: secondColor, width: 0.7)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide:
+                                    BorderSide(color: secondColor, width: 0.7)),
+                            fillColor: primaryColor,
+                            filled: true)),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -101,21 +171,24 @@ class RegisterScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          login(
-                                  context: context,
-                                  userName: phonumberController.text)
-                              .then((value) {
-                            if (value.isSuccess!) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterOtpScreen(
-                                      phoneNumber: phonumberController.text),
-                                ),
-                              );
-                            } else {
-                              print("error");
-                            }
-                          });
+                          // signup(
+                          //     context: context,
+                          //     body: SignUpDto(
+                          //       fName: nameController.text,
+                          //       lName: familyController.text,
+                          //       phoneNumber: phonumberController.text,
+                          //     )).then((value) {
+                          //   if (value.isSuccess!) {
+                          //     Navigator.of(context).push(
+                          //       MaterialPageRoute(
+                          //         builder: (context) => RegisterOtpScreen(
+                          //             phoneNumber: phonumberController.text),
+                          //       ),
+                          //     );
+                          //   } else {
+                          //     print("error");
+                          //   }
+                          // });
                         },
                         child: Container(
                           width: 70,

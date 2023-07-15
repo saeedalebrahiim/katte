@@ -72,6 +72,39 @@ Future<AccessToken> loginOtp({
   return response;
 }
 
+Future<ApiResult> signupOtp({
+  required BuildContext context,
+  required SignUpDto body,
+}) async {
+  print("signup otpppppp");
+  final api = Katte.create();
+  final postResult = await api.apiV1AuthenticationSignUpPost(
+    body: body,
+  );
+  //print(LoginOtpDto().code);
+  print(postResult.body);
+  print(postResult.error);
+  //postResult.body.token
+
+  if (postResult.isSuccessful == true) {
+    print("hey im after route");
+    final response = AccessToken.fromJson(postResult.body!.toJson());
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString("token", response.accessToken.toString());
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(indexScreen, (route) => false);
+  } else {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
+  }
+  final response = ApiResult.fromJson(postResult.body!.toJson());
+  return response;
+}
+
 Future<ApiResult> signup({
   required SignUpDto body,
   required BuildContext context,

@@ -1,3 +1,4 @@
+import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/my_map.dart';
@@ -9,10 +10,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class MyDialog extends StatefulWidget {
-  MyDialog({Key? key, required this.visible, required this.address})
+  MyDialog(
+      {Key? key,
+      required this.shops,
+      required this.visible,
+      required this.address})
       : super(key: key);
   bool visible = false;
   final String? address;
+  final List<ShopCardEntity> shops;
 
   @override
   State<MyDialog> createState() => _MyDialogState();
@@ -392,8 +398,10 @@ class MyDialogTwo extends StatelessWidget {
 }
 
 class MyDialogThree extends StatefulWidget {
+  final List<ShopCardEntity> shops;
   const MyDialogThree({
     Key? key,
+    required this.shops,
   }) : super(key: key);
 
   @override
@@ -443,141 +451,52 @@ class _MyDialogThreeState extends State<MyDialogThree> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '85/000' " T",
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                      for (int index = 0; index < widget.shops.length; index++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  widget.shops[index].producyName,
+                                  style: GoogleFonts.dosis(
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
                               ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '1x',
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                              const MyDivider(
+                                  thickness: 0.5,
+                                  horizontalPadding: 10,
+                                  dividerColor: Colors.grey),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  "${widget.shops[index].productCount}",
+                                  style: GoogleFonts.dosis(
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
                               ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                'ماهی سالمون',
-                                style: GoogleFonts.notoNaskhArabic(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
+                              const MyDivider(
+                                  thickness: 0.5,
+                                  horizontalPadding: 10,
+                                  dividerColor: Colors.grey),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  widget.shops[index].productPrice,
+                                  style: GoogleFonts.notoNaskhArabic(
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '210/000' " T",
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '3x',
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                'کوبیده',
-                                style: GoogleFonts.notoNaskhArabic(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '160/000' " T",
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '2x',
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ),
-                            const MyDivider(
-                                thickness: 0.5,
-                                horizontalPadding: 10,
-                                dividerColor: Colors.grey),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                'مرغ گریل شده',
-                                style: GoogleFonts.notoNaskhArabic(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -650,11 +569,13 @@ class _MyDialogThreeState extends State<MyDialogThree> {
                     InkWell(
                       onTap: () {
                         showDialog<Dialog>(
-                            context: context,
-                            builder: (BuildContext context) => MyDialog(
-                                  visible: true,
-                                  address: "",
-                                ));
+                          context: context,
+                          builder: (BuildContext context) => MyDialog(
+                            shops: [],
+                            visible: true,
+                            address: "",
+                          ),
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -821,3 +742,96 @@ class _MyDialogThreeState extends State<MyDialogThree> {
     );
   }
 }
+/*
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                '210/000' " T",
+                                style: GoogleFonts.dosis(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ),
+                            const MyDivider(
+                                thickness: 0.5,
+                                horizontalPadding: 10,
+                                dividerColor: Colors.grey),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                '3x',
+                                style: GoogleFonts.dosis(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ),
+                            const MyDivider(
+                                thickness: 0.5,
+                                horizontalPadding: 10,
+                                dividerColor: Colors.grey),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                'کوبیده',
+                                style: GoogleFonts.notoNaskhArabic(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                '160/000' " T",
+                                style: GoogleFonts.dosis(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ),
+                            const MyDivider(
+                                thickness: 0.5,
+                                horizontalPadding: 10,
+                                dividerColor: Colors.grey),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                '2x',
+                                style: GoogleFonts.dosis(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            ),
+                            const MyDivider(
+                                thickness: 0.5,
+                                horizontalPadding: 10,
+                                dividerColor: Colors.grey),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                'مرغ گریل شده',
+                                style: GoogleFonts.notoNaskhArabic(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+*/

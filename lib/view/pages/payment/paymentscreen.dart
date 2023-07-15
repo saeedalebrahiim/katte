@@ -24,7 +24,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     getData();
   }
 
-  // List<ShopCardEntity> shopCardItems = [];
+  List<ShopCardEntity> shopCardItems = [];
   // Future addData() async {
   //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
   //   MyBox.shopCardBox.add(ShopCardEntity(
@@ -40,7 +40,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
 
   getData() async {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
-    // shopCardItems = MyBox.shopCardBox.values.toList();
+    shopCardItems = MyBox.shopCardBox.values.toList();
     // setState(() {});
   }
 
@@ -167,8 +167,11 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
               InkWell(
                 onTap: () {
                   showDialog<Dialog>(
-                      context: context,
-                      builder: (BuildContext context) => const MyDialogThree());
+                    context: context,
+                    builder: (BuildContext context) => MyDialogThree(
+                      shops: shopCardItems,
+                    ),
+                  );
                   // Navigator.of(context).pushNamedAndRemoveUntil(
                   //     "chooseDateScreen", (route) => false);
                 },

@@ -1,3 +1,5 @@
+import 'package:delivery/model/db/box/box.dart';
+import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
@@ -63,6 +65,7 @@ class _IndexScreenState extends State<IndexScreen> {
             showDialog<Dialog>(
                 context: context,
                 builder: (BuildContext context) => MyDialog(
+                      shops: [MyBox.shopCardBox],
                       visible: false,
                       address: address,
                     ));
