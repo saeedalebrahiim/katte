@@ -25,7 +25,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getData() {
-    profile.getProfile(context: context).then((value) {
+    profile
+        .getProfile(
+      context: context,
+    )
+        .then((value) {
       setState(() {
         user = value.data;
       });
@@ -84,11 +88,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 150,
                       width: 150,
                       child: CircleAvatar(
-                          backgroundColor: primaryColor,
-                          child: const Image(
-                            image: AssetImage('lib/assets/images/profile.png'),
-                            fit: BoxFit.cover,
-                          )),
+                        backgroundColor: primaryColor,
+                        child: const Image(
+                          image: AssetImage('lib/assets/images/profile.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     Text(
                       'Username',
@@ -139,7 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '${user!.fname}',
+                                    '${user!.userName}',
+                                    //'${user!.fname}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -174,6 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
                                     '${user!.lname}',
+                                    //'${user!.lname}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -208,6 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
                                     '${user!.phoneNumber}',
+                                    //'${user!.phoneNumber}',
                                     style: GoogleFonts.dosis(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.bold,
@@ -242,6 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: Text(
                                     '${user!.email}',
+                                    //'${user!.email}',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,

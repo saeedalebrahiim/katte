@@ -500,34 +500,35 @@ class _MyDialogThreeState extends State<MyDialogThree> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '420/000' " T",
-                                style: GoogleFonts.dosis(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
+                      for (int index = 0; index < widget.shops.length; index++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  widget.shops[index].productPrice.toString(),
+                                  style: GoogleFonts.dosis(
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                '  : جمع کل ',
-                                style: GoogleFonts.notoNaskhArabic(
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  '  : جمع کل ',
+                                  style: GoogleFonts.notoNaskhArabic(
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),

@@ -41,7 +41,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   getData() async {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
     shopCardItems = MyBox.shopCardBox.values.toList();
-    // setState(() {});
+    setState(() {});
   }
 
   @override
@@ -173,7 +173,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                     ),
                   );
                   // Navigator.of(context).pushNamedAndRemoveUntil(
-                  //     "chooseDateScreen", (route) => false);
+                  // "chooseDateScreen", (route) => false);
                 },
                 child: Container(
                   width: 150,
@@ -191,7 +191,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

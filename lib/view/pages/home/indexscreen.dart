@@ -1,11 +1,8 @@
-import 'package:delivery/model/db/box/box.dart';
-import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
-import 'package:delivery/view/provider/address_state.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -56,20 +53,23 @@ class _IndexScreenState extends State<IndexScreen> {
       floatingActionButton: InkWell(
         onTap: () {
           // getAddresses();
-          address_controller.getAddresses(context: context).then((value) {
-            String? address;
-            if (value.data!.isNotEmpty) {
-              address = value.data!.last.location;
-            }
+          address_controller.getAddresses(context: context).then(
+            (value) {
+              String? address;
+              if (value.data!.isNotEmpty) {
+                address = value.data!.last.location;
+              }
 
-            showDialog<Dialog>(
+              showDialog<Dialog>(
                 context: context,
                 builder: (BuildContext context) => MyDialog(
-                      shops: [MyBox.shopCardBox],
-                      visible: false,
-                      address: address,
-                    ));
-          });
+                  shops: [],
+                  visible: false,
+                  address: address,
+                ),
+              );
+            },
+          );
         },
         child: Container(
           width: 55,
@@ -124,7 +124,7 @@ class _IndexScreenState extends State<IndexScreen> {
         scrolledUnderElevation: 1.5,
         toolbarHeight: 50,
         leading: Badge(
-          label: Text("2"),
+          label: Text("9+"),
           alignment: Alignment.topRight,
           offset: Offset.fromDirection(-3),
           child: IconButton(
