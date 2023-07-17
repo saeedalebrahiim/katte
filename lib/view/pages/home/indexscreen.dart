@@ -1,5 +1,5 @@
 import 'package:delivery/model/globals/globals.dart';
-import 'package:delivery/view/components/forms/my_dialog.dart';
+import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
@@ -62,7 +62,7 @@ class _IndexScreenState extends State<IndexScreen> {
 
               showDialog<Dialog>(
                 context: context,
-                builder: (BuildContext context) => MyDialog(
+                builder: (BuildContext context) => MyAddressDialog(
                   shops: [],
                   visible: false,
                   address: address,
