@@ -1,26 +1,43 @@
+import 'package:delivery/controller/addresses/address_controller.dart';
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/my_map.dart';
+import 'package:delivery/view/provider/home_index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MyAddressDialog extends StatefulWidget {
   MyAddressDialog(
       {Key? key,
       required this.shops,
       required this.visible,
-      required this.address})
+      required this.addressesDto})
       : super(key: key);
   bool visible = false;
-  final String? address;
   final List<ShopCardEntity> shops;
-
+  final List<AddressDto> addressesDto;
   @override
   State<MyAddressDialog> createState() => _MyAddressDialogState();
 }
 
 class _MyAddressDialogState extends State<MyAddressDialog> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAddresses(context: context);
+  }
+
+  addAddresses(String address) {
+    setAddresses(context: context, body: AddressDto(location: address));
+    
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -74,7 +91,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       textDirection: TextDirection.rtl,
-                      widget.address.toString(),
+                      ,
                       style: GoogleFonts.notoNaskhArabic(
                           color: Colors.grey.shade900,
                           fontWeight: FontWeight.w500,

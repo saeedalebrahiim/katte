@@ -1,15 +1,18 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:delivery/view/provider/';
 class MyPaymentDialog extends StatefulWidget {
   final List<ShopCardEntity> shops;
+  final List<AddressDto> addresses;
   const MyPaymentDialog({
     Key? key,
     required this.shops,
+    required this.addresses,
   }) : super(key: key);
 
   @override
@@ -160,7 +163,8 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                 padding: const EdgeInsets.symmetric(horizontal: 31),
                 child: Text(
                   textDirection: TextDirection.rtl,
-                  'صدرا - پاسارگاد - مجتمع آسمان صدرا - طبقه اول - واحد 8',
+                  ,
+                  //'صدرا - پاسارگاد - مجتمع آسمان صدرا - طبقه اول - واحد 8',
                   style: GoogleFonts.notoNaskhArabic(
                       color: Colors.grey.shade900,
                       fontWeight: FontWeight.w500,

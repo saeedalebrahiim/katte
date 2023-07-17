@@ -34,3 +34,35 @@ Future<AddressDtoListApiResult> getAddresses(
 
   return response;
 }
+
+Future<ApiResult> setAddresses(
+    {required BuildContext context, required AddressDto body}) async {
+  final api = Katte.create(interceptors: [MyRequestInterceptor()]);
+
+  final postResult = await api.apiV1AddressPost(body: body);
+  print(postResult.body);
+  print(postResult.error);
+
+  if (postResult.isSuccessful == true) {
+    print(postResult.error);
+    if (postResult.body!.isSuccess == true) {
+    } else {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oops...',
+        text: postResult.error.toString(),
+      );
+    }
+  } else {
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
+  }
+  final response = ApiResult.fromJson(postResult.body!.toJson());
+
+  return response;
+}
