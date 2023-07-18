@@ -1,8 +1,10 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
+import 'package:delivery/view/provider/address_state.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class IndexScreen extends StatefulWidget {
 }
 
 class _IndexScreenState extends State<IndexScreen> {
+  bool visible = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,8 +45,8 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   getAddresses() {
-    address_controller.getAddresses(context: context).then((address) {
-      // context.read<AddressIndexProvider>().getAddresses();
+    address_controller.getAddresses().then((address) {
+      context.read<AddressIndexProvider>().setAddresses(address.data!);
     });
   }
 
@@ -52,22 +55,36 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
-          // getAddresses();
-          address_controller.getAddresses(context: context).then(
+          getAddresses();
+          address_controller.getAddresses().then(
             (value) {
               String? address;
               if (value.data!.isNotEmpty) {
                 address = value.data!.last.location;
               }
-
-              showDialog<Dialog>(
-                context: context,
-                builder: (BuildContext context) => MyAddressDialog(
-                  shops: [],
-                  visible: false,
-                  address: address,
-                ),
-              );
+              if (visible) {
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                    shops: [],
+                    visible: visible,
+                    address: address_controller
+                        .getAddresses()
+                        .then((value) => value.data!)
+                        .toString(),
+                  ),
+                );
+              } else {
+                visible = true;
+                address_controller.getAddresses();
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                      shops: [],
+                      visible: visible,
+                      address: AddressDto().location.toString()),
+                );
+              }
             },
           );
         },

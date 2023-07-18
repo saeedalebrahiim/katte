@@ -1,3 +1,4 @@
+import 'package:delivery/controller/addresses/address_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/my_drawer.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delivery/controller/addresses/address_controller.dart'
-    as adrs_controller;
+    as address_controller;
 
 class MyAddressScreen extends StatefulWidget {
   const MyAddressScreen({super.key});
@@ -19,15 +20,14 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAddresses();
+  }
+
+  addAddresses() {
+    //setAddresses(context: context, body: address);
+    setState(() {});
   }
 
   List<AddressDto> allAddresses = [];
-  getAddresses() {
-    adrs_controller.getAddresses(context: context).then((value) {
-      allAddresses = value.data!;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

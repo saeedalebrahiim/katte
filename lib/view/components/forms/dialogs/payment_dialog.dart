@@ -1,18 +1,19 @@
-import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:delivery/view/provider/';
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as a_controller;
+
 class MyPaymentDialog extends StatefulWidget {
   final List<ShopCardEntity> shops;
-  final List<AddressDto> addresses;
+
   const MyPaymentDialog({
     Key? key,
     required this.shops,
-    required this.addresses,
+    required List addresses,
   }) : super(key: key);
 
   @override
@@ -23,6 +24,12 @@ List<String> options = ['درب منزل', 'آنلاین'];
 
 class _MyPaymentDialogState extends State<MyPaymentDialog> {
   String currentOption = options[1];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    a_controller.getAddresses();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +170,10 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                 padding: const EdgeInsets.symmetric(horizontal: 31),
                 child: Text(
                   textDirection: TextDirection.rtl,
-                  ,
-                  //'صدرا - پاسارگاد - مجتمع آسمان صدرا - طبقه اول - واحد 8',
+                  a_controller
+                      .getAddresses()
+                      .then((value) => value.data!)
+                      .toString(),
                   style: GoogleFonts.notoNaskhArabic(
                       color: Colors.grey.shade900,
                       fontWeight: FontWeight.w500,
@@ -186,7 +195,7 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                           builder: (BuildContext context) => MyAddressDialog(
                             shops: [],
                             visible: true,
-                            address: "",
+                            address: '',
                           ),
                         );
                       },

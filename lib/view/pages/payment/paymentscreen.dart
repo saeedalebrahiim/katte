@@ -51,7 +51,10 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
 
   getAddresses() {
     address_controller
-        .setAddresses(context: context, body: AddressDto(location: ""))
+        .setAddresses(
+          context: context,
+          body: AddressDto(location: "shiraz_blvd edalat_str beytalmoghadas"),
+        )
         .then((value) => addresses.add(AddressDto()));
   }
 
@@ -180,7 +183,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                   showDialog<Dialog>(
                     context: context,
                     builder: (BuildContext context) => MyPaymentDialog(
-                      addresses: [],
+                      addresses: ['shiraz', 'esfahan'],
                       shops: shopCardItems,
                     ),
                   );

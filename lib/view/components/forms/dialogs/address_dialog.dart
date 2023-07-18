@@ -1,10 +1,10 @@
-import 'package:delivery/controller/addresses/address_controller.dart';
-import 'package:delivery/model/api/generated/katte.swagger.dart';
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as address_controller;
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/my_map.dart';
-import 'package:delivery/view/provider/home_index.dart';
+import 'package:delivery/view/provider/address_state.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,28 +14,29 @@ class MyAddressDialog extends StatefulWidget {
       {Key? key,
       required this.shops,
       required this.visible,
-      required this.addressesDto})
+      required this.address,
+      required this.postalCode})
       : super(key: key);
   bool visible = false;
   final List<ShopCardEntity> shops;
-  final List<AddressDto> addressesDto;
+  final String address;
+  final String postalCode;
   @override
   State<MyAddressDialog> createState() => _MyAddressDialogState();
 }
 
 class _MyAddressDialogState extends State<MyAddressDialog> {
-  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAddresses(context: context);
+    getAddresses();
   }
 
-  addAddresses(String address) {
-    setAddresses(context: context, body: AddressDto(location: address));
-    
-    setState(() {});
+  getAddresses() {
+    address_controller.getAddresses().then((address) {
+      context.read()<AddressIndexProvider>().setAddresses(address.data!);
+    });
   }
 
   @override
@@ -58,7 +59,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                     offset: const Offset(12, 26),
                     blurRadius: 50,
                     spreadRadius: 0,
-                    color: Colors.grey.withOpacity(.1)),
+                    color: Colors.grey.withOpacity(0.1)),
               ]),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -91,7 +92,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       textDirection: TextDirection.rtl,
-                      ,
+                      widget.address,
                       style: GoogleFonts.notoNaskhArabic(
                           color: Colors.grey.shade900,
                           fontWeight: FontWeight.w500,
@@ -109,7 +110,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                         Padding(
                           padding: const EdgeInsets.only(top: 1),
                           child: Text(
-                            '3532489526',
+                            widget.postalCode,
                             style: GoogleFonts.dosis(
                                 color: Colors.grey.shade900,
                                 fontWeight: FontWeight.w600,
