@@ -58,9 +58,8 @@ class _IndexScreenState extends State<IndexScreen> {
           getAddresses();
           address_controller.getAddresses().then(
             (value) {
-              String? address;
               if (value.data!.isNotEmpty) {
-                address = value.data!.last.location;
+                value.data!.last.location;
               }
               if (visible) {
                 showDialog<Dialog>(
@@ -68,6 +67,7 @@ class _IndexScreenState extends State<IndexScreen> {
                   builder: (BuildContext context) => MyAddressDialog(
                     shops: [],
                     visible: visible,
+                    postalCode: '1511111',
                     address: address_controller
                         .getAddresses()
                         .then((value) => value.data!)
@@ -76,12 +76,13 @@ class _IndexScreenState extends State<IndexScreen> {
                 );
               } else {
                 visible = true;
-                address_controller.getAddresses();
+
                 showDialog<Dialog>(
                   context: context,
                   builder: (BuildContext context) => MyAddressDialog(
                       shops: [],
                       visible: visible,
+                      postalCode: '1516516',
                       address: AddressDto().location.toString()),
                 );
               }

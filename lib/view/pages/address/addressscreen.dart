@@ -1,5 +1,3 @@
-import 'package:delivery/controller/addresses/address_controller.dart';
-import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +14,16 @@ class MyAddressScreen extends StatefulWidget {
 }
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
+  bool visible = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    address_controller.getAddresses();
   }
 
-  addAddresses() {
-    //setAddresses(context: context, body: address);
-    setState(() {});
-  }
-
-  List<AddressDto> allAddresses = [];
+  dynamic allAddresses =
+      address_controller.getAddresses().then((value) => value.data!);
 
   @override
   Widget build(BuildContext context) {

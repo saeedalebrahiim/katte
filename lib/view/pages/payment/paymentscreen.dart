@@ -183,7 +183,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                   showDialog<Dialog>(
                     context: context,
                     builder: (BuildContext context) => MyPaymentDialog(
-                      addresses: ['shiraz', 'esfahan'],
+                      addresses: [],
                       shops: shopCardItems,
                     ),
                   );
