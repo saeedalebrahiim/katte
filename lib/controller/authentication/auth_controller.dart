@@ -116,9 +116,9 @@ Future<ApiResult> signup({
   final postResult = await api.apiV1AuthenticationSignUpPost(
     body: body,
   );
-  // print(postResult.body);
-  // print(postResult.error);
-  //postResult.body.token
+  print(postResult.body);
+  print(postResult.error);
+  //print(postResult.body.token);
   print(postResult.error);
   if (postResult.isSuccessful == true) {
     print("hey im signup");

@@ -5,16 +5,27 @@ import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
-  final nameController = TextEditingController();
-  final familyController = TextEditingController();
-  final phonumberController = TextEditingController();
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final nameController = TextEditingController();
+
+  final familyController = TextEditingController();
+
+  final phonumberController = TextEditingController();
+  final GlobalKey<ScaffoldState> fromScaffold = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: fromScaffold,
       backgroundColor: primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -171,24 +182,29 @@ class RegisterScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          // signup(
-                          //     context: context,
-                          //     body: SignUpDto(
-                          //       fName: nameController.text,
-                          //       lName: familyController.text,
-                          //       phoneNumber: phonumberController.text,
-                          //     )).then((value) {
-                          //   if (value.isSuccess!) {
-                          //     Navigator.of(context).push(
-                          //       MaterialPageRoute(
-                          //         builder: (context) => RegisterOtpScreen(
-                          //             phoneNumber: phonumberController.text),
-                          //       ),
-                          //     );
-                          //   } else {
-                          //     print("error");
-                          //   }
-                          // });
+                          signup(
+                              context: context,
+                              body: SignUpDto(
+                                //id moshkel darad
+
+                                //
+                                id: Uuid().v1(),
+                                otp: 0,
+                                fName: nameController.text,
+                                lName: familyController.text,
+                                phoneNumber: phonumberController.text,
+                              )).then((value) {
+                            if (value.isSuccess!) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterOtpScreen(
+                                      phoneNumber: phonumberController.text),
+                                ),
+                              );
+                            } else {
+                              print("error");
+                            }
+                          });
                         },
                         child: Container(
                           width: 70,

@@ -6,6 +6,7 @@ import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/home/indexscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class RegisterOtpScreen extends StatelessWidget {
   RegisterOtpScreen({super.key, required this.phoneNumber});
@@ -104,13 +105,7 @@ class RegisterOtpScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          loginOtp(
-                            context: context,
-                            body: LoginOtpDto(
-                              phoneNumber: phoneNumber,
-                              code: int.parse(otpController.text),
-                            ),
-                          );
+                          loginOtp(context: context, body: LoginOtpDto());
                           Navigator.pushNamed(context, indexScreen);
                         },
                         child: Container(
