@@ -25,11 +25,11 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   void initState() {
     super.initState();
     getData();
+    getAddresses();
   }
 
   List<ShopCardEntity> shopCardItems = [];
   List<AddressDto> addresses = [];
-  AddressDto? addressDto;
   // Future addData() async {
   //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
   //   MyBox.shopCardBox.add(ShopCardEntity(
@@ -49,14 +49,13 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     setState(() {});
   }
 
-  // getAddresses() {
-  //   address_controller
-  //       .setAddresses(
-  //         context: context,
-  //         body: AddressDto(location: "shiraz_blvd edalat_str beytalmoghadas"),
-  //       )
-  //       .then((value) => addresses.add(AddressDto()));
-  // }
+  getAddresses() {
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        addresses = value.data!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

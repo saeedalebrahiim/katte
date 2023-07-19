@@ -13,8 +13,8 @@ import 'package:delivery/controller/addresses/address_controller.dart'
 
 class MyPaymentDialog extends StatefulWidget {
   final List<ShopCardEntity> shops;
-  final List<AddressDto> addresses;
-  const MyPaymentDialog({
+  List<AddressDto> addresses;
+  MyPaymentDialog({
     Key? key,
     required this.shops,
     required this.addresses,
@@ -28,16 +28,22 @@ List<String> options = ['درب منزل', 'آنلاین'];
 
 class _MyPaymentDialogState extends State<MyPaymentDialog> {
   String currentOption = options[1];
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   getAllProducts(context: context);
-  //   getCategories(context: context);
-  //   getProfile(context: context);
+  @override
+  void initState() {
+    super.initState();
+    getAllProducts(context: context);
+    getCategories(context: context);
+    getProfile(context: context);
+    getAddresses();
+  }
 
-  //   a_controller.getAddresses();
-  // }
+  getAddresses() {
+    a_controller.getAddresses().then((value) {
+      setState(() {
+        widget.addresses = value.data!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,18 +180,18 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                   ),
                 ],
               ),
-              for (int index = 0; index < widget.addresses.length; index++)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 31),
-                  child: Text(
-                    textDirection: TextDirection.rtl,
-                    widget.addresses[index].location.toString(),
-                    style: GoogleFonts.notoNaskhArabic(
-                        color: Colors.grey.shade900,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                  ),
+              //for (int index = 0; index < widget.addresses.length; index++)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 31),
+                child: Text(
+                  textDirection: TextDirection.rtl,
+                  '${widget.addresses[0].location}',
+                  style: GoogleFonts.notoNaskhArabic(
+                      color: Colors.grey.shade900,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15),
                 ),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -201,7 +207,7 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                           builder: (BuildContext context) => MyAddressDialog(
                             shops: [],
                             visible: true,
-                            address: 'shiraz',
+                            address: 'dsjcnksdncksjdcnksdjcnkjndsjk',
                             postalCode: '16516516',
                           ),
                         );

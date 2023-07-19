@@ -3,6 +3,7 @@ import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/my_map.dart';
+import 'package:delivery/view/pages/auth/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delivery/controller/addresses/address_controller.dart'
@@ -41,6 +42,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
     address_controller.getAddresses().then((value) {
       setState(() {
         myList = value.data!;
+        print('succccccess........');
       });
     });
   }
@@ -49,6 +51,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
     address_controller
         .addAddresses(context: context, body: addressDto)
         .then((value) {
+      myList.add(addressDto);
       print('add addressDto to myList');
     });
   }
@@ -200,6 +203,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                           location: widget.addressController!.text,
                           postalCode: widget.postalCodeController!.text));
                       Navigator.pop(context);
+                      setState(() {});
                     },
                     child: Container(
                       width: 65,
@@ -357,6 +361,14 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   setState(() {
                     widget.visible = false;
                   });
+                  addAddresses(AddressDto(
+                      location: widget.addressController!.text,
+                      postalCode: widget.postalCodeController!.text));
+                  print('succsess');
+                  Navigator.pop(context);
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(builder: (_) => LoginScreen()),
+                  // );
                 },
                 child: Container(
                   width: 65,

@@ -60,47 +60,36 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
-          if (visible) {
-            showDialog<Dialog>(
-              context: context,
-              builder: (BuildContext context) => MyAddressDialog(
-                shops: [],
-                visible: visible,
-                postalCode: 'hamed',
-                address: 'hamed',
-              ),
-            );
-          } else {}
-          // address_controller.getAddresses().then(
-          //   (value) {
-          //     if (value.data!.isNotEmpty) {
-          //       value.data!.last.location.toString();
-          //     }
-          //     if (visible && value.data!.isNotEmpty) {
-          //       showDialog<Dialog>(
-          //         context: context,
-          //         builder: (BuildContext context) => MyAddressDialog(
-          //           shops: [],
-          //           visible: visible,
-          //           postalCode: 'hamed',
-          //           address: 'hamed',
-          //         ),
-          //       );
-          //     } else {
-          //       visible = true;
+          address_controller.getAddresses().then(
+            (value) {
+              if (value.data!.isNotEmpty) {
+                value.data!.last.location;
+              }
+              if (visible) {
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                    shops: [],
+                    visible: visible,
+                    postalCode: 'hamed',
+                    address: 'hamed',
+                  ),
+                );
+              } else {
+                visible = true;
 
-          //       showDialog<Dialog>(
-          //         context: context,
-          //         builder: (BuildContext context) => MyAddressDialog(
-          //           shops: [],
-          //           visible: visible,
-          //           postalCode: 'hamed',
-          //           address: 'hamed',
-          //         ),
-          //       );
-          //     }
-          //   },
-          // );
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                    shops: [],
+                    visible: visible,
+                    postalCode: 'hamed',
+                    address: 'hamed',
+                  ),
+                );
+              }
+            },
+          );
         },
         child: Container(
           width: 55,
