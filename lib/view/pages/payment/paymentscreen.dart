@@ -49,14 +49,14 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     setState(() {});
   }
 
-  getAddresses() {
-    address_controller
-        .setAddresses(
-          context: context,
-          body: AddressDto(location: "shiraz_blvd edalat_str beytalmoghadas"),
-        )
-        .then((value) => addresses.add(AddressDto()));
-  }
+  // getAddresses() {
+  //   address_controller
+  //       .setAddresses(
+  //         context: context,
+  //         body: AddressDto(location: "shiraz_blvd edalat_str beytalmoghadas"),
+  //       )
+  //       .then((value) => addresses.add(AddressDto()));
+  // }
 
   @override
   Widget build(BuildContext context) {

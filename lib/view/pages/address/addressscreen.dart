@@ -1,3 +1,4 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +16,28 @@ class MyAddressScreen extends StatefulWidget {
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
   bool visible = false;
+  List<AddressDto> myList = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    address_controller.getAddresses();
+    getData();
   }
 
-  dynamic allAddresses =
-      address_controller.getAddresses().then((value) => value.data!);
+  getData() {
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        myList = value.data!;
+      });
+    });
+  }
+
+  addAddresses(String address, String postalCode) {
+    address_controller
+        .addAddresses(
+            context: context,
+            body: AddressDto(location: address, postalCode: postalCode))
+        .then((value) => getData());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +84,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                         horizontalOffset: 50.0,
                         child: FadeInAnimation(child: widget)),
                     children: [
-                      for (var index = 0; index < allAddresses.length; index++)
+                      for (int index = 0; index < myList.length; index++)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('${allAddresses[index].location}'),
+                          child: Text('${myList[index].location}'),
                         ),
                     ],
                   ),
