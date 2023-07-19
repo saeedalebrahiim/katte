@@ -1,7 +1,7 @@
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
-import 'package:delivery/view/components/forms/my_dialog.dart';
+import 'package:delivery/view/components/forms/dialogs/payment_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_cardpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
@@ -168,7 +168,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                 onTap: () {
                   showDialog<Dialog>(
                     context: context,
-                    builder: (BuildContext context) => MyDialogThree(
+                    builder: (BuildContext context) => MyPaymentDialog(
                       shops: shopCardItems,
                     ),
                   );
