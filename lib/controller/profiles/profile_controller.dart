@@ -8,8 +8,7 @@ Future<UserDtoApiResult> getProfile({
 }) async {
   final api = Katte.create(interceptors: [MyRequestInterceptor()]);
 
-  final postResult =
-      await api.apiV1AuthenticationProfileGet(body: UserDtoApiResult());
+  final postResult = await api.apiV1AuthenticationProfileGet();
   print(postResult.body);
   print(postResult.error);
 

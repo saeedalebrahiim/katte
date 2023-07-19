@@ -46,20 +46,20 @@ Future<ApiResult> setAddresses(
     print(postResult.error);
     if (postResult.body!.isSuccess == true) {
     } else {
-      // QuickAlert.show(
-      //   context: context,
-      //   type: QuickAlertType.error,
-      //   title: 'Oops...',
-      //   text: postResult.error.toString(),
-      // );
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oops...',
+        text: postResult.error.toString(),
+      );
     }
   } else {
-    // QuickAlert.show(
-    //   context: context,
-    //   type: QuickAlertType.error,
-    //   title: 'Oops...',
-    //   text: postResult.error.toString(),
-    // );
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
   }
   final response = ApiResult.fromJson(postResult.body!.toJson());
 

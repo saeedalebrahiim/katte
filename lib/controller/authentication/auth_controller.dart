@@ -60,12 +60,12 @@ Future<AccessToken> loginOtp({
     Navigator.of(context)
         .pushNamedAndRemoveUntil(indexScreen, (route) => false);
   } else {
-    // QuickAlert.show(
-    //   context: context,
-    //   type: QuickAlertType.error,
-    //   title: 'Oops...',
-    //   text: postResult.error.toString(),
-    // );
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
   }
   final response = AccessToken.fromJson(postResult.body!.toJson());
 
@@ -81,7 +81,7 @@ Future<ApiResult> signupOtp({
   final postResult = await api.apiV1AuthenticationSignUpPost(
     body: body,
   );
-  //print(LoginOtpDto().code);
+  print(LoginOtpDto().code);
   print(postResult.body);
   print(postResult.error);
   //postResult.body.token
@@ -128,12 +128,12 @@ Future<ApiResult> signup({
     Navigator.of(context)
         .pushNamedAndRemoveUntil(loginScreen, (route) => false);
   } else {
-    // QuickAlert.show(
-    //   context: context,
-    //   type: QuickAlertType.error,
-    //   title: 'Oops...',
-    //   text: postResult.error.toString(),
-    // );
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: postResult.error.toString(),
+    );
   }
   final response = ApiResult.fromJson(postResult.body!.toJson());
 
