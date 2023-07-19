@@ -72,7 +72,7 @@ Future<AccessToken> loginOtp({
   return response;
 }
 
-Future<ApiResult> signupOtp({
+Future<StringApiResult> signupOtp({
   required BuildContext context,
   required SignUpDto body,
 }) async {
@@ -101,11 +101,11 @@ Future<ApiResult> signupOtp({
       text: postResult.error.toString(),
     );
   }
-  final response = ApiResult.fromJson(postResult.body!.toJson());
+  final response = StringApiResult.fromJson(postResult.body!.toJson());
   return response;
 }
 
-Future<ApiResult> signup({
+Future<StringApiResult> signup({
   required SignUpDto body,
   required BuildContext context,
 }) async {
@@ -135,7 +135,7 @@ Future<ApiResult> signup({
       text: postResult.error.toString(),
     );
   }
-  final response = ApiResult.fromJson(postResult.body!.toJson());
+  final response = StringApiResult.fromJson(postResult.body!.toJson());
 
   return response;
 }

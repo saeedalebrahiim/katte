@@ -183,17 +183,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
                           signup(
-                              context: context,
-                              body: SignUpDto(
-                                //id moshkel darad
-
-                                //
-                                id: Uuid().v1(),
-                                otp: 0,
-                                fName: nameController.text,
-                                lName: familyController.text,
-                                phoneNumber: phonumberController.text,
-                              )).then((value) {
+                            context: context,
+                            body: SignUpDto(
+                              fName: nameController.text,
+                              lName: familyController.text,
+                              phoneNumber: phonumberController.text,
+                            ),
+                          ).then((value) {
                             if (value.isSuccess!) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(

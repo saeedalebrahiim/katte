@@ -8,22 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class RegisterOtpScreen extends StatefulWidget {
-  const RegisterOtpScreen({super.key, required this.phoneNumber});
+class RegisterOtpScreen extends StatelessWidget {
+  RegisterOtpScreen({super.key, required this.phoneNumber});
   final String phoneNumber;
 
-  @override
-  State<RegisterOtpScreen> createState() => _RegisterOtpScreenState();
-}
-
-class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
   var otpController = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +105,9 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          loginOtp(context: context, body: LoginOtpDto());
+                          signup(
+                              context: context,
+                              body: SignUpDto(phoneNumber: otpController.text));
                           Navigator.pushNamed(context, indexScreen);
                         },
                         child: Container(
