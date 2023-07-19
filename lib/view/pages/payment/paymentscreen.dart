@@ -1,3 +1,4 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_listener/hive_listener.dart';
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as address_controller;
 
 class PaymentFirstScreen extends StatefulWidget {
   const PaymentFirstScreen({super.key});
@@ -22,9 +25,11 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   void initState() {
     super.initState();
     getData();
+    getAddresses();
   }
 
   List<ShopCardEntity> shopCardItems = [];
+  List<AddressDto> addresses = [];
   // Future addData() async {
   //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
   //   MyBox.shopCardBox.add(ShopCardEntity(
@@ -42,6 +47,14 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
     shopCardItems = MyBox.shopCardBox.values.toList();
     setState(() {});
+  }
+
+  getAddresses() {
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        addresses = value.data!;
+      });
+    });
   }
 
   @override
@@ -169,6 +182,10 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                   showDialog<Dialog>(
                     context: context,
                     builder: (BuildContext context) => MyPaymentDialog(
+<<<<<<< HEAD
+=======
+                      addresses: [],
+>>>>>>> 7a03577838b6b350edcc0f59fdc45bae4c032ce0
                       shops: shopCardItems,
                     ),
                   );

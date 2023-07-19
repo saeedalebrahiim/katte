@@ -54,6 +54,7 @@ dependencies:
   shared_preferences: ^2.2.0
   json_annotation: ^4.8.1
   quickalert: ^1.0.1
+  uuid: ^3.0.7
 
 dependency_overrides:
   http: ^1.0.0

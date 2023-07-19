@@ -1,26 +1,61 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/my_map.dart';
+import 'package:delivery/view/pages/auth/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as address_controller;
 
 class MyAddressDialog extends StatefulWidget {
   MyAddressDialog(
       {Key? key,
       required this.shops,
       required this.visible,
-      required this.address})
+      required this.address,
+      required this.postalCode,
+      this.addressController,
+      this.postalCodeController})
       : super(key: key);
   bool visible = false;
-  final String? address;
   final List<ShopCardEntity> shops;
-
+  final String address;
+  final String postalCode;
+  TextEditingController? addressController = TextEditingController();
+  TextEditingController? postalCodeController = TextEditingController();
   @override
   State<MyAddressDialog> createState() => _MyAddressDialogState();
 }
 
 class _MyAddressDialogState extends State<MyAddressDialog> {
+  List<AddressDto> myList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() {
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        myList = value.data!;
+        print('succccccess........');
+      });
+    });
+  }
+
+  addAddresses(AddressDto addressDto) {
+    address_controller
+        .addAddresses(context: context, body: addressDto)
+        .then((value) {
+      myList.add(addressDto);
+      print('add addressDto to myList');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -41,7 +76,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                     offset: const Offset(12, 26),
                     blurRadius: 50,
                     spreadRadius: 0,
-                    color: Colors.grey.withOpacity(.1)),
+                    color: Colors.grey.withOpacity(0.1)),
               ]),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -70,17 +105,18 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      textDirection: TextDirection.rtl,
-                      widget.address.toString(),
-                      style: GoogleFonts.notoNaskhArabic(
-                          color: Colors.grey.shade900,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
+                  for (int index = 0; index < myList.length; index++)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        textDirection: TextDirection.rtl,
+                        myList[index].location.toString(),
+                        style: GoogleFonts.notoNaskhArabic(
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
+                      ),
                     ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -89,16 +125,17 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 1),
-                          child: Text(
-                            '3532489526',
-                            style: GoogleFonts.dosis(
-                                color: Colors.grey.shade900,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.5),
+                        for (int index = 0; index < myList.length; index++)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 1),
+                            child: Text(
+                              myList[index].postalCode.toString(),
+                              style: GoogleFonts.dosis(
+                                  color: Colors.grey.shade900,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.5),
+                            ),
                           ),
-                        ),
                         Text(
                           '   : کد پستی',
                           style: GoogleFonts.notoNaskhArabic(
@@ -149,7 +186,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       MyDivider(
                           thickness: 0.5,
@@ -162,7 +199,11 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   ),
                   InkWell(
                     onTap: () {
+                      addAddresses(AddressDto(
+                          location: widget.addressController!.text,
+                          postalCode: widget.postalCodeController!.text));
                       Navigator.pop(context);
+                      setState(() {});
                     },
                     child: Container(
                       width: 65,
@@ -234,6 +275,7 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   height: 60,
                   width: 250,
                   child: TextFormField(
+                      controller: widget.addressController,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       cursorColor: Colors.grey,
@@ -271,31 +313,33 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   height: 40,
                   width: 250,
                   child: TextFormField(
-                      textAlign: TextAlign.center,
-                      cursorColor: Colors.grey,
-                      decoration: InputDecoration(
-                          hintText: '- - - - - - - - - -',
-                          labelText: 'کد پستی',
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          floatingLabelStyle: GoogleFonts.notoNaskhArabic(
-                              color: secondColor,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600),
-                          floatingLabelAlignment: FloatingLabelAlignment.center,
-                          labelStyle: GoogleFonts.notoNaskhArabic(
-                              color: Colors.grey.shade900,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide:
-                                  BorderSide(color: secondColor, width: 0.7)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide:
-                                  BorderSide(color: secondColor, width: 0.7)),
-                          fillColor: primaryColor,
-                          filled: true)),
+                    controller: widget.postalCodeController,
+                    textAlign: TextAlign.center,
+                    cursorColor: Colors.grey,
+                    decoration: InputDecoration(
+                        hintText: '- - - - - - - - - -',
+                        labelText: 'کد پستی',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        floatingLabelStyle: GoogleFonts.notoNaskhArabic(
+                            color: secondColor,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600),
+                        floatingLabelAlignment: FloatingLabelAlignment.center,
+                        labelStyle: GoogleFonts.notoNaskhArabic(
+                            color: Colors.grey.shade900,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: secondColor, width: 0.7)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: secondColor, width: 0.7)),
+                        fillColor: primaryColor,
+                        filled: true),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -317,6 +361,14 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   setState(() {
                     widget.visible = false;
                   });
+                  addAddresses(AddressDto(
+                      location: widget.addressController!.text,
+                      postalCode: widget.postalCodeController!.text));
+                  print('succsess');
+                  Navigator.pop(context);
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(builder: (_) => LoginScreen()),
+                  // );
                 },
                 child: Container(
                   width: 65,

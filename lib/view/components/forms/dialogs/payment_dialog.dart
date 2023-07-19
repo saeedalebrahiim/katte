@@ -1,15 +1,23 @@
+import 'package:delivery/controller/categories/categories_controller.dart';
+import 'package:delivery/controller/products/products_controller.dart';
+import 'package:delivery/controller/profiles/profile_controller.dart';
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delivery/controller/addresses/address_controller.dart'
+    as a_controller;
 
 class MyPaymentDialog extends StatefulWidget {
   final List<ShopCardEntity> shops;
-  const MyPaymentDialog({
+  List<AddressDto> addresses;
+  MyPaymentDialog({
     Key? key,
     required this.shops,
+    required this.addresses,
   }) : super(key: key);
 
   @override
@@ -20,6 +28,22 @@ List<String> options = ['درب منزل', 'آنلاین'];
 
 class _MyPaymentDialogState extends State<MyPaymentDialog> {
   String currentOption = options[1];
+  @override
+  void initState() {
+    super.initState();
+    getAllProducts(context: context);
+    getCategories(context: context);
+    getProfile(context: context);
+    getAddresses();
+  }
+
+  getAddresses() {
+    a_controller.getAddresses().then((value) {
+      setState(() {
+        widget.addresses = value.data!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,11 +180,12 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                   ),
                 ],
               ),
+              //for (int index = 0; index < widget.addresses.length; index++)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 31),
                 child: Text(
                   textDirection: TextDirection.rtl,
-                  'صدرا - پاسارگاد - مجتمع آسمان صدرا - طبقه اول - واحد 8',
+                  '${widget.addresses[0].location}',
                   style: GoogleFonts.notoNaskhArabic(
                       color: Colors.grey.shade900,
                       fontWeight: FontWeight.w500,
@@ -182,7 +207,8 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                           builder: (BuildContext context) => MyAddressDialog(
                             shops: [],
                             visible: true,
-                            address: "",
+                            address: 'dsjcnksdncksjdcnksdjcnkjndsjk',
+                            postalCode: '16516516',
                           ),
                         );
                       },

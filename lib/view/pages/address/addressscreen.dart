@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delivery/controller/addresses/address_controller.dart'
-    as adrs_controller;
+    as address_controller;
 
 class MyAddressScreen extends StatefulWidget {
   const MyAddressScreen({super.key});
@@ -15,18 +15,28 @@ class MyAddressScreen extends StatefulWidget {
 }
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
+  bool visible = false;
+  List<AddressDto> myList = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getAddresses();
+    getData();
   }
 
-  List<AddressDto> allAddresses = [];
-  getAddresses() {
-    adrs_controller.getAddresses(context: context).then((value) {
-      allAddresses = value.data!;
+  getData() {
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        myList = value.data!;
+      });
     });
+  }
+
+  addAddresses(String address, String postalCode) {
+    address_controller
+        .addAddresses(
+            context: context,
+            body: AddressDto(location: address, postalCode: postalCode))
+        .then((value) => getData());
   }
 
   @override
@@ -74,10 +84,10 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                         horizontalOffset: 50.0,
                         child: FadeInAnimation(child: widget)),
                     children: [
-                      for (var index = 0; index < allAddresses.length; index++)
+                      for (int index = 0; index < myList.length; index++)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('${allAddresses[index].location}'),
+                          child: Text('${myList[index].location}'),
                         ),
                     ],
                   ),

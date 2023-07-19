@@ -1,3 +1,4 @@
+import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
@@ -24,9 +25,14 @@ class IndexScreen extends StatefulWidget {
 }
 
 class _IndexScreenState extends State<IndexScreen> {
+  bool visible = false;
+  List<AddressDto> myList = [];
+
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController postalCodeController = TextEditingController();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
     getAddresses();
@@ -42,8 +48,10 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   getAddresses() {
-    address_controller.getAddresses(context: context).then((address) {
-      // context.read<AddressIndexProvider>().getAddresses();
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        myList = value.data!;
+      });
     });
   }
 
@@ -52,22 +60,34 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
-          // getAddresses();
-          address_controller.getAddresses(context: context).then(
+          address_controller.getAddresses().then(
             (value) {
-              String? address;
               if (value.data!.isNotEmpty) {
-                address = value.data!.last.location;
+                value.data!.last.location;
               }
+              if (visible) {
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                    shops: [],
+                    visible: visible,
+                    postalCode: 'hamed',
+                    address: 'hamed',
+                  ),
+                );
+              } else {
+                visible = true;
 
-              showDialog<Dialog>(
-                context: context,
-                builder: (BuildContext context) => MyAddressDialog(
-                  shops: [],
-                  visible: false,
-                  address: address,
-                ),
-              );
+                showDialog<Dialog>(
+                  context: context,
+                  builder: (BuildContext context) => MyAddressDialog(
+                    shops: [],
+                    visible: visible,
+                    postalCode: 'hamed',
+                    address: 'hamed',
+                  ),
+                );
+              }
             },
           );
         },
