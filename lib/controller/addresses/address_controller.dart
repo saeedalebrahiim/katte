@@ -34,7 +34,7 @@ Future<AddressDtoListApiResult> getAddresses() async {
   return response;
 }
 
-Future<ApiResult> setAddresses(
+Future<ApiResult> addAddresses(
     {required BuildContext context, required AddressDto body}) async {
   final api = Katte.create(interceptors: [MyRequestInterceptor()]);
 

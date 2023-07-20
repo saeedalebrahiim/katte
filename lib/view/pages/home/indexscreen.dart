@@ -4,7 +4,6 @@ import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
-import 'package:delivery/view/provider/address_state.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,13 @@ class IndexScreen extends StatefulWidget {
 
 class _IndexScreenState extends State<IndexScreen> {
   bool visible = false;
+  List<AddressDto> myList = [];
+
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController postalCodeController = TextEditingController();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
     getAddresses();
@@ -45,8 +48,10 @@ class _IndexScreenState extends State<IndexScreen> {
   }
 
   getAddresses() {
-    address_controller.getAddresses().then((address) {
-      context.read<AddressIndexProvider>().setAddresses(address.data!);
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        myList = value.data!;
+      });
     });
   }
 
@@ -55,7 +60,6 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () {
-          getAddresses();
           address_controller.getAddresses().then(
             (value) {
               if (value.data!.isNotEmpty) {
@@ -67,11 +71,8 @@ class _IndexScreenState extends State<IndexScreen> {
                   builder: (BuildContext context) => MyAddressDialog(
                     shops: [],
                     visible: visible,
-                    postalCode: '1511111',
-                    address: address_controller
-                        .getAddresses()
-                        .then((value) => value.data!)
-                        .toString(),
+                    postalCode: 'hamed',
+                    address: 'hamed',
                   ),
                 );
               } else {
@@ -80,10 +81,11 @@ class _IndexScreenState extends State<IndexScreen> {
                 showDialog<Dialog>(
                   context: context,
                   builder: (BuildContext context) => MyAddressDialog(
-                      shops: [],
-                      visible: visible,
-                      postalCode: '1516516',
-                      address: AddressDto().location.toString()),
+                    shops: [],
+                    visible: visible,
+                    postalCode: 'hamed',
+                    address: 'hamed',
+                  ),
                 );
               }
             },

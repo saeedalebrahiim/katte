@@ -25,11 +25,11 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   void initState() {
     super.initState();
     getData();
+    getAddresses();
   }
 
   List<ShopCardEntity> shopCardItems = [];
   List<AddressDto> addresses = [];
-  AddressDto? addressDto;
   // Future addData() async {
   //   MyBox.shopCardBox = await Hive.openBox("shopCardBox");
   //   MyBox.shopCardBox.add(ShopCardEntity(
@@ -50,12 +50,11 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   }
 
   getAddresses() {
-    address_controller
-        .setAddresses(
-          context: context,
-          body: AddressDto(location: "shiraz_blvd edalat_str beytalmoghadas"),
-        )
-        .then((value) => addresses.add(AddressDto()));
+    address_controller.getAddresses().then((value) {
+      setState(() {
+        addresses = value.data!;
+      });
+    });
   }
 
   @override
@@ -183,7 +182,10 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                   showDialog<Dialog>(
                     context: context,
                     builder: (BuildContext context) => MyPaymentDialog(
+<<<<<<< HEAD
+=======
                       addresses: [],
+>>>>>>> 7a03577838b6b350edcc0f59fdc45bae4c032ce0
                       shops: shopCardItems,
                     ),
                   );
