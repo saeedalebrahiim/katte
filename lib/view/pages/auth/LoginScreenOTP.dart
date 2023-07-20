@@ -112,8 +112,6 @@ class LoginScreenOTP extends StatelessWidget {
                               code: int.parse(otpController.text),
                             ),
                           );
-
-                          Navigator.pushNamed(context, indexScreen);
                         },
                         child: Container(
                           width: 70,

@@ -23,25 +23,25 @@ Map<String, dynamic> _$AccessTokenToJson(AccessToken instance) =>
 
 AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) => AddressDto(
       clientId: json['clientId'] as String?,
+      clientPhoneNumber: json['clientPhoneNumber'] as String?,
+      clientFname: json['clientFname'] as String?,
+      clientLname: json['clientLname'] as String?,
       topic: json['topic'] as String?,
       postalCode: json['postalCode'] as String?,
       location: json['location'] as String?,
       id: json['id'] as String?,
-      clientPhoneNumber: json['clientPhoneNumber'] as String?,
-      clientFname: json['clientFname'] as String?,
-      clientLname: json['clientLname'] as String?,
     );
 
 Map<String, dynamic> _$AddressDtoToJson(AddressDto instance) =>
     <String, dynamic>{
       'clientId': instance.clientId,
+      'clientPhoneNumber': instance.clientPhoneNumber,
+      'clientFname': instance.clientFname,
+      'clientLname': instance.clientLname,
       'topic': instance.topic,
       'postalCode': instance.postalCode,
       'location': instance.location,
       'id': instance.id,
-      'clientPhoneNumber': instance.clientPhoneNumber,
-      'clientFname': instance.clientFname,
-      'clientLname': instance.clientLname,
     };
 
 AddressDtoApiResult _$AddressDtoApiResultFromJson(Map<String, dynamic> json) =>
@@ -146,11 +146,11 @@ CommentDto _$CommentDtoFromJson(Map<String, dynamic> json) => CommentDto(
       text: json['text'] as String?,
       rate: (json['rate'] as num?)?.toDouble(),
       userId: json['userId'] as String?,
+      userFname: json['userFname'] as String?,
+      userLname: json['userLname'] as String?,
       productsId: json['productsId'] as String?,
       commentStatus: commentStatusFromJson(json['commentStatus']),
       id: json['id'] as String?,
-      userFname: json['userFname'] as String?,
-      userLname: json['userLname'] as String?,
     );
 
 Map<String, dynamic> _$CommentDtoToJson(CommentDto instance) =>
@@ -158,11 +158,11 @@ Map<String, dynamic> _$CommentDtoToJson(CommentDto instance) =>
       'text': instance.text,
       'rate': instance.rate,
       'userId': instance.userId,
+      'userFname': instance.userFname,
+      'userLname': instance.userLname,
       'productsId': instance.productsId,
       'commentStatus': commentStatusToJson(instance.commentStatus),
       'id': instance.id,
-      'userFname': instance.userFname,
-      'userLname': instance.userLname,
     };
 
 CommentDtoApiResult _$CommentDtoApiResultFromJson(Map<String, dynamic> json) =>
@@ -238,10 +238,10 @@ NotificationDto _$NotificationDtoFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['dateTimes'] as String),
       userId: json['userId'] as String?,
-      id: json['id'] as String?,
       userPhoneNumber: json['userPhoneNumber'] as String?,
       userFName: json['userFName'] as String?,
       userLName: json['userLName'] as String?,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$NotificationDtoToJson(NotificationDto instance) =>
@@ -250,16 +250,17 @@ Map<String, dynamic> _$NotificationDtoToJson(NotificationDto instance) =>
       'text': instance.text,
       'dateTimes': instance.dateTimes?.toIso8601String(),
       'userId': instance.userId,
-      'id': instance.id,
       'userPhoneNumber': instance.userPhoneNumber,
       'userFName': instance.userFName,
       'userLName': instance.userLName,
+      'id': instance.id,
     };
 
 ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
       code: json['code'] as int?,
       name: json['name'] as String?,
       price: json['price'] as int?,
+      imageLink: json['imageLink'] as String?,
       discount: json['discount'] as int?,
       percent: json['percent'] as int?,
       count: json['count'] as int?,
@@ -267,20 +268,19 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
       totalRate: (json['totalRate'] as num?)?.toDouble(),
       shortDetail: json['shortDetail'] as String?,
       longDetail: json['longDetail'] as String?,
-      imageLink: json['imageLink'] as String?,
+      creationDateTime: json['creationDateTime'] == null
+          ? null
+          : DateTime.parse(json['creationDateTime'] as String),
       categorysId: json['categorysId'] as String?,
-      comments: (json['comments'] as List<dynamic>?)
-              ?.map((e) => CommentDto.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
       categories: (json['categories'] as List<dynamic>?)
               ?.map((e) => CategoryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      comments: (json['comments'] as List<dynamic>?)
+              ?.map((e) => CommentDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       id: json['id'] as String?,
-      creationDateTime: json['creationDateTime'] == null
-          ? null
-          : DateTime.parse(json['creationDateTime'] as String),
     );
 
 Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
@@ -288,6 +288,7 @@ Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
       'code': instance.code,
       'name': instance.name,
       'price': instance.price,
+      'imageLink': instance.imageLink,
       'discount': instance.discount,
       'percent': instance.percent,
       'count': instance.count,
@@ -295,12 +296,11 @@ Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
       'totalRate': instance.totalRate,
       'shortDetail': instance.shortDetail,
       'longDetail': instance.longDetail,
-      'imageLink': instance.imageLink,
-      'categorysId': instance.categorysId,
-      'comments': instance.comments?.map((e) => e.toJson()).toList(),
-      'categories': instance.categories?.map((e) => e.toJson()).toList(),
-      'id': instance.id,
       'creationDateTime': instance.creationDateTime?.toIso8601String(),
+      'categorysId': instance.categorysId,
+      'categories': instance.categories?.map((e) => e.toJson()).toList(),
+      'comments': instance.comments?.map((e) => e.toJson()).toList(),
+      'id': instance.id,
     };
 
 ProductDtoApiResult _$ProductDtoApiResultFromJson(Map<String, dynamic> json) =>
@@ -349,14 +349,14 @@ ShopCardDetailDto _$ShopCardDetailDtoFromJson(Map<String, dynamic> json) =>
       count: json['count'] as int?,
       disCount: json['disCount'] as int?,
       productsId: json['productsId'] as String?,
-      creationDateTime: json['creationDateTime'] == null
-          ? null
-          : DateTime.parse(json['creationDateTime'] as String),
-      id: json['id'] as String?,
       productsPrice: json['productsPrice'] as int?,
       productsDiscount: json['productsDiscount'] as int?,
       productsName: json['productsName'] as String?,
       productsImageLink: json['productsImageLink'] as String?,
+      creationDateTime: json['creationDateTime'] == null
+          ? null
+          : DateTime.parse(json['creationDateTime'] as String),
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$ShopCardDetailDtoToJson(ShopCardDetailDto instance) =>
@@ -365,17 +365,23 @@ Map<String, dynamic> _$ShopCardDetailDtoToJson(ShopCardDetailDto instance) =>
       'count': instance.count,
       'disCount': instance.disCount,
       'productsId': instance.productsId,
-      'creationDateTime': instance.creationDateTime?.toIso8601String(),
-      'id': instance.id,
       'productsPrice': instance.productsPrice,
       'productsDiscount': instance.productsDiscount,
       'productsName': instance.productsName,
       'productsImageLink': instance.productsImageLink,
+      'creationDateTime': instance.creationDateTime?.toIso8601String(),
+      'id': instance.id,
     };
 
 ShopCardDto _$ShopCardDtoFromJson(Map<String, dynamic> json) => ShopCardDto(
       userId: json['userId'] as String?,
       addressId: json['addressId'] as String?,
+      orderReportId: json['orderReportId'] as String?,
+      orderReportTax: json['orderReportTax'] as int?,
+      orderReportPostCost: json['orderReportPostCost'] as int?,
+      userUserName: json['userUserName'] as String?,
+      userFName: json['userFName'] as String?,
+      userLName: json['userLName'] as String?,
       totalPrice: json['totalPrice'] as int?,
       postPrice: json['postPrice'] as int?,
       finalTotalPrice: json['finalTotalPrice'] as int?,
@@ -385,37 +391,31 @@ ShopCardDto _$ShopCardDtoFromJson(Map<String, dynamic> json) => ShopCardDto(
                   (e) => ShopCardDetailDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      id: json['id'] as String?,
-      orderReportId: json['orderReportId'] as String?,
-      orderReportTax: json['orderReportTax'] as int?,
-      orderReportPostCost: json['orderReportPostCost'] as int?,
-      userUserName: json['userUserName'] as String?,
-      userFName: json['userFName'] as String?,
-      userLName: json['userLName'] as String?,
       addresses: (json['addresses'] as List<dynamic>?)
               ?.map((e) => AddressDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$ShopCardDtoToJson(ShopCardDto instance) =>
     <String, dynamic>{
       'userId': instance.userId,
       'addressId': instance.addressId,
-      'totalPrice': instance.totalPrice,
-      'postPrice': instance.postPrice,
-      'finalTotalPrice': instance.finalTotalPrice,
-      'payOnline': instance.payOnline,
-      'shopCardDetails':
-          instance.shopCardDetails?.map((e) => e.toJson()).toList(),
-      'id': instance.id,
       'orderReportId': instance.orderReportId,
       'orderReportTax': instance.orderReportTax,
       'orderReportPostCost': instance.orderReportPostCost,
       'userUserName': instance.userUserName,
       'userFName': instance.userFName,
       'userLName': instance.userLName,
+      'totalPrice': instance.totalPrice,
+      'postPrice': instance.postPrice,
+      'finalTotalPrice': instance.finalTotalPrice,
+      'payOnline': instance.payOnline,
+      'shopCardDetails':
+          instance.shopCardDetails?.map((e) => e.toJson()).toList(),
       'addresses': instance.addresses?.map((e) => e.toJson()).toList(),
+      'id': instance.id,
     };
 
 ShopCardDtoApiResult _$ShopCardDtoApiResultFromJson(
@@ -441,17 +441,17 @@ Map<String, dynamic> _$ShopCardDtoApiResultToJson(
 SignUpDto _$SignUpDtoFromJson(Map<String, dynamic> json) => SignUpDto(
       fName: json['fName'] as String?,
       lName: json['lName'] as String?,
-      id: json['id'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       otp: json['otp'] as int?,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$SignUpDtoToJson(SignUpDto instance) => <String, dynamic>{
       'fName': instance.fName,
       'lName': instance.lName,
-      'id': instance.id,
       'phoneNumber': instance.phoneNumber,
       'otp': instance.otp,
+      'id': instance.id,
     };
 
 StringApiResult _$StringApiResultFromJson(Map<String, dynamic> json) =>
@@ -489,49 +489,49 @@ Map<String, dynamic> _$SyncOrderDtoToJson(SyncOrderDto instance) =>
     };
 
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
-      nationalCode: json['nationalCode'] as String,
-      code: json['code'] as String?,
-      gender: genderTypeFromJson(json['gender']),
+      student: json['student'] as bool?,
+      name: json['name'] as String?,
+      managerName: json['managerName'] as String?,
+      userName: json['userName'] as String,
+      email: json['email'] as String?,
+      password: json['password'] as String?,
+      passwordConfirm: json['passwordConfirm'] as String?,
       fname: json['fname'] as String,
       lname: json['lname'] as String,
+      gender: genderTypeFromJson(json['gender']),
+      nationalCode: json['nationalCode'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      code: json['code'] as String?,
       birthCertificateNumber: json['birthCertificateNumber'] as String,
       birthDay: json['birthDay'] as String,
       birthCity: json['birthCity'] as String,
       certificateCity: json['certificateCity'] as String,
       phone: json['phone'] as String,
       postalCode: json['postalCode'] as String,
-      phoneNumber: json['phoneNumber'] as String,
       id: json['id'] as String?,
-      userName: json['userName'] as String,
-      email: json['email'] as String?,
-      student: json['student'] as bool?,
-      name: json['name'] as String?,
-      managerName: json['managerName'] as String?,
-      password: json['password'] as String?,
-      passwordConfirm: json['passwordConfirm'] as String?,
     );
 
 Map<String, dynamic> _$UserDtoToJson(UserDto instance) => <String, dynamic>{
-      'nationalCode': instance.nationalCode,
-      'code': instance.code,
-      'gender': genderTypeToJson(instance.gender),
+      'student': instance.student,
+      'name': instance.name,
+      'managerName': instance.managerName,
+      'userName': instance.userName,
+      'email': instance.email,
+      'password': instance.password,
+      'passwordConfirm': instance.passwordConfirm,
       'fname': instance.fname,
       'lname': instance.lname,
+      'gender': genderTypeToJson(instance.gender),
+      'nationalCode': instance.nationalCode,
+      'phoneNumber': instance.phoneNumber,
+      'code': instance.code,
       'birthCertificateNumber': instance.birthCertificateNumber,
       'birthDay': instance.birthDay,
       'birthCity': instance.birthCity,
       'certificateCity': instance.certificateCity,
       'phone': instance.phone,
       'postalCode': instance.postalCode,
-      'phoneNumber': instance.phoneNumber,
       'id': instance.id,
-      'userName': instance.userName,
-      'email': instance.email,
-      'student': instance.student,
-      'name': instance.name,
-      'managerName': instance.managerName,
-      'password': instance.password,
-      'passwordConfirm': instance.passwordConfirm,
     };
 
 UserDtoApiResult _$UserDtoApiResultFromJson(Map<String, dynamic> json) =>

@@ -1761,6 +1761,18 @@
             "type": "string",
             "format": "uuid"
           },
+          "clientPhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientFname": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientLname": {
+            "type": "string",
+            "nullable": true
+          },
           "topic": {
             "type": "string",
             "nullable": true
@@ -1776,18 +1788,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "clientPhoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientFname": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientLname": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1935,6 +1935,14 @@
             "type": "string",
             "format": "uuid"
           },
+          "userFname": {
+            "type": "string",
+            "nullable": true
+          },
+          "userLname": {
+            "type": "string",
+            "nullable": true
+          },
           "productsId": {
             "type": "string",
             "format": "uuid"
@@ -1945,14 +1953,6 @@
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "userFname": {
-            "type": "string",
-            "nullable": true
-          },
-          "userLname": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2061,10 +2061,6 @@
             "type": "string",
             "format": "uuid"
           },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "userPhoneNumber": {
             "type": "string",
             "nullable": true
@@ -2076,6 +2072,10 @@
           "userLName": {
             "type": "string",
             "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -2094,6 +2094,10 @@
           "price": {
             "type": "integer",
             "format": "int32"
+          },
+          "imageLink": {
+            "type": "string",
+            "nullable": true
           },
           "discount": {
             "type": "integer",
@@ -2123,20 +2127,13 @@
             "type": "string",
             "nullable": true
           },
-          "imageLink": {
+          "creationDateTime": {
             "type": "string",
-            "nullable": true
+            "format": "date-time"
           },
           "categorysId": {
             "type": "string",
             "format": "uuid"
-          },
-          "comments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CommentDto"
-            },
-            "nullable": true
           },
           "categories": {
             "type": "array",
@@ -2145,13 +2142,16 @@
             },
             "nullable": true
           },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommentDto"
+            },
+            "nullable": true
+          },
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "creationDateTime": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -2217,14 +2217,6 @@
             "type": "string",
             "format": "uuid"
           },
-          "creationDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "productsPrice": {
             "type": "integer",
             "format": "int32"
@@ -2240,6 +2232,14 @@
           "productsImageLink": {
             "type": "string",
             "nullable": true
+          },
+          "creationDateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -2252,32 +2252,6 @@
             "format": "uuid"
           },
           "addressId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "totalPrice": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "postPrice": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "finalTotalPrice": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "payOnline": {
-            "type": "boolean"
-          },
-          "shopCardDetails": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ShopCardDetailDto"
-            },
-            "nullable": true
-          },
-          "id": {
             "type": "string",
             "format": "uuid"
           },
@@ -2305,12 +2279,38 @@
             "type": "string",
             "nullable": true
           },
+          "totalPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "postPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "finalTotalPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "payOnline": {
+            "type": "boolean"
+          },
+          "shopCardDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShopCardDetailDto"
+            },
+            "nullable": true
+          },
           "addresses": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AddressDto"
             },
             "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -2345,10 +2345,6 @@
             "type": "string",
             "nullable": true
           },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "phoneNumber": {
             "type": "string",
             "nullable": true
@@ -2356,6 +2352,10 @@
           "otp": {
             "type": "integer",
             "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -2418,21 +2418,52 @@
         ],
         "type": "object",
         "properties": {
-          "nationalCode": {
-            "type": "string"
+          "student": {
+            "type": "boolean"
           },
-          "code": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "gender": {
-            "$ref": "#/components/schemas/GenderType"
+          "managerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "passwordConfirm": {
+            "type": "string",
+            "nullable": true
           },
           "fname": {
             "type": "string"
           },
           "lname": {
             "type": "string"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/GenderType"
+          },
+          "nationalCode": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
           },
           "birthCertificateNumber": {
             "type": "string"
@@ -2452,40 +2483,9 @@
           "postalCode": {
             "type": "string"
           },
-          "phoneNumber": {
-            "type": "string"
-          },
           "id": {
             "type": "string",
             "format": "uuid"
-          },
-          "userName": {
-            "maxLength": 100,
-            "minLength": 0,
-            "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "student": {
-            "type": "boolean"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "managerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "passwordConfirm": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

@@ -5,3 +5,4 @@ targets:
         options:
           input_folder: 'lib/model/api/swagger/'
           output_folder: 'lib/model/api/generated/'
+          include_if_null: true

@@ -449,7 +449,9 @@ abstract class Katte extends ChopperService {
   ///@param UserId
   ///@param Authority
   ///@param status
-  @Get(path: 'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
+  @Get(
+      path:
+          'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
   Future<chopper.Response<ApiResult>>
       _apiV1PaymentProductPaymentConfirmationGet({
     @Query('ShopCardId') String? shopCardId,
@@ -649,13 +651,13 @@ class AccessToken {
   static const toJsonFactory = _$AccessTokenToJson;
   Map<String, dynamic> toJson() => _$AccessTokenToJson(this);
 
-  @JsonKey(name: 'access_token')
+  @JsonKey(name: 'access_token', includeIfNull: true)
   final String? accessToken;
-  @JsonKey(name: 'refresh_token')
+  @JsonKey(name: 'refresh_token', includeIfNull: true)
   final String? refreshToken;
-  @JsonKey(name: 'token_type')
+  @JsonKey(name: 'token_type', includeIfNull: true)
   final String? tokenType;
-  @JsonKey(name: 'expires_in')
+  @JsonKey(name: 'expires_in', includeIfNull: true)
   final int? expiresIn;
   static const fromJsonFactory = _$AccessTokenFromJson;
 
@@ -721,13 +723,13 @@ extension $AccessTokenExtension on AccessToken {
 class AddressDto {
   AddressDto({
     this.clientId,
+    this.clientPhoneNumber,
+    this.clientFname,
+    this.clientLname,
     this.topic,
     this.postalCode,
     this.location,
     this.id,
-    this.clientPhoneNumber,
-    this.clientFname,
-    this.clientLname,
   });
 
   factory AddressDto.fromJson(Map<String, dynamic> json) =>
@@ -736,22 +738,22 @@ class AddressDto {
   static const toJsonFactory = _$AddressDtoToJson;
   Map<String, dynamic> toJson() => _$AddressDtoToJson(this);
 
-  @JsonKey(name: 'clientId')
+  @JsonKey(name: 'clientId', includeIfNull: true)
   final String? clientId;
-  @JsonKey(name: 'topic')
-  final String? topic;
-  @JsonKey(name: 'postalCode')
-  final String? postalCode;
-  @JsonKey(name: 'location')
-  final String? location;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'clientPhoneNumber')
+  @JsonKey(name: 'clientPhoneNumber', includeIfNull: true)
   final String? clientPhoneNumber;
-  @JsonKey(name: 'clientFname')
+  @JsonKey(name: 'clientFname', includeIfNull: true)
   final String? clientFname;
-  @JsonKey(name: 'clientLname')
+  @JsonKey(name: 'clientLname', includeIfNull: true)
   final String? clientLname;
+  @JsonKey(name: 'topic', includeIfNull: true)
+  final String? topic;
+  @JsonKey(name: 'postalCode', includeIfNull: true)
+  final String? postalCode;
+  @JsonKey(name: 'location', includeIfNull: true)
+  final String? location;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$AddressDtoFromJson;
 
   @override
@@ -761,6 +763,15 @@ class AddressDto {
             (identical(other.clientId, clientId) ||
                 const DeepCollectionEquality()
                     .equals(other.clientId, clientId)) &&
+            (identical(other.clientPhoneNumber, clientPhoneNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.clientPhoneNumber, clientPhoneNumber)) &&
+            (identical(other.clientFname, clientFname) ||
+                const DeepCollectionEquality()
+                    .equals(other.clientFname, clientFname)) &&
+            (identical(other.clientLname, clientLname) ||
+                const DeepCollectionEquality()
+                    .equals(other.clientLname, clientLname)) &&
             (identical(other.topic, topic) ||
                 const DeepCollectionEquality().equals(other.topic, topic)) &&
             (identical(other.postalCode, postalCode) ||
@@ -770,16 +781,7 @@ class AddressDto {
                 const DeepCollectionEquality()
                     .equals(other.location, location)) &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.clientPhoneNumber, clientPhoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.clientPhoneNumber, clientPhoneNumber)) &&
-            (identical(other.clientFname, clientFname) ||
-                const DeepCollectionEquality()
-                    .equals(other.clientFname, clientFname)) &&
-            (identical(other.clientLname, clientLname) ||
-                const DeepCollectionEquality()
-                    .equals(other.clientLname, clientLname)));
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -788,59 +790,59 @@ class AddressDto {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(clientId) ^
+      const DeepCollectionEquality().hash(clientPhoneNumber) ^
+      const DeepCollectionEquality().hash(clientFname) ^
+      const DeepCollectionEquality().hash(clientLname) ^
       const DeepCollectionEquality().hash(topic) ^
       const DeepCollectionEquality().hash(postalCode) ^
       const DeepCollectionEquality().hash(location) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(clientPhoneNumber) ^
-      const DeepCollectionEquality().hash(clientFname) ^
-      const DeepCollectionEquality().hash(clientLname) ^
       runtimeType.hashCode;
 }
 
 extension $AddressDtoExtension on AddressDto {
   AddressDto copyWith(
       {String? clientId,
+      String? clientPhoneNumber,
+      String? clientFname,
+      String? clientLname,
       String? topic,
       String? postalCode,
       String? location,
-      String? id,
-      String? clientPhoneNumber,
-      String? clientFname,
-      String? clientLname}) {
+      String? id}) {
     return AddressDto(
         clientId: clientId ?? this.clientId,
+        clientPhoneNumber: clientPhoneNumber ?? this.clientPhoneNumber,
+        clientFname: clientFname ?? this.clientFname,
+        clientLname: clientLname ?? this.clientLname,
         topic: topic ?? this.topic,
         postalCode: postalCode ?? this.postalCode,
         location: location ?? this.location,
-        id: id ?? this.id,
-        clientPhoneNumber: clientPhoneNumber ?? this.clientPhoneNumber,
-        clientFname: clientFname ?? this.clientFname,
-        clientLname: clientLname ?? this.clientLname);
+        id: id ?? this.id);
   }
 
   AddressDto copyWithWrapped(
       {Wrapped<String?>? clientId,
+      Wrapped<String?>? clientPhoneNumber,
+      Wrapped<String?>? clientFname,
+      Wrapped<String?>? clientLname,
       Wrapped<String?>? topic,
       Wrapped<String?>? postalCode,
       Wrapped<String?>? location,
-      Wrapped<String?>? id,
-      Wrapped<String?>? clientPhoneNumber,
-      Wrapped<String?>? clientFname,
-      Wrapped<String?>? clientLname}) {
+      Wrapped<String?>? id}) {
     return AddressDto(
         clientId: (clientId != null ? clientId.value : this.clientId),
-        topic: (topic != null ? topic.value : this.topic),
-        postalCode: (postalCode != null ? postalCode.value : this.postalCode),
-        location: (location != null ? location.value : this.location),
-        id: (id != null ? id.value : this.id),
         clientPhoneNumber: (clientPhoneNumber != null
             ? clientPhoneNumber.value
             : this.clientPhoneNumber),
         clientFname:
             (clientFname != null ? clientFname.value : this.clientFname),
         clientLname:
-            (clientLname != null ? clientLname.value : this.clientLname));
+            (clientLname != null ? clientLname.value : this.clientLname),
+        topic: (topic != null ? topic.value : this.topic),
+        postalCode: (postalCode != null ? postalCode.value : this.postalCode),
+        location: (location != null ? location.value : this.location),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -859,17 +861,18 @@ class AddressDtoApiResult {
   static const toJsonFactory = _$AddressDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$AddressDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final AddressDto? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$AddressDtoApiResultFromJson;
 
@@ -942,17 +945,18 @@ class AddressDtoListApiResult {
   static const toJsonFactory = _$AddressDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$AddressDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', defaultValue: <AddressDto>[])
+  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <AddressDto>[])
   final List<AddressDto>? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$AddressDtoListApiResultFromJson;
 
@@ -1024,15 +1028,16 @@ class ApiResult {
   static const toJsonFactory = _$ApiResultToJson;
   Map<String, dynamic> toJson() => _$ApiResultToJson(this);
 
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$ApiResultFromJson;
 
@@ -1096,9 +1101,9 @@ class Card2Dto {
   static const toJsonFactory = _$Card2DtoToJson;
   Map<String, dynamic> toJson() => _$Card2DtoToJson(this);
 
-  @JsonKey(name: 'addressId')
+  @JsonKey(name: 'addressId', includeIfNull: true)
   final String? addressId;
-  @JsonKey(name: 'payOnline')
+  @JsonKey(name: 'payOnline', includeIfNull: true)
   final bool? payOnline;
   static const fromJsonFactory = _$Card2DtoFromJson;
 
@@ -1154,13 +1159,13 @@ class CategoryDto {
   static const toJsonFactory = _$CategoryDtoToJson;
   Map<String, dynamic> toJson() => _$CategoryDtoToJson(this);
 
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'name', includeIfNull: true)
   final String? name;
-  @JsonKey(name: 'imageLink')
+  @JsonKey(name: 'imageLink', includeIfNull: true)
   final String? imageLink;
-  @JsonKey(name: 'code')
+  @JsonKey(name: 'code', includeIfNull: true)
   final int? code;
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'id', includeIfNull: true)
   final String? id;
   static const fromJsonFactory = _$CategoryDtoFromJson;
 
@@ -1229,17 +1234,18 @@ class CategoryDtoListApiResult {
   static const toJsonFactory = _$CategoryDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$CategoryDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', defaultValue: <CategoryDto>[])
+  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <CategoryDto>[])
   final List<CategoryDto>? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$CategoryDtoListApiResultFromJson;
 
@@ -1303,11 +1309,11 @@ class CommentDto {
     this.text,
     this.rate,
     this.userId,
+    this.userFname,
+    this.userLname,
     this.productsId,
     this.commentStatus,
     this.id,
-    this.userFname,
-    this.userLname,
   });
 
   factory CommentDto.fromJson(Map<String, dynamic> json) =>
@@ -1316,26 +1322,27 @@ class CommentDto {
   static const toJsonFactory = _$CommentDtoToJson;
   Map<String, dynamic> toJson() => _$CommentDtoToJson(this);
 
-  @JsonKey(name: 'text')
+  @JsonKey(name: 'text', includeIfNull: true)
   final String? text;
-  @JsonKey(name: 'rate')
+  @JsonKey(name: 'rate', includeIfNull: true)
   final double? rate;
-  @JsonKey(name: 'userId')
+  @JsonKey(name: 'userId', includeIfNull: true)
   final String? userId;
-  @JsonKey(name: 'productsId')
+  @JsonKey(name: 'userFname', includeIfNull: true)
+  final String? userFname;
+  @JsonKey(name: 'userLname', includeIfNull: true)
+  final String? userLname;
+  @JsonKey(name: 'productsId', includeIfNull: true)
   final String? productsId;
   @JsonKey(
     name: 'commentStatus',
+    includeIfNull: true,
     toJson: commentStatusToJson,
     fromJson: commentStatusFromJson,
   )
   final enums.CommentStatus? commentStatus;
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'id', includeIfNull: true)
   final String? id;
-  @JsonKey(name: 'userFname')
-  final String? userFname;
-  @JsonKey(name: 'userLname')
-  final String? userLname;
   static const fromJsonFactory = _$CommentDtoFromJson;
 
   @override
@@ -1348,6 +1355,12 @@ class CommentDto {
                 const DeepCollectionEquality().equals(other.rate, rate)) &&
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.userFname, userFname) ||
+                const DeepCollectionEquality()
+                    .equals(other.userFname, userFname)) &&
+            (identical(other.userLname, userLname) ||
+                const DeepCollectionEquality()
+                    .equals(other.userLname, userLname)) &&
             (identical(other.productsId, productsId) ||
                 const DeepCollectionEquality()
                     .equals(other.productsId, productsId)) &&
@@ -1355,13 +1368,7 @@ class CommentDto {
                 const DeepCollectionEquality()
                     .equals(other.commentStatus, commentStatus)) &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.userFname, userFname) ||
-                const DeepCollectionEquality()
-                    .equals(other.userFname, userFname)) &&
-            (identical(other.userLname, userLname) ||
-                const DeepCollectionEquality()
-                    .equals(other.userLname, userLname)));
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -1372,11 +1379,11 @@ class CommentDto {
       const DeepCollectionEquality().hash(text) ^
       const DeepCollectionEquality().hash(rate) ^
       const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(userFname) ^
+      const DeepCollectionEquality().hash(userLname) ^
       const DeepCollectionEquality().hash(productsId) ^
       const DeepCollectionEquality().hash(commentStatus) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(userFname) ^
-      const DeepCollectionEquality().hash(userLname) ^
       runtimeType.hashCode;
 }
 
@@ -1385,41 +1392,41 @@ extension $CommentDtoExtension on CommentDto {
       {String? text,
       double? rate,
       String? userId,
+      String? userFname,
+      String? userLname,
       String? productsId,
       enums.CommentStatus? commentStatus,
-      String? id,
-      String? userFname,
-      String? userLname}) {
+      String? id}) {
     return CommentDto(
         text: text ?? this.text,
         rate: rate ?? this.rate,
         userId: userId ?? this.userId,
+        userFname: userFname ?? this.userFname,
+        userLname: userLname ?? this.userLname,
         productsId: productsId ?? this.productsId,
         commentStatus: commentStatus ?? this.commentStatus,
-        id: id ?? this.id,
-        userFname: userFname ?? this.userFname,
-        userLname: userLname ?? this.userLname);
+        id: id ?? this.id);
   }
 
   CommentDto copyWithWrapped(
       {Wrapped<String?>? text,
       Wrapped<double?>? rate,
       Wrapped<String?>? userId,
+      Wrapped<String?>? userFname,
+      Wrapped<String?>? userLname,
       Wrapped<String?>? productsId,
       Wrapped<enums.CommentStatus?>? commentStatus,
-      Wrapped<String?>? id,
-      Wrapped<String?>? userFname,
-      Wrapped<String?>? userLname}) {
+      Wrapped<String?>? id}) {
     return CommentDto(
         text: (text != null ? text.value : this.text),
         rate: (rate != null ? rate.value : this.rate),
         userId: (userId != null ? userId.value : this.userId),
+        userFname: (userFname != null ? userFname.value : this.userFname),
+        userLname: (userLname != null ? userLname.value : this.userLname),
         productsId: (productsId != null ? productsId.value : this.productsId),
         commentStatus:
             (commentStatus != null ? commentStatus.value : this.commentStatus),
-        id: (id != null ? id.value : this.id),
-        userFname: (userFname != null ? userFname.value : this.userFname),
-        userLname: (userLname != null ? userLname.value : this.userLname));
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -1438,17 +1445,18 @@ class CommentDtoApiResult {
   static const toJsonFactory = _$CommentDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$CommentDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final CommentDto? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$CommentDtoApiResultFromJson;
 
@@ -1521,17 +1529,18 @@ class CommentDtoListApiResult {
   static const toJsonFactory = _$CommentDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$CommentDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', defaultValue: <CommentDto>[])
+  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <CommentDto>[])
   final List<CommentDto>? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$CommentDtoListApiResultFromJson;
 
@@ -1602,9 +1611,9 @@ class ListChosedProductDto {
   static const toJsonFactory = _$ListChosedProductDtoToJson;
   Map<String, dynamic> toJson() => _$ListChosedProductDtoToJson(this);
 
-  @JsonKey(name: 'productId')
+  @JsonKey(name: 'productId', includeIfNull: true)
   final String? productId;
-  @JsonKey(name: 'count')
+  @JsonKey(name: 'count', includeIfNull: true)
   final int? count;
   static const fromJsonFactory = _$ListChosedProductDtoFromJson;
 
@@ -1656,9 +1665,9 @@ class LoginOtpDto {
   static const toJsonFactory = _$LoginOtpDtoToJson;
   Map<String, dynamic> toJson() => _$LoginOtpDtoToJson(this);
 
-  @JsonKey(name: 'phoneNumber')
+  @JsonKey(name: 'phoneNumber', includeIfNull: true)
   final String? phoneNumber;
-  @JsonKey(name: 'code')
+  @JsonKey(name: 'code', includeIfNull: true)
   final int? code;
   static const fromJsonFactory = _$LoginOtpDtoFromJson;
 
@@ -1705,10 +1714,10 @@ class NotificationDto {
     this.text,
     this.dateTimes,
     this.userId,
-    this.id,
     this.userPhoneNumber,
     this.userFName,
     this.userLName,
+    this.id,
   });
 
   factory NotificationDto.fromJson(Map<String, dynamic> json) =>
@@ -1717,22 +1726,22 @@ class NotificationDto {
   static const toJsonFactory = _$NotificationDtoToJson;
   Map<String, dynamic> toJson() => _$NotificationDtoToJson(this);
 
-  @JsonKey(name: 'topic')
+  @JsonKey(name: 'topic', includeIfNull: true)
   final String? topic;
-  @JsonKey(name: 'text')
+  @JsonKey(name: 'text', includeIfNull: true)
   final String? text;
-  @JsonKey(name: 'dateTimes')
+  @JsonKey(name: 'dateTimes', includeIfNull: true)
   final DateTime? dateTimes;
-  @JsonKey(name: 'userId')
+  @JsonKey(name: 'userId', includeIfNull: true)
   final String? userId;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'userPhoneNumber')
+  @JsonKey(name: 'userPhoneNumber', includeIfNull: true)
   final String? userPhoneNumber;
-  @JsonKey(name: 'userFName')
+  @JsonKey(name: 'userFName', includeIfNull: true)
   final String? userFName;
-  @JsonKey(name: 'userLName')
+  @JsonKey(name: 'userLName', includeIfNull: true)
   final String? userLName;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$NotificationDtoFromJson;
 
   @override
@@ -1748,8 +1757,6 @@ class NotificationDto {
                     .equals(other.dateTimes, dateTimes)) &&
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.userPhoneNumber, userPhoneNumber) ||
                 const DeepCollectionEquality()
                     .equals(other.userPhoneNumber, userPhoneNumber)) &&
@@ -1758,7 +1765,9 @@ class NotificationDto {
                     .equals(other.userFName, userFName)) &&
             (identical(other.userLName, userLName) ||
                 const DeepCollectionEquality()
-                    .equals(other.userLName, userLName)));
+                    .equals(other.userLName, userLName)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -1770,10 +1779,10 @@ class NotificationDto {
       const DeepCollectionEquality().hash(text) ^
       const DeepCollectionEquality().hash(dateTimes) ^
       const DeepCollectionEquality().hash(userId) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(userPhoneNumber) ^
       const DeepCollectionEquality().hash(userFName) ^
       const DeepCollectionEquality().hash(userLName) ^
+      const DeepCollectionEquality().hash(id) ^
       runtimeType.hashCode;
 }
 
@@ -1783,19 +1792,19 @@ extension $NotificationDtoExtension on NotificationDto {
       String? text,
       DateTime? dateTimes,
       String? userId,
-      String? id,
       String? userPhoneNumber,
       String? userFName,
-      String? userLName}) {
+      String? userLName,
+      String? id}) {
     return NotificationDto(
         topic: topic ?? this.topic,
         text: text ?? this.text,
         dateTimes: dateTimes ?? this.dateTimes,
         userId: userId ?? this.userId,
-        id: id ?? this.id,
         userPhoneNumber: userPhoneNumber ?? this.userPhoneNumber,
         userFName: userFName ?? this.userFName,
-        userLName: userLName ?? this.userLName);
+        userLName: userLName ?? this.userLName,
+        id: id ?? this.id);
   }
 
   NotificationDto copyWithWrapped(
@@ -1803,21 +1812,21 @@ extension $NotificationDtoExtension on NotificationDto {
       Wrapped<String?>? text,
       Wrapped<DateTime?>? dateTimes,
       Wrapped<String?>? userId,
-      Wrapped<String?>? id,
       Wrapped<String?>? userPhoneNumber,
       Wrapped<String?>? userFName,
-      Wrapped<String?>? userLName}) {
+      Wrapped<String?>? userLName,
+      Wrapped<String?>? id}) {
     return NotificationDto(
         topic: (topic != null ? topic.value : this.topic),
         text: (text != null ? text.value : this.text),
         dateTimes: (dateTimes != null ? dateTimes.value : this.dateTimes),
         userId: (userId != null ? userId.value : this.userId),
-        id: (id != null ? id.value : this.id),
         userPhoneNumber: (userPhoneNumber != null
             ? userPhoneNumber.value
             : this.userPhoneNumber),
         userFName: (userFName != null ? userFName.value : this.userFName),
-        userLName: (userLName != null ? userLName.value : this.userLName));
+        userLName: (userLName != null ? userLName.value : this.userLName),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -1827,6 +1836,7 @@ class ProductDto {
     this.code,
     this.name,
     this.price,
+    this.imageLink,
     this.discount,
     this.percent,
     this.count,
@@ -1834,12 +1844,11 @@ class ProductDto {
     this.totalRate,
     this.shortDetail,
     this.longDetail,
-    this.imageLink,
-    this.categorysId,
-    this.comments,
-    this.categories,
-    this.id,
     this.creationDateTime,
+    this.categorysId,
+    this.categories,
+    this.comments,
+    this.id,
   });
 
   factory ProductDto.fromJson(Map<String, dynamic> json) =>
@@ -1848,38 +1857,39 @@ class ProductDto {
   static const toJsonFactory = _$ProductDtoToJson;
   Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
 
-  @JsonKey(name: 'code')
+  @JsonKey(name: 'code', includeIfNull: true)
   final int? code;
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'name', includeIfNull: true)
   final String? name;
-  @JsonKey(name: 'price')
+  @JsonKey(name: 'price', includeIfNull: true)
   final int? price;
-  @JsonKey(name: 'discount')
-  final int? discount;
-  @JsonKey(name: 'percent')
-  final int? percent;
-  @JsonKey(name: 'count')
-  final int? count;
-  @JsonKey(name: 'rate')
-  final double? rate;
-  @JsonKey(name: 'totalRate')
-  final double? totalRate;
-  @JsonKey(name: 'shortDetail')
-  final String? shortDetail;
-  @JsonKey(name: 'longDetail')
-  final String? longDetail;
-  @JsonKey(name: 'imageLink')
+  @JsonKey(name: 'imageLink', includeIfNull: true)
   final String? imageLink;
-  @JsonKey(name: 'categorysId')
-  final String? categorysId;
-  @JsonKey(name: 'comments', defaultValue: <CommentDto>[])
-  final List<CommentDto>? comments;
-  @JsonKey(name: 'categories', defaultValue: <CategoryDto>[])
-  final List<CategoryDto>? categories;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'creationDateTime')
+  @JsonKey(name: 'discount', includeIfNull: true)
+  final int? discount;
+  @JsonKey(name: 'percent', includeIfNull: true)
+  final int? percent;
+  @JsonKey(name: 'count', includeIfNull: true)
+  final int? count;
+  @JsonKey(name: 'rate', includeIfNull: true)
+  final double? rate;
+  @JsonKey(name: 'totalRate', includeIfNull: true)
+  final double? totalRate;
+  @JsonKey(name: 'shortDetail', includeIfNull: true)
+  final String? shortDetail;
+  @JsonKey(name: 'longDetail', includeIfNull: true)
+  final String? longDetail;
+  @JsonKey(name: 'creationDateTime', includeIfNull: true)
   final DateTime? creationDateTime;
+  @JsonKey(name: 'categorysId', includeIfNull: true)
+  final String? categorysId;
+  @JsonKey(
+      name: 'categories', includeIfNull: true, defaultValue: <CategoryDto>[])
+  final List<CategoryDto>? categories;
+  @JsonKey(name: 'comments', includeIfNull: true, defaultValue: <CommentDto>[])
+  final List<CommentDto>? comments;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$ProductDtoFromJson;
 
   @override
@@ -1892,6 +1902,9 @@ class ProductDto {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.price, price) ||
                 const DeepCollectionEquality().equals(other.price, price)) &&
+            (identical(other.imageLink, imageLink) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageLink, imageLink)) &&
             (identical(other.discount, discount) ||
                 const DeepCollectionEquality()
                     .equals(other.discount, discount)) &&
@@ -1911,23 +1924,20 @@ class ProductDto {
             (identical(other.longDetail, longDetail) ||
                 const DeepCollectionEquality()
                     .equals(other.longDetail, longDetail)) &&
-            (identical(other.imageLink, imageLink) ||
+            (identical(other.creationDateTime, creationDateTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.imageLink, imageLink)) &&
+                    .equals(other.creationDateTime, creationDateTime)) &&
             (identical(other.categorysId, categorysId) ||
                 const DeepCollectionEquality()
                     .equals(other.categorysId, categorysId)) &&
-            (identical(other.comments, comments) ||
-                const DeepCollectionEquality()
-                    .equals(other.comments, comments)) &&
             (identical(other.categories, categories) ||
                 const DeepCollectionEquality()
                     .equals(other.categories, categories)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.creationDateTime, creationDateTime) ||
+            (identical(other.comments, comments) ||
                 const DeepCollectionEquality()
-                    .equals(other.creationDateTime, creationDateTime)));
+                    .equals(other.comments, comments)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -1938,6 +1948,7 @@ class ProductDto {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(price) ^
+      const DeepCollectionEquality().hash(imageLink) ^
       const DeepCollectionEquality().hash(discount) ^
       const DeepCollectionEquality().hash(percent) ^
       const DeepCollectionEquality().hash(count) ^
@@ -1945,12 +1956,11 @@ class ProductDto {
       const DeepCollectionEquality().hash(totalRate) ^
       const DeepCollectionEquality().hash(shortDetail) ^
       const DeepCollectionEquality().hash(longDetail) ^
-      const DeepCollectionEquality().hash(imageLink) ^
-      const DeepCollectionEquality().hash(categorysId) ^
-      const DeepCollectionEquality().hash(comments) ^
-      const DeepCollectionEquality().hash(categories) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(creationDateTime) ^
+      const DeepCollectionEquality().hash(categorysId) ^
+      const DeepCollectionEquality().hash(categories) ^
+      const DeepCollectionEquality().hash(comments) ^
+      const DeepCollectionEquality().hash(id) ^
       runtimeType.hashCode;
 }
 
@@ -1959,6 +1969,7 @@ extension $ProductDtoExtension on ProductDto {
       {int? code,
       String? name,
       int? price,
+      String? imageLink,
       int? discount,
       int? percent,
       int? count,
@@ -1966,16 +1977,16 @@ extension $ProductDtoExtension on ProductDto {
       double? totalRate,
       String? shortDetail,
       String? longDetail,
-      String? imageLink,
+      DateTime? creationDateTime,
       String? categorysId,
-      List<CommentDto>? comments,
       List<CategoryDto>? categories,
-      String? id,
-      DateTime? creationDateTime}) {
+      List<CommentDto>? comments,
+      String? id}) {
     return ProductDto(
         code: code ?? this.code,
         name: name ?? this.name,
         price: price ?? this.price,
+        imageLink: imageLink ?? this.imageLink,
         discount: discount ?? this.discount,
         percent: percent ?? this.percent,
         count: count ?? this.count,
@@ -1983,18 +1994,18 @@ extension $ProductDtoExtension on ProductDto {
         totalRate: totalRate ?? this.totalRate,
         shortDetail: shortDetail ?? this.shortDetail,
         longDetail: longDetail ?? this.longDetail,
-        imageLink: imageLink ?? this.imageLink,
+        creationDateTime: creationDateTime ?? this.creationDateTime,
         categorysId: categorysId ?? this.categorysId,
-        comments: comments ?? this.comments,
         categories: categories ?? this.categories,
-        id: id ?? this.id,
-        creationDateTime: creationDateTime ?? this.creationDateTime);
+        comments: comments ?? this.comments,
+        id: id ?? this.id);
   }
 
   ProductDto copyWithWrapped(
       {Wrapped<int?>? code,
       Wrapped<String?>? name,
       Wrapped<int?>? price,
+      Wrapped<String?>? imageLink,
       Wrapped<int?>? discount,
       Wrapped<int?>? percent,
       Wrapped<int?>? count,
@@ -2002,16 +2013,16 @@ extension $ProductDtoExtension on ProductDto {
       Wrapped<double?>? totalRate,
       Wrapped<String?>? shortDetail,
       Wrapped<String?>? longDetail,
-      Wrapped<String?>? imageLink,
+      Wrapped<DateTime?>? creationDateTime,
       Wrapped<String?>? categorysId,
-      Wrapped<List<CommentDto>?>? comments,
       Wrapped<List<CategoryDto>?>? categories,
-      Wrapped<String?>? id,
-      Wrapped<DateTime?>? creationDateTime}) {
+      Wrapped<List<CommentDto>?>? comments,
+      Wrapped<String?>? id}) {
     return ProductDto(
         code: (code != null ? code.value : this.code),
         name: (name != null ? name.value : this.name),
         price: (price != null ? price.value : this.price),
+        imageLink: (imageLink != null ? imageLink.value : this.imageLink),
         discount: (discount != null ? discount.value : this.discount),
         percent: (percent != null ? percent.value : this.percent),
         count: (count != null ? count.value : this.count),
@@ -2020,15 +2031,14 @@ extension $ProductDtoExtension on ProductDto {
         shortDetail:
             (shortDetail != null ? shortDetail.value : this.shortDetail),
         longDetail: (longDetail != null ? longDetail.value : this.longDetail),
-        imageLink: (imageLink != null ? imageLink.value : this.imageLink),
-        categorysId:
-            (categorysId != null ? categorysId.value : this.categorysId),
-        comments: (comments != null ? comments.value : this.comments),
-        categories: (categories != null ? categories.value : this.categories),
-        id: (id != null ? id.value : this.id),
         creationDateTime: (creationDateTime != null
             ? creationDateTime.value
-            : this.creationDateTime));
+            : this.creationDateTime),
+        categorysId:
+            (categorysId != null ? categorysId.value : this.categorysId),
+        categories: (categories != null ? categories.value : this.categories),
+        comments: (comments != null ? comments.value : this.comments),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -2047,17 +2057,18 @@ class ProductDtoApiResult {
   static const toJsonFactory = _$ProductDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$ProductDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final ProductDto? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$ProductDtoApiResultFromJson;
 
@@ -2130,17 +2141,18 @@ class ProductDtoListApiResult {
   static const toJsonFactory = _$ProductDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$ProductDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', defaultValue: <ProductDto>[])
+  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <ProductDto>[])
   final List<ProductDto>? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$ProductDtoListApiResultFromJson;
 
@@ -2205,12 +2217,12 @@ class ShopCardDetailDto {
     this.count,
     this.disCount,
     this.productsId,
-    this.creationDateTime,
-    this.id,
     this.productsPrice,
     this.productsDiscount,
     this.productsName,
     this.productsImageLink,
+    this.creationDateTime,
+    this.id,
   });
 
   factory ShopCardDetailDto.fromJson(Map<String, dynamic> json) =>
@@ -2219,26 +2231,26 @@ class ShopCardDetailDto {
   static const toJsonFactory = _$ShopCardDetailDtoToJson;
   Map<String, dynamic> toJson() => _$ShopCardDetailDtoToJson(this);
 
-  @JsonKey(name: 'price')
+  @JsonKey(name: 'price', includeIfNull: true)
   final int? price;
-  @JsonKey(name: 'count')
+  @JsonKey(name: 'count', includeIfNull: true)
   final int? count;
-  @JsonKey(name: 'disCount')
+  @JsonKey(name: 'disCount', includeIfNull: true)
   final int? disCount;
-  @JsonKey(name: 'productsId')
+  @JsonKey(name: 'productsId', includeIfNull: true)
   final String? productsId;
-  @JsonKey(name: 'creationDateTime')
-  final DateTime? creationDateTime;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'productsPrice')
+  @JsonKey(name: 'productsPrice', includeIfNull: true)
   final int? productsPrice;
-  @JsonKey(name: 'productsDiscount')
+  @JsonKey(name: 'productsDiscount', includeIfNull: true)
   final int? productsDiscount;
-  @JsonKey(name: 'productsName')
+  @JsonKey(name: 'productsName', includeIfNull: true)
   final String? productsName;
-  @JsonKey(name: 'productsImageLink')
+  @JsonKey(name: 'productsImageLink', includeIfNull: true)
   final String? productsImageLink;
+  @JsonKey(name: 'creationDateTime', includeIfNull: true)
+  final DateTime? creationDateTime;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$ShopCardDetailDtoFromJson;
 
   @override
@@ -2255,11 +2267,6 @@ class ShopCardDetailDto {
             (identical(other.productsId, productsId) ||
                 const DeepCollectionEquality()
                     .equals(other.productsId, productsId)) &&
-            (identical(other.creationDateTime, creationDateTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.creationDateTime, creationDateTime)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.productsPrice, productsPrice) ||
                 const DeepCollectionEquality()
                     .equals(other.productsPrice, productsPrice)) &&
@@ -2271,7 +2278,12 @@ class ShopCardDetailDto {
                     .equals(other.productsName, productsName)) &&
             (identical(other.productsImageLink, productsImageLink) ||
                 const DeepCollectionEquality()
-                    .equals(other.productsImageLink, productsImageLink)));
+                    .equals(other.productsImageLink, productsImageLink)) &&
+            (identical(other.creationDateTime, creationDateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.creationDateTime, creationDateTime)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -2283,12 +2295,12 @@ class ShopCardDetailDto {
       const DeepCollectionEquality().hash(count) ^
       const DeepCollectionEquality().hash(disCount) ^
       const DeepCollectionEquality().hash(productsId) ^
-      const DeepCollectionEquality().hash(creationDateTime) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(productsPrice) ^
       const DeepCollectionEquality().hash(productsDiscount) ^
       const DeepCollectionEquality().hash(productsName) ^
       const DeepCollectionEquality().hash(productsImageLink) ^
+      const DeepCollectionEquality().hash(creationDateTime) ^
+      const DeepCollectionEquality().hash(id) ^
       runtimeType.hashCode;
 }
 
@@ -2298,23 +2310,23 @@ extension $ShopCardDetailDtoExtension on ShopCardDetailDto {
       int? count,
       int? disCount,
       String? productsId,
-      DateTime? creationDateTime,
-      String? id,
       int? productsPrice,
       int? productsDiscount,
       String? productsName,
-      String? productsImageLink}) {
+      String? productsImageLink,
+      DateTime? creationDateTime,
+      String? id}) {
     return ShopCardDetailDto(
         price: price ?? this.price,
         count: count ?? this.count,
         disCount: disCount ?? this.disCount,
         productsId: productsId ?? this.productsId,
-        creationDateTime: creationDateTime ?? this.creationDateTime,
-        id: id ?? this.id,
         productsPrice: productsPrice ?? this.productsPrice,
         productsDiscount: productsDiscount ?? this.productsDiscount,
         productsName: productsName ?? this.productsName,
-        productsImageLink: productsImageLink ?? this.productsImageLink);
+        productsImageLink: productsImageLink ?? this.productsImageLink,
+        creationDateTime: creationDateTime ?? this.creationDateTime,
+        id: id ?? this.id);
   }
 
   ShopCardDetailDto copyWithWrapped(
@@ -2322,21 +2334,17 @@ extension $ShopCardDetailDtoExtension on ShopCardDetailDto {
       Wrapped<int?>? count,
       Wrapped<int?>? disCount,
       Wrapped<String?>? productsId,
-      Wrapped<DateTime?>? creationDateTime,
-      Wrapped<String?>? id,
       Wrapped<int?>? productsPrice,
       Wrapped<int?>? productsDiscount,
       Wrapped<String?>? productsName,
-      Wrapped<String?>? productsImageLink}) {
+      Wrapped<String?>? productsImageLink,
+      Wrapped<DateTime?>? creationDateTime,
+      Wrapped<String?>? id}) {
     return ShopCardDetailDto(
         price: (price != null ? price.value : this.price),
         count: (count != null ? count.value : this.count),
         disCount: (disCount != null ? disCount.value : this.disCount),
         productsId: (productsId != null ? productsId.value : this.productsId),
-        creationDateTime: (creationDateTime != null
-            ? creationDateTime.value
-            : this.creationDateTime),
-        id: (id != null ? id.value : this.id),
         productsPrice:
             (productsPrice != null ? productsPrice.value : this.productsPrice),
         productsDiscount: (productsDiscount != null
@@ -2346,7 +2354,11 @@ extension $ShopCardDetailDtoExtension on ShopCardDetailDto {
             (productsName != null ? productsName.value : this.productsName),
         productsImageLink: (productsImageLink != null
             ? productsImageLink.value
-            : this.productsImageLink));
+            : this.productsImageLink),
+        creationDateTime: (creationDateTime != null
+            ? creationDateTime.value
+            : this.creationDateTime),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -2355,19 +2367,19 @@ class ShopCardDto {
   ShopCardDto({
     this.userId,
     this.addressId,
-    this.totalPrice,
-    this.postPrice,
-    this.finalTotalPrice,
-    this.payOnline,
-    this.shopCardDetails,
-    this.id,
     this.orderReportId,
     this.orderReportTax,
     this.orderReportPostCost,
     this.userUserName,
     this.userFName,
     this.userLName,
+    this.totalPrice,
+    this.postPrice,
+    this.finalTotalPrice,
+    this.payOnline,
+    this.shopCardDetails,
     this.addresses,
+    this.id,
   });
 
   factory ShopCardDto.fromJson(Map<String, dynamic> json) =>
@@ -2376,36 +2388,39 @@ class ShopCardDto {
   static const toJsonFactory = _$ShopCardDtoToJson;
   Map<String, dynamic> toJson() => _$ShopCardDtoToJson(this);
 
-  @JsonKey(name: 'userId')
+  @JsonKey(name: 'userId', includeIfNull: true)
   final String? userId;
-  @JsonKey(name: 'addressId')
+  @JsonKey(name: 'addressId', includeIfNull: true)
   final String? addressId;
-  @JsonKey(name: 'totalPrice')
-  final int? totalPrice;
-  @JsonKey(name: 'postPrice')
-  final int? postPrice;
-  @JsonKey(name: 'finalTotalPrice')
-  final int? finalTotalPrice;
-  @JsonKey(name: 'payOnline')
-  final bool? payOnline;
-  @JsonKey(name: 'shopCardDetails', defaultValue: <ShopCardDetailDto>[])
-  final List<ShopCardDetailDto>? shopCardDetails;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'orderReportId')
+  @JsonKey(name: 'orderReportId', includeIfNull: true)
   final String? orderReportId;
-  @JsonKey(name: 'orderReportTax')
+  @JsonKey(name: 'orderReportTax', includeIfNull: true)
   final int? orderReportTax;
-  @JsonKey(name: 'orderReportPostCost')
+  @JsonKey(name: 'orderReportPostCost', includeIfNull: true)
   final int? orderReportPostCost;
-  @JsonKey(name: 'userUserName')
+  @JsonKey(name: 'userUserName', includeIfNull: true)
   final String? userUserName;
-  @JsonKey(name: 'userFName')
+  @JsonKey(name: 'userFName', includeIfNull: true)
   final String? userFName;
-  @JsonKey(name: 'userLName')
+  @JsonKey(name: 'userLName', includeIfNull: true)
   final String? userLName;
-  @JsonKey(name: 'addresses', defaultValue: <AddressDto>[])
+  @JsonKey(name: 'totalPrice', includeIfNull: true)
+  final int? totalPrice;
+  @JsonKey(name: 'postPrice', includeIfNull: true)
+  final int? postPrice;
+  @JsonKey(name: 'finalTotalPrice', includeIfNull: true)
+  final int? finalTotalPrice;
+  @JsonKey(name: 'payOnline', includeIfNull: true)
+  final bool? payOnline;
+  @JsonKey(
+      name: 'shopCardDetails',
+      includeIfNull: true,
+      defaultValue: <ShopCardDetailDto>[])
+  final List<ShopCardDetailDto>? shopCardDetails;
+  @JsonKey(name: 'addresses', includeIfNull: true, defaultValue: <AddressDto>[])
   final List<AddressDto>? addresses;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$ShopCardDtoFromJson;
 
   @override
@@ -2417,23 +2432,6 @@ class ShopCardDto {
             (identical(other.addressId, addressId) ||
                 const DeepCollectionEquality()
                     .equals(other.addressId, addressId)) &&
-            (identical(other.totalPrice, totalPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.totalPrice, totalPrice)) &&
-            (identical(other.postPrice, postPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.postPrice, postPrice)) &&
-            (identical(other.finalTotalPrice, finalTotalPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.finalTotalPrice, finalTotalPrice)) &&
-            (identical(other.payOnline, payOnline) ||
-                const DeepCollectionEquality()
-                    .equals(other.payOnline, payOnline)) &&
-            (identical(other.shopCardDetails, shopCardDetails) ||
-                const DeepCollectionEquality()
-                    .equals(other.shopCardDetails, shopCardDetails)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.orderReportId, orderReportId) ||
                 const DeepCollectionEquality()
                     .equals(other.orderReportId, orderReportId)) &&
@@ -2452,9 +2450,26 @@ class ShopCardDto {
             (identical(other.userLName, userLName) ||
                 const DeepCollectionEquality()
                     .equals(other.userLName, userLName)) &&
+            (identical(other.totalPrice, totalPrice) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalPrice, totalPrice)) &&
+            (identical(other.postPrice, postPrice) ||
+                const DeepCollectionEquality()
+                    .equals(other.postPrice, postPrice)) &&
+            (identical(other.finalTotalPrice, finalTotalPrice) ||
+                const DeepCollectionEquality()
+                    .equals(other.finalTotalPrice, finalTotalPrice)) &&
+            (identical(other.payOnline, payOnline) ||
+                const DeepCollectionEquality()
+                    .equals(other.payOnline, payOnline)) &&
+            (identical(other.shopCardDetails, shopCardDetails) ||
+                const DeepCollectionEquality()
+                    .equals(other.shopCardDetails, shopCardDetails)) &&
             (identical(other.addresses, addresses) ||
                 const DeepCollectionEquality()
-                    .equals(other.addresses, addresses)));
+                    .equals(other.addresses, addresses)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -2464,19 +2479,19 @@ class ShopCardDto {
   int get hashCode =>
       const DeepCollectionEquality().hash(userId) ^
       const DeepCollectionEquality().hash(addressId) ^
-      const DeepCollectionEquality().hash(totalPrice) ^
-      const DeepCollectionEquality().hash(postPrice) ^
-      const DeepCollectionEquality().hash(finalTotalPrice) ^
-      const DeepCollectionEquality().hash(payOnline) ^
-      const DeepCollectionEquality().hash(shopCardDetails) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(orderReportId) ^
       const DeepCollectionEquality().hash(orderReportTax) ^
       const DeepCollectionEquality().hash(orderReportPostCost) ^
       const DeepCollectionEquality().hash(userUserName) ^
       const DeepCollectionEquality().hash(userFName) ^
       const DeepCollectionEquality().hash(userLName) ^
+      const DeepCollectionEquality().hash(totalPrice) ^
+      const DeepCollectionEquality().hash(postPrice) ^
+      const DeepCollectionEquality().hash(finalTotalPrice) ^
+      const DeepCollectionEquality().hash(payOnline) ^
+      const DeepCollectionEquality().hash(shopCardDetails) ^
       const DeepCollectionEquality().hash(addresses) ^
+      const DeepCollectionEquality().hash(id) ^
       runtimeType.hashCode;
 }
 
@@ -2484,66 +2499,56 @@ extension $ShopCardDtoExtension on ShopCardDto {
   ShopCardDto copyWith(
       {String? userId,
       String? addressId,
-      int? totalPrice,
-      int? postPrice,
-      int? finalTotalPrice,
-      bool? payOnline,
-      List<ShopCardDetailDto>? shopCardDetails,
-      String? id,
       String? orderReportId,
       int? orderReportTax,
       int? orderReportPostCost,
       String? userUserName,
       String? userFName,
       String? userLName,
-      List<AddressDto>? addresses}) {
+      int? totalPrice,
+      int? postPrice,
+      int? finalTotalPrice,
+      bool? payOnline,
+      List<ShopCardDetailDto>? shopCardDetails,
+      List<AddressDto>? addresses,
+      String? id}) {
     return ShopCardDto(
         userId: userId ?? this.userId,
         addressId: addressId ?? this.addressId,
-        totalPrice: totalPrice ?? this.totalPrice,
-        postPrice: postPrice ?? this.postPrice,
-        finalTotalPrice: finalTotalPrice ?? this.finalTotalPrice,
-        payOnline: payOnline ?? this.payOnline,
-        shopCardDetails: shopCardDetails ?? this.shopCardDetails,
-        id: id ?? this.id,
         orderReportId: orderReportId ?? this.orderReportId,
         orderReportTax: orderReportTax ?? this.orderReportTax,
         orderReportPostCost: orderReportPostCost ?? this.orderReportPostCost,
         userUserName: userUserName ?? this.userUserName,
         userFName: userFName ?? this.userFName,
         userLName: userLName ?? this.userLName,
-        addresses: addresses ?? this.addresses);
+        totalPrice: totalPrice ?? this.totalPrice,
+        postPrice: postPrice ?? this.postPrice,
+        finalTotalPrice: finalTotalPrice ?? this.finalTotalPrice,
+        payOnline: payOnline ?? this.payOnline,
+        shopCardDetails: shopCardDetails ?? this.shopCardDetails,
+        addresses: addresses ?? this.addresses,
+        id: id ?? this.id);
   }
 
   ShopCardDto copyWithWrapped(
       {Wrapped<String?>? userId,
       Wrapped<String?>? addressId,
-      Wrapped<int?>? totalPrice,
-      Wrapped<int?>? postPrice,
-      Wrapped<int?>? finalTotalPrice,
-      Wrapped<bool?>? payOnline,
-      Wrapped<List<ShopCardDetailDto>?>? shopCardDetails,
-      Wrapped<String?>? id,
       Wrapped<String?>? orderReportId,
       Wrapped<int?>? orderReportTax,
       Wrapped<int?>? orderReportPostCost,
       Wrapped<String?>? userUserName,
       Wrapped<String?>? userFName,
       Wrapped<String?>? userLName,
-      Wrapped<List<AddressDto>?>? addresses}) {
+      Wrapped<int?>? totalPrice,
+      Wrapped<int?>? postPrice,
+      Wrapped<int?>? finalTotalPrice,
+      Wrapped<bool?>? payOnline,
+      Wrapped<List<ShopCardDetailDto>?>? shopCardDetails,
+      Wrapped<List<AddressDto>?>? addresses,
+      Wrapped<String?>? id}) {
     return ShopCardDto(
         userId: (userId != null ? userId.value : this.userId),
         addressId: (addressId != null ? addressId.value : this.addressId),
-        totalPrice: (totalPrice != null ? totalPrice.value : this.totalPrice),
-        postPrice: (postPrice != null ? postPrice.value : this.postPrice),
-        finalTotalPrice: (finalTotalPrice != null
-            ? finalTotalPrice.value
-            : this.finalTotalPrice),
-        payOnline: (payOnline != null ? payOnline.value : this.payOnline),
-        shopCardDetails: (shopCardDetails != null
-            ? shopCardDetails.value
-            : this.shopCardDetails),
-        id: (id != null ? id.value : this.id),
         orderReportId:
             (orderReportId != null ? orderReportId.value : this.orderReportId),
         orderReportTax: (orderReportTax != null
@@ -2556,7 +2561,17 @@ extension $ShopCardDtoExtension on ShopCardDto {
             (userUserName != null ? userUserName.value : this.userUserName),
         userFName: (userFName != null ? userFName.value : this.userFName),
         userLName: (userLName != null ? userLName.value : this.userLName),
-        addresses: (addresses != null ? addresses.value : this.addresses));
+        totalPrice: (totalPrice != null ? totalPrice.value : this.totalPrice),
+        postPrice: (postPrice != null ? postPrice.value : this.postPrice),
+        finalTotalPrice: (finalTotalPrice != null
+            ? finalTotalPrice.value
+            : this.finalTotalPrice),
+        payOnline: (payOnline != null ? payOnline.value : this.payOnline),
+        shopCardDetails: (shopCardDetails != null
+            ? shopCardDetails.value
+            : this.shopCardDetails),
+        addresses: (addresses != null ? addresses.value : this.addresses),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -2575,17 +2590,18 @@ class ShopCardDtoApiResult {
   static const toJsonFactory = _$ShopCardDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$ShopCardDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final ShopCardDto? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$ShopCardDtoApiResultFromJson;
 
@@ -2648,9 +2664,9 @@ class SignUpDto {
   SignUpDto({
     this.fName,
     this.lName,
-    this.id,
     this.phoneNumber,
     this.otp,
+    this.id,
   });
 
   factory SignUpDto.fromJson(Map<String, dynamic> json) =>
@@ -2659,16 +2675,16 @@ class SignUpDto {
   static const toJsonFactory = _$SignUpDtoToJson;
   Map<String, dynamic> toJson() => _$SignUpDtoToJson(this);
 
-  @JsonKey(name: 'fName')
+  @JsonKey(name: 'fName', includeIfNull: true)
   final String? fName;
-  @JsonKey(name: 'lName')
+  @JsonKey(name: 'lName', includeIfNull: true)
   final String? lName;
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'phoneNumber')
+  @JsonKey(name: 'phoneNumber', includeIfNull: true)
   final String? phoneNumber;
-  @JsonKey(name: 'otp')
+  @JsonKey(name: 'otp', includeIfNull: true)
   final int? otp;
+  @JsonKey(name: 'id', includeIfNull: true)
+  final String? id;
   static const fromJsonFactory = _$SignUpDtoFromJson;
 
   @override
@@ -2679,13 +2695,13 @@ class SignUpDto {
                 const DeepCollectionEquality().equals(other.fName, fName)) &&
             (identical(other.lName, lName) ||
                 const DeepCollectionEquality().equals(other.lName, lName)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 const DeepCollectionEquality()
                     .equals(other.phoneNumber, phoneNumber)) &&
             (identical(other.otp, otp) ||
-                const DeepCollectionEquality().equals(other.otp, otp)));
+                const DeepCollectionEquality().equals(other.otp, otp)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -2695,9 +2711,9 @@ class SignUpDto {
   int get hashCode =>
       const DeepCollectionEquality().hash(fName) ^
       const DeepCollectionEquality().hash(lName) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(otp) ^
+      const DeepCollectionEquality().hash(id) ^
       runtimeType.hashCode;
 }
 
@@ -2705,30 +2721,30 @@ extension $SignUpDtoExtension on SignUpDto {
   SignUpDto copyWith(
       {String? fName,
       String? lName,
-      String? id,
       String? phoneNumber,
-      int? otp}) {
+      int? otp,
+      String? id}) {
     return SignUpDto(
         fName: fName ?? this.fName,
         lName: lName ?? this.lName,
-        id: id ?? this.id,
         phoneNumber: phoneNumber ?? this.phoneNumber,
-        otp: otp ?? this.otp);
+        otp: otp ?? this.otp,
+        id: id ?? this.id);
   }
 
   SignUpDto copyWithWrapped(
       {Wrapped<String?>? fName,
       Wrapped<String?>? lName,
-      Wrapped<String?>? id,
       Wrapped<String?>? phoneNumber,
-      Wrapped<int?>? otp}) {
+      Wrapped<int?>? otp,
+      Wrapped<String?>? id}) {
     return SignUpDto(
         fName: (fName != null ? fName.value : this.fName),
         lName: (lName != null ? lName.value : this.lName),
-        id: (id != null ? id.value : this.id),
         phoneNumber:
             (phoneNumber != null ? phoneNumber.value : this.phoneNumber),
-        otp: (otp != null ? otp.value : this.otp));
+        otp: (otp != null ? otp.value : this.otp),
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -2747,17 +2763,18 @@ class StringApiResult {
   static const toJsonFactory = _$StringApiResultToJson;
   Map<String, dynamic> toJson() => _$StringApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final String? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$StringApiResultFromJson;
 
@@ -2829,11 +2846,14 @@ class SyncOrderDto {
   static const toJsonFactory = _$SyncOrderDtoToJson;
   Map<String, dynamic> toJson() => _$SyncOrderDtoToJson(this);
 
-  @JsonKey(name: 'totalPrice')
+  @JsonKey(name: 'totalPrice', includeIfNull: true)
   final int? totalPrice;
-  @JsonKey(name: 'description')
+  @JsonKey(name: 'description', includeIfNull: true)
   final String? description;
-  @JsonKey(name: 'list_Chosed_Product', defaultValue: <ListChosedProductDto>[])
+  @JsonKey(
+      name: 'list_Chosed_Product',
+      includeIfNull: true,
+      defaultValue: <ListChosedProductDto>[])
   final List<ListChosedProductDto>? listChosedProduct;
   static const fromJsonFactory = _$SyncOrderDtoFromJson;
 
@@ -2891,26 +2911,26 @@ extension $SyncOrderDtoExtension on SyncOrderDto {
 @JsonSerializable(explicitToJson: true)
 class UserDto {
   UserDto({
-    required this.nationalCode,
-    this.code,
-    required this.gender,
+    this.student,
+    this.name,
+    this.managerName,
+    required this.userName,
+    this.email,
+    this.password,
+    this.passwordConfirm,
     required this.fname,
     required this.lname,
+    required this.gender,
+    required this.nationalCode,
+    required this.phoneNumber,
+    this.code,
     required this.birthCertificateNumber,
     required this.birthDay,
     required this.birthCity,
     required this.certificateCity,
     required this.phone,
     required this.postalCode,
-    required this.phoneNumber,
     this.id,
-    required this.userName,
-    this.email,
-    this.student,
-    this.name,
-    this.managerName,
-    this.password,
-    this.passwordConfirm,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>
@@ -2919,67 +2939,90 @@ class UserDto {
   static const toJsonFactory = _$UserDtoToJson;
   Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 
-  @JsonKey(name: 'nationalCode')
-  final String nationalCode;
-  @JsonKey(name: 'code')
-  final String? code;
+  @JsonKey(name: 'student', includeIfNull: true)
+  final bool? student;
+  @JsonKey(name: 'name', includeIfNull: true)
+  final String? name;
+  @JsonKey(name: 'managerName', includeIfNull: true)
+  final String? managerName;
+  @JsonKey(name: 'userName', includeIfNull: true)
+  final String userName;
+  @JsonKey(name: 'email', includeIfNull: true)
+  final String? email;
+  @JsonKey(name: 'password', includeIfNull: true)
+  final String? password;
+  @JsonKey(name: 'passwordConfirm', includeIfNull: true)
+  final String? passwordConfirm;
+  @JsonKey(name: 'fname', includeIfNull: true)
+  final String fname;
+  @JsonKey(name: 'lname', includeIfNull: true)
+  final String lname;
   @JsonKey(
     name: 'gender',
+    includeIfNull: true,
     toJson: genderTypeToJson,
     fromJson: genderTypeFromJson,
   )
   final enums.GenderType gender;
-  @JsonKey(name: 'fname')
-  final String fname;
-  @JsonKey(name: 'lname')
-  final String lname;
-  @JsonKey(name: 'birthCertificateNumber')
-  final String birthCertificateNumber;
-  @JsonKey(name: 'birthDay')
-  final String birthDay;
-  @JsonKey(name: 'birthCity')
-  final String birthCity;
-  @JsonKey(name: 'certificateCity')
-  final String certificateCity;
-  @JsonKey(name: 'phone')
-  final String phone;
-  @JsonKey(name: 'postalCode')
-  final String postalCode;
-  @JsonKey(name: 'phoneNumber')
+  @JsonKey(name: 'nationalCode', includeIfNull: true)
+  final String nationalCode;
+  @JsonKey(name: 'phoneNumber', includeIfNull: true)
   final String phoneNumber;
-  @JsonKey(name: 'id')
+  @JsonKey(name: 'code', includeIfNull: true)
+  final String? code;
+  @JsonKey(name: 'birthCertificateNumber', includeIfNull: true)
+  final String birthCertificateNumber;
+  @JsonKey(name: 'birthDay', includeIfNull: true)
+  final String birthDay;
+  @JsonKey(name: 'birthCity', includeIfNull: true)
+  final String birthCity;
+  @JsonKey(name: 'certificateCity', includeIfNull: true)
+  final String certificateCity;
+  @JsonKey(name: 'phone', includeIfNull: true)
+  final String phone;
+  @JsonKey(name: 'postalCode', includeIfNull: true)
+  final String postalCode;
+  @JsonKey(name: 'id', includeIfNull: true)
   final String? id;
-  @JsonKey(name: 'userName')
-  final String userName;
-  @JsonKey(name: 'email')
-  final String? email;
-  @JsonKey(name: 'student')
-  final bool? student;
-  @JsonKey(name: 'name')
-  final String? name;
-  @JsonKey(name: 'managerName')
-  final String? managerName;
-  @JsonKey(name: 'password')
-  final String? password;
-  @JsonKey(name: 'passwordConfirm')
-  final String? passwordConfirm;
   static const fromJsonFactory = _$UserDtoFromJson;
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is UserDto &&
-            (identical(other.nationalCode, nationalCode) ||
+            (identical(other.student, student) ||
                 const DeepCollectionEquality()
-                    .equals(other.nationalCode, nationalCode)) &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
+                    .equals(other.student, student)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.managerName, managerName) ||
+                const DeepCollectionEquality()
+                    .equals(other.managerName, managerName)) &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.password, password) ||
+                const DeepCollectionEquality()
+                    .equals(other.password, password)) &&
+            (identical(other.passwordConfirm, passwordConfirm) ||
+                const DeepCollectionEquality()
+                    .equals(other.passwordConfirm, passwordConfirm)) &&
             (identical(other.fname, fname) ||
                 const DeepCollectionEquality().equals(other.fname, fname)) &&
             (identical(other.lname, lname) ||
                 const DeepCollectionEquality().equals(other.lname, lname)) &&
+            (identical(other.gender, gender) ||
+                const DeepCollectionEquality().equals(other.gender, gender)) &&
+            (identical(other.nationalCode, nationalCode) ||
+                const DeepCollectionEquality()
+                    .equals(other.nationalCode, nationalCode)) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.phoneNumber, phoneNumber)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.birthCertificateNumber, birthCertificateNumber) ||
                 const DeepCollectionEquality().equals(
                     other.birthCertificateNumber, birthCertificateNumber)) &&
@@ -2997,30 +3040,8 @@ class UserDto {
             (identical(other.postalCode, postalCode) ||
                 const DeepCollectionEquality()
                     .equals(other.postalCode, postalCode)) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)) &&
             (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.userName, userName) ||
-                const DeepCollectionEquality()
-                    .equals(other.userName, userName)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.student, student) ||
-                const DeepCollectionEquality()
-                    .equals(other.student, student)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.managerName, managerName) ||
-                const DeepCollectionEquality()
-                    .equals(other.managerName, managerName)) &&
-            (identical(other.password, password) ||
-                const DeepCollectionEquality()
-                    .equals(other.password, password)) &&
-            (identical(other.passwordConfirm, passwordConfirm) ||
-                const DeepCollectionEquality()
-                    .equals(other.passwordConfirm, passwordConfirm)));
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
@@ -3028,57 +3049,65 @@ class UserDto {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(nationalCode) ^
-      const DeepCollectionEquality().hash(code) ^
-      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(student) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(managerName) ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(password) ^
+      const DeepCollectionEquality().hash(passwordConfirm) ^
       const DeepCollectionEquality().hash(fname) ^
       const DeepCollectionEquality().hash(lname) ^
+      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(nationalCode) ^
+      const DeepCollectionEquality().hash(phoneNumber) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(birthCertificateNumber) ^
       const DeepCollectionEquality().hash(birthDay) ^
       const DeepCollectionEquality().hash(birthCity) ^
       const DeepCollectionEquality().hash(certificateCity) ^
       const DeepCollectionEquality().hash(phone) ^
       const DeepCollectionEquality().hash(postalCode) ^
-      const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(userName) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(student) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(managerName) ^
-      const DeepCollectionEquality().hash(password) ^
-      const DeepCollectionEquality().hash(passwordConfirm) ^
       runtimeType.hashCode;
 }
 
 extension $UserDtoExtension on UserDto {
   UserDto copyWith(
-      {String? nationalCode,
-      String? code,
-      enums.GenderType? gender,
+      {bool? student,
+      String? name,
+      String? managerName,
+      String? userName,
+      String? email,
+      String? password,
+      String? passwordConfirm,
       String? fname,
       String? lname,
+      enums.GenderType? gender,
+      String? nationalCode,
+      String? phoneNumber,
+      String? code,
       String? birthCertificateNumber,
       String? birthDay,
       String? birthCity,
       String? certificateCity,
       String? phone,
       String? postalCode,
-      String? phoneNumber,
-      String? id,
-      String? userName,
-      String? email,
-      bool? student,
-      String? name,
-      String? managerName,
-      String? password,
-      String? passwordConfirm}) {
+      String? id}) {
     return UserDto(
-        nationalCode: nationalCode ?? this.nationalCode,
-        code: code ?? this.code,
-        gender: gender ?? this.gender,
+        student: student ?? this.student,
+        name: name ?? this.name,
+        managerName: managerName ?? this.managerName,
+        userName: userName ?? this.userName,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        passwordConfirm: passwordConfirm ?? this.passwordConfirm,
         fname: fname ?? this.fname,
         lname: lname ?? this.lname,
+        gender: gender ?? this.gender,
+        nationalCode: nationalCode ?? this.nationalCode,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        code: code ?? this.code,
         birthCertificateNumber:
             birthCertificateNumber ?? this.birthCertificateNumber,
         birthDay: birthDay ?? this.birthDay,
@@ -3086,45 +3115,49 @@ extension $UserDtoExtension on UserDto {
         certificateCity: certificateCity ?? this.certificateCity,
         phone: phone ?? this.phone,
         postalCode: postalCode ?? this.postalCode,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        id: id ?? this.id,
-        userName: userName ?? this.userName,
-        email: email ?? this.email,
-        student: student ?? this.student,
-        name: name ?? this.name,
-        managerName: managerName ?? this.managerName,
-        password: password ?? this.password,
-        passwordConfirm: passwordConfirm ?? this.passwordConfirm);
+        id: id ?? this.id);
   }
 
   UserDto copyWithWrapped(
-      {Wrapped<String>? nationalCode,
-      Wrapped<String?>? code,
-      Wrapped<enums.GenderType>? gender,
+      {Wrapped<bool?>? student,
+      Wrapped<String?>? name,
+      Wrapped<String?>? managerName,
+      Wrapped<String>? userName,
+      Wrapped<String?>? email,
+      Wrapped<String?>? password,
+      Wrapped<String?>? passwordConfirm,
       Wrapped<String>? fname,
       Wrapped<String>? lname,
+      Wrapped<enums.GenderType>? gender,
+      Wrapped<String>? nationalCode,
+      Wrapped<String>? phoneNumber,
+      Wrapped<String?>? code,
       Wrapped<String>? birthCertificateNumber,
       Wrapped<String>? birthDay,
       Wrapped<String>? birthCity,
       Wrapped<String>? certificateCity,
       Wrapped<String>? phone,
       Wrapped<String>? postalCode,
-      Wrapped<String>? phoneNumber,
-      Wrapped<String?>? id,
-      Wrapped<String>? userName,
-      Wrapped<String?>? email,
-      Wrapped<bool?>? student,
-      Wrapped<String?>? name,
-      Wrapped<String?>? managerName,
-      Wrapped<String?>? password,
-      Wrapped<String?>? passwordConfirm}) {
+      Wrapped<String?>? id}) {
     return UserDto(
-        nationalCode:
-            (nationalCode != null ? nationalCode.value : this.nationalCode),
-        code: (code != null ? code.value : this.code),
-        gender: (gender != null ? gender.value : this.gender),
+        student: (student != null ? student.value : this.student),
+        name: (name != null ? name.value : this.name),
+        managerName:
+            (managerName != null ? managerName.value : this.managerName),
+        userName: (userName != null ? userName.value : this.userName),
+        email: (email != null ? email.value : this.email),
+        password: (password != null ? password.value : this.password),
+        passwordConfirm: (passwordConfirm != null
+            ? passwordConfirm.value
+            : this.passwordConfirm),
         fname: (fname != null ? fname.value : this.fname),
         lname: (lname != null ? lname.value : this.lname),
+        gender: (gender != null ? gender.value : this.gender),
+        nationalCode:
+            (nationalCode != null ? nationalCode.value : this.nationalCode),
+        phoneNumber:
+            (phoneNumber != null ? phoneNumber.value : this.phoneNumber),
+        code: (code != null ? code.value : this.code),
         birthCertificateNumber: (birthCertificateNumber != null
             ? birthCertificateNumber.value
             : this.birthCertificateNumber),
@@ -3135,19 +3168,7 @@ extension $UserDtoExtension on UserDto {
             : this.certificateCity),
         phone: (phone != null ? phone.value : this.phone),
         postalCode: (postalCode != null ? postalCode.value : this.postalCode),
-        phoneNumber:
-            (phoneNumber != null ? phoneNumber.value : this.phoneNumber),
-        id: (id != null ? id.value : this.id),
-        userName: (userName != null ? userName.value : this.userName),
-        email: (email != null ? email.value : this.email),
-        student: (student != null ? student.value : this.student),
-        name: (name != null ? name.value : this.name),
-        managerName:
-            (managerName != null ? managerName.value : this.managerName),
-        password: (password != null ? password.value : this.password),
-        passwordConfirm: (passwordConfirm != null
-            ? passwordConfirm.value
-            : this.passwordConfirm));
+        id: (id != null ? id.value : this.id));
   }
 }
 
@@ -3166,17 +3187,18 @@ class UserDtoApiResult {
   static const toJsonFactory = _$UserDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$UserDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data')
+  @JsonKey(name: 'data', includeIfNull: true)
   final UserDto? data;
-  @JsonKey(name: 'isSuccess')
+  @JsonKey(name: 'isSuccess', includeIfNull: true)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
+    includeIfNull: true,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message')
+  @JsonKey(name: 'message', includeIfNull: true)
   final String? message;
   static const fromJsonFactory = _$UserDtoApiResultFromJson;
 
@@ -3255,19 +3277,19 @@ class ApiV1AuthenticationFreeTokenPost$RequestBody {
   Map<String, dynamic> toJson() =>
       _$ApiV1AuthenticationFreeTokenPost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'grant_type')
+  @JsonKey(name: 'grant_type', includeIfNull: true)
   final String? grantType;
-  @JsonKey(name: 'username')
+  @JsonKey(name: 'username', includeIfNull: true)
   final String? username;
-  @JsonKey(name: 'password')
+  @JsonKey(name: 'password', includeIfNull: true)
   final String? password;
-  @JsonKey(name: 'refresh_token')
+  @JsonKey(name: 'refresh_token', includeIfNull: true)
   final String? refreshToken;
-  @JsonKey(name: 'scope')
+  @JsonKey(name: 'scope', includeIfNull: true)
   final String? scope;
-  @JsonKey(name: 'client_id')
+  @JsonKey(name: 'client_id', includeIfNull: true)
   final String? clientId;
-  @JsonKey(name: 'client_secret')
+  @JsonKey(name: 'client_secret', includeIfNull: true)
   final String? clientSecret;
   static const fromJsonFactory =
       _$ApiV1AuthenticationFreeTokenPost$RequestBodyFromJson;
@@ -3369,7 +3391,7 @@ class ApiV1AuthenticationEditProfileImagePost$RequestBody {
   Map<String, dynamic> toJson() =>
       _$ApiV1AuthenticationEditProfileImagePost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'File')
+  @JsonKey(name: 'File', includeIfNull: true)
   final String? file;
   static const fromJsonFactory =
       _$ApiV1AuthenticationEditProfileImagePost$RequestBodyFromJson;

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_listener/hive_listener.dart';
-import 'package:delivery/controller/addresses/address_controller.dart'
+import 'package:delivery/controller/addresses/address_controller_dont_touch.dart'
     as address_controller;
 
 class PaymentFirstScreen extends StatefulWidget {
@@ -25,7 +25,6 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
   void initState() {
     super.initState();
     getData();
-    getAddresses();
   }
 
   List<ShopCardEntity> shopCardItems = [];
@@ -47,14 +46,6 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     MyBox.shopCardBox = await Hive.openBox("shopCardBox");
     shopCardItems = MyBox.shopCardBox.values.toList();
     setState(() {});
-  }
-
-  getAddresses() {
-    address_controller.getAddresses().then((value) {
-      setState(() {
-        addresses = value.data!;
-      });
-    });
   }
 
   @override
@@ -178,20 +169,7 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  showDialog<Dialog>(
-                    context: context,
-                    builder: (BuildContext context) => MyPaymentDialog(
-<<<<<<< HEAD
-=======
-                      addresses: [],
->>>>>>> 7a03577838b6b350edcc0f59fdc45bae4c032ce0
-                      shops: shopCardItems,
-                    ),
-                  );
-                  // Navigator.of(context).pushNamedAndRemoveUntil(
-                  // "chooseDateScreen", (route) => false);
-                },
+                onTap: () {},
                 child: Container(
                   width: 150,
                   height: 40,

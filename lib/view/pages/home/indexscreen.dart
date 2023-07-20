@@ -1,5 +1,8 @@
+import 'package:delivery/controller/addresses/address_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
+import 'package:delivery/view/components/address_dialog/list_address.dart';
+import 'package:delivery/view/components/address_dialog/show_address.dart';
 import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
@@ -14,7 +17,7 @@ import 'package:delivery/controller/categories/categories_controller.dart'
     as ctg_controller;
 import 'package:delivery/controller/products/products_controller.dart'
     as products_controller;
-import 'package:delivery/controller/addresses/address_controller.dart'
+import 'package:delivery/controller/addresses/address_controller_dont_touch.dart'
     as address_controller;
 
 class IndexScreen extends StatefulWidget {
@@ -35,7 +38,6 @@ class _IndexScreenState extends State<IndexScreen> {
   void initState() {
     super.initState();
     getData();
-    getAddresses();
   }
 
   getData() {
@@ -47,49 +49,16 @@ class _IndexScreenState extends State<IndexScreen> {
     });
   }
 
-  getAddresses() {
-    address_controller.getAddresses().then((value) {
-      setState(() {
-        myList = value.data!;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: InkWell(
-        onTap: () {
-          address_controller.getAddresses().then(
-            (value) {
-              if (value.data!.isNotEmpty) {
-                value.data!.last.location;
-              }
-              if (visible) {
-                showDialog<Dialog>(
-                  context: context,
-                  builder: (BuildContext context) => MyAddressDialog(
-                    shops: [],
-                    visible: visible,
-                    postalCode: 'hamed',
-                    address: 'hamed',
-                  ),
-                );
-              } else {
-                visible = true;
-
-                showDialog<Dialog>(
-                  context: context,
-                  builder: (BuildContext context) => MyAddressDialog(
-                    shops: [],
-                    visible: visible,
-                    postalCode: 'hamed',
-                    address: 'hamed',
-                  ),
-                );
-              }
-            },
-          );
+        onTap: () async {
+          getAddresses(context: context).then((value) {
+            if (value.isSuccess == true) {
+              buildShowListAddressDialog(context, value.data!);
+            }
+          });
         },
         child: Container(
           width: 55,
