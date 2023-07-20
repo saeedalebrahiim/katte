@@ -5,8 +5,6 @@ import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -17,10 +15,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final nameController = TextEditingController();
-
   final familyController = TextEditingController();
-
   final phonumberController = TextEditingController();
+
   final GlobalKey<ScaffoldState> fromScaffold = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -185,6 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           signup(
                             context: context,
                             body: SignUpDto(
+                              id: "3fa85f64-5717-4562-b3fc-2c963f77afa6",
+                              otp: 0,
                               fName: nameController.text,
                               lName: familyController.text,
                               phoneNumber: phonumberController.text,

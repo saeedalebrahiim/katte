@@ -180,18 +180,19 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                   ),
                 ],
               ),
-              //for (int index = 0; index < widget.addresses.length; index++)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 31),
-                child: Text(
-                  textDirection: TextDirection.rtl,
-                  '${widget.addresses[0].location}',
-                  style: GoogleFonts.notoNaskhArabic(
-                      color: Colors.grey.shade900,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15),
+              for (int index = 0; index < widget.addresses.length; index++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 31),
+                  child: Text(
+                    textDirection: TextDirection.rtl,
+                    //'shiraz - blv ',
+                    '${widget.addresses[index].location}',
+                    style: GoogleFonts.notoNaskhArabic(
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: 10,
               ),
@@ -207,10 +208,10 @@ class _MyPaymentDialogState extends State<MyPaymentDialog> {
                           builder: (BuildContext context) => MyAddressDialog(
                             shops: [],
                             visible: true,
-                            address: 'dsjcnksdncksjdcnksdjcnkjndsjk',
-                            postalCode: '16516516',
+                            address: 'شیراز خیابان شهید اقایی',
+                            postalCode: '88888888888',
                           ),
-                        );
+                        ).asStream();
                       },
                       child: Container(
                         decoration: BoxDecoration(

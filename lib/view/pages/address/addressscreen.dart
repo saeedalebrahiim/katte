@@ -8,8 +8,9 @@ import 'package:delivery/controller/addresses/address_controller.dart'
     as address_controller;
 
 class MyAddressScreen extends StatefulWidget {
-  const MyAddressScreen({super.key});
-
+  const MyAddressScreen({
+    super.key,
+  });
   @override
   State<MyAddressScreen> createState() => _MyAddressScreenState();
 }
@@ -17,6 +18,7 @@ class MyAddressScreen extends StatefulWidget {
 class _MyAddressScreenState extends State<MyAddressScreen> {
   bool visible = false;
   List<AddressDto> myList = [];
+
   @override
   void initState() {
     super.initState();

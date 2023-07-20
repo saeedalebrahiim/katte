@@ -449,7 +449,9 @@ abstract class Katte extends ChopperService {
   ///@param UserId
   ///@param Authority
   ///@param status
-  @Get(path: 'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
+  @Get(
+      path:
+          'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
   Future<chopper.Response<ApiResult>>
       _apiV1PaymentProductPaymentConfirmationGet({
     @Query('ShopCardId') String? shopCardId,

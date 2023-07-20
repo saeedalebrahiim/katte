@@ -41,11 +41,14 @@ Future<ApiResult> addAddresses(
   final postResult = await api.apiV1AddressPost(body: body);
   print(postResult.body);
   print(postResult.error);
+  print(body.clientId);
 
   if (postResult.isSuccessful == true) {
     print(postResult.error);
     if (postResult.body!.isSuccess == true) {
+      print(postResult.base);
     } else {
+      print(postResult.body);
       QuickAlert.show(
         context: context,
         type: QuickAlertType.error,

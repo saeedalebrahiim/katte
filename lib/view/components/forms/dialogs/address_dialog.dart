@@ -35,10 +35,10 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
   @override
   void initState() {
     super.initState();
-    getData();
+    getAddressesFromAPI();
   }
 
-  getData() {
+  getAddressesFromAPI() {
     address_controller.getAddresses().then((value) {
       setState(() {
         myList = value.data!;
@@ -51,8 +51,14 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
     address_controller
         .addAddresses(context: context, body: addressDto)
         .then((value) {
-      myList.add(addressDto);
-      print('add addressDto to myList');
+      if (value.statusCode == 200) {
+        setState(() {
+          myList.add(addressDto);
+          print('add addressDto to myList');
+        });
+      } else {
+        print('adding failed');
+      }
     });
   }
 
@@ -199,11 +205,17 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                   ),
                   InkWell(
                     onTap: () {
-                      addAddresses(AddressDto(
-                          location: widget.addressController!.text,
-                          postalCode: widget.postalCodeController!.text));
+                      setState(() {
+                        addAddresses(AddressDto(
+                            clientId: "64c10c05-b718-ee11-a9d3-d14d2a92f4c0",
+                            location: 'shiraz-poaskpkaspxkaxnasnx',
+                            postalCode: '8498416666666',
+                            clientFname: 'reza',
+                            clientLname: 'mohammady',
+                            clientPhoneNumber: '09387285366'));
+                        print('add addresses');
+                      });
                       Navigator.pop(context);
-                      setState(() {});
                     },
                     child: Container(
                       width: 65,
@@ -360,11 +372,13 @@ class _MyAddressDialogState extends State<MyAddressDialog> {
                 onTap: () {
                   setState(() {
                     widget.visible = false;
+                    addAddresses(AddressDto(
+                        clientId: "64c10c05-b718-ee11-a9d3-d14d2a92f4c0",
+                        location: widget.addressController!.text,
+                        postalCode: widget.postalCodeController!.text));
+                    print('succsess');
                   });
-                  addAddresses(AddressDto(
-                      location: widget.addressController!.text,
-                      postalCode: widget.postalCodeController!.text));
-                  print('succsess');
+
                   Navigator.pop(context);
                   // Navigator.of(context).push(
                   //   MaterialPageRoute(builder: (_) => LoginScreen()),
