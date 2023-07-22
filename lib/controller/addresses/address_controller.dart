@@ -14,7 +14,9 @@ Future<AddressDtoListApiResult> getAddresses(
   if (postResult.isSuccessful == true) {
     print(postResult.error);
     if (postResult.body!.isSuccess == true) {
+      print(postResult.base);
     } else {
+      print(postResult.body);
       QuickAlert.show(
         context: context,
         type: QuickAlertType.error,
