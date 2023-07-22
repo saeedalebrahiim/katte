@@ -5,6 +5,8 @@ import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delivery/controller/authentication/auth_controller.dart'
+    as auth_controller;
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -137,32 +139,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 50,
                     width: 250,
                     child: TextFormField(
-                        textAlign: TextAlign.center,
-                        cursorColor: Colors.grey,
-                        decoration: InputDecoration(
-                            hintText: '- - - - - - - - - - -',
-                            labelText: 'شماره تلفن',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            floatingLabelStyle: GoogleFonts.notoNaskhArabic(
-                                color: secondColor,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w600),
-                            floatingLabelAlignment:
-                                FloatingLabelAlignment.center,
-                            labelStyle: GoogleFonts.notoNaskhArabic(
-                                color: Colors.grey.shade900,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide:
-                                    BorderSide(color: secondColor, width: 0.7)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide:
-                                    BorderSide(color: secondColor, width: 0.7)),
-                            fillColor: primaryColor,
-                            filled: true)),
+                      textAlign: TextAlign.center,
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                          hintText: '- - - - - - - - - - -',
+                          labelText: 'شماره تلفن',
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          floatingLabelStyle: GoogleFonts.notoNaskhArabic(
+                              color: secondColor,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600),
+                          floatingLabelAlignment: FloatingLabelAlignment.center,
+                          labelStyle: GoogleFonts.notoNaskhArabic(
+                              color: Colors.grey.shade900,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide:
+                                  BorderSide(color: secondColor, width: 0.7)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide:
+                                  BorderSide(color: secondColor, width: 0.7)),
+                          fillColor: primaryColor,
+                          filled: true),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -179,7 +181,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          signup(
+                          auth_controller
+                              .signup(
                             context: context,
                             body: SignUpDto(
                               id: "3fa85f64-5717-4562-b3fc-2c963f77afa6",
@@ -188,7 +191,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               lName: familyController.text,
                               phoneNumber: phonumberController.text,
                             ),
-                          ).then((value) {
+                          )
+                              .then((value) {
                             if (value.isSuccess!) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
