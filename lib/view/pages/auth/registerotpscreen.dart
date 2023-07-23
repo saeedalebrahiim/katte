@@ -9,8 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class RegisterOtpScreen extends StatelessWidget {
-  RegisterOtpScreen({super.key, required this.phoneNumber});
+  RegisterOtpScreen({super.key, required this.phoneNumber, required this.dto});
   final String phoneNumber;
+  final SignUpDto dto;
 
   var otpController = TextEditingController();
 
@@ -106,9 +107,16 @@ class RegisterOtpScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
                           signup(
-                              context: context,
-                              body: SignUpDto(phoneNumber: otpController.text));
-                          Navigator.pushNamed(context, indexScreen);
+                                  context: context,
+                                  body: SignUpDto(
+                                      fName: dto.fName,
+                                      lName: dto.lName,
+                                      phoneNumber: dto.phoneNumber,
+                                      id: dto.id,
+                                      otp: int.parse(otpController.text)))
+                              .then((value) {
+                            Navigator.pushNamed(context, indexScreen);
+                          });
                         },
                         child: Container(
                           width: 70,

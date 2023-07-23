@@ -1,5 +1,6 @@
 import 'package:delivery/controller/addresses/address_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
+import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/address_dialog/list_address.dart';
 import 'package:delivery/view/components/address_dialog/show_address.dart';
@@ -121,7 +122,7 @@ class _IndexScreenState extends State<IndexScreen> {
         scrolledUnderElevation: 1.5,
         toolbarHeight: 50,
         leading: Badge(
-          label: Text("9+"),
+          label: Text('9+'),
           alignment: Alignment.topRight,
           offset: Offset.fromDirection(-3),
           child: IconButton(

@@ -2,6 +2,7 @@ import 'package:delivery/controller/authentication/auth_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
+import 'package:delivery/view/pages/auth/LoginScreenOTP.dart';
 import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -185,7 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               .signup(
                             context: context,
                             body: SignUpDto(
-                              id: "3fa85f64-5717-4562-b3fc-2c963f77afa6",
+                              id: '00000000-0000-0000-0000-000000000000',
                               otp: 0,
                               fName: nameController.text,
                               lName: familyController.text,
@@ -196,8 +197,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (value.isSuccess!) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterOtpScreen(
-                                      phoneNumber: phonumberController.text),
+                                  builder: (context) => LoginScreenOTP(
+                                    phoneNumber: phonumberController.text,
+                                  ),
                                 ),
                               );
                             } else {
