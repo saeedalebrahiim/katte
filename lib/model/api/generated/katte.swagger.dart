@@ -2914,22 +2914,22 @@ class UserDto {
     this.student,
     this.name,
     this.managerName,
-    required this.userName,
+    this.userName,
     this.email,
     this.password,
     this.passwordConfirm,
-    required this.fname,
-    required this.lname,
-    required this.gender,
-    required this.nationalCode,
-    required this.phoneNumber,
+    this.fname,
+    this.lname,
+    this.gender,
+    this.nationalCode,
+    this.phoneNumber,
     this.code,
-    required this.birthCertificateNumber,
-    required this.birthDay,
-    required this.birthCity,
-    required this.certificateCity,
-    required this.phone,
-    required this.postalCode,
+    this.birthCertificateNumber,
+    this.birthDay,
+    this.birthCity,
+    this.certificateCity,
+    this.phone,
+    this.postalCode,
     this.id,
   });
 
@@ -2939,50 +2939,50 @@ class UserDto {
   static const toJsonFactory = _$UserDtoToJson;
   Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 
-  @JsonKey(name: 'student', includeIfNull: true)
+  @JsonKey(name: 'student', includeIfNull: false)
   final bool? student;
-  @JsonKey(name: 'name', includeIfNull: true)
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'managerName', includeIfNull: true)
+  @JsonKey(name: 'managerName', includeIfNull: false)
   final String? managerName;
-  @JsonKey(name: 'userName', includeIfNull: true)
-  final String userName;
-  @JsonKey(name: 'email', includeIfNull: true)
+  @JsonKey(name: 'userName', includeIfNull: false)
+  final String? userName;
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'password', includeIfNull: true)
+  @JsonKey(name: 'password', includeIfNull: false)
   final String? password;
-  @JsonKey(name: 'passwordConfirm', includeIfNull: true)
+  @JsonKey(name: 'passwordConfirm', includeIfNull: false)
   final String? passwordConfirm;
-  @JsonKey(name: 'fname', includeIfNull: true)
-  final String fname;
-  @JsonKey(name: 'lname', includeIfNull: true)
-  final String lname;
+  @JsonKey(name: 'fname', includeIfNull: false)
+  final String? fname;
+  @JsonKey(name: 'lname', includeIfNull: false)
+  final String? lname;
   @JsonKey(
     name: 'gender',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: genderTypeToJson,
     fromJson: genderTypeFromJson,
   )
-  final enums.GenderType gender;
-  @JsonKey(name: 'nationalCode', includeIfNull: true)
-  final String nationalCode;
-  @JsonKey(name: 'phoneNumber', includeIfNull: true)
-  final String phoneNumber;
-  @JsonKey(name: 'code', includeIfNull: true)
+  final enums.GenderType? gender;
+  @JsonKey(name: 'nationalCode', includeIfNull: false)
+  final String? nationalCode;
+  @JsonKey(name: 'phoneNumber', includeIfNull: false)
+  final String? phoneNumber;
+  @JsonKey(name: 'code', includeIfNull: false)
   final String? code;
-  @JsonKey(name: 'birthCertificateNumber', includeIfNull: true)
-  final String birthCertificateNumber;
-  @JsonKey(name: 'birthDay', includeIfNull: true)
-  final String birthDay;
-  @JsonKey(name: 'birthCity', includeIfNull: true)
-  final String birthCity;
-  @JsonKey(name: 'certificateCity', includeIfNull: true)
-  final String certificateCity;
-  @JsonKey(name: 'phone', includeIfNull: true)
-  final String phone;
-  @JsonKey(name: 'postalCode', includeIfNull: true)
-  final String postalCode;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'birthCertificateNumber', includeIfNull: false)
+  final String? birthCertificateNumber;
+  @JsonKey(name: 'birthDay', includeIfNull: false)
+  final String? birthDay;
+  @JsonKey(name: 'birthCity', includeIfNull: false)
+  final String? birthCity;
+  @JsonKey(name: 'certificateCity', includeIfNull: false)
+  final String? certificateCity;
+  @JsonKey(name: 'phone', includeIfNull: false)
+  final String? phone;
+  @JsonKey(name: 'postalCode', includeIfNull: false)
+  final String? postalCode;
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$UserDtoFromJson;
 

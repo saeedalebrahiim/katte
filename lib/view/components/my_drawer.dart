@@ -1,4 +1,5 @@
 import 'package:delivery/model/globals/globals.dart';
+import 'package:delivery/view/pages/profile/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,34 +22,35 @@ class _MyDrawerState extends State<MyDrawer> {
             SizedBox(
               height: 200,
               child: DrawerHeader(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image(
-                    image: const AssetImage('lib/assets/images/chef.png'),
-                    width: 73,
-                    height: 73,
-                    color: primaryColor,
-                  ),
-                  Text(
-                    'K  a  t  t  é',
-                    style: GoogleFonts.dosis(
-                        fontSize: 33,
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'Username',
-                    style: GoogleFonts.dosis(
-                        fontWeight: FontWeight.w600,
-                        color: primaryColor,
-                        fontSize: 17),
-                  ),
-                ],
-              )),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image(
+                      image: const AssetImage('lib/assets/images/chef.png'),
+                      width: 73,
+                      height: 73,
+                      color: primaryColor,
+                    ),
+                    Text(
+                      'K  a  t  t  é',
+                      style: GoogleFonts.dosis(
+                          fontSize: 33,
+                          color: primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Username',
+                      style: GoogleFonts.dosis(
+                          fontWeight: FontWeight.w600,
+                          color: primaryColor,
+                          fontSize: 17),
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(
               height: 15,
@@ -69,8 +71,11 @@ class _MyDrawerState extends State<MyDrawer> {
                       fontWeight: FontWeight.w400),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      "profileScreen", (route) => false);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ProfileScreen(),
+                    ),
+                  );
                 },
               ),
             ),

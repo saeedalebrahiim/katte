@@ -40,7 +40,7 @@ class _ChooseDateScreenState extends State<ChooseDateScreen> {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

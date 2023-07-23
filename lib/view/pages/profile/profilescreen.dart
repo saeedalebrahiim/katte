@@ -19,21 +19,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   UserDto? user;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
 
-  getData() {
-    profile
-        .getProfile(
+  getData() async {
+    print('enter get data from profile');
+    await profile.getProfile(
       context: context,
-    )
-        .then((value) {
-      setState(() {
-        user = value.data;
-      });
-    });
+    );
+    print('profile done');
   }
 
   @override
@@ -144,8 +139,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '${user!.userName}',
-                                    //'${user!.fname}',
+                                    user!.fname.toString(),
+                                    //'hmed',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -179,8 +174,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '${user!.lname}',
-                                    //'${user!.lname}',
+                                    user!.fname.toString(),
+                                    //'pouyanfar',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,
@@ -214,8 +209,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    '${user!.phoneNumber}',
-                                    //'${user!.phoneNumber}',
+                                    user!.fname.toString(),
+                                    //'09369774070',
                                     style: GoogleFonts.dosis(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.bold,
@@ -249,8 +244,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: Text(
-                                    '${user!.email}',
-                                    //'${user!.email}',
+                                    user!.fname.toString(),
+                                    //'hamed@gmail.com',
                                     style: GoogleFonts.notoNaskhArabic(
                                         color: Colors.grey.shade900,
                                         fontWeight: FontWeight.w600,

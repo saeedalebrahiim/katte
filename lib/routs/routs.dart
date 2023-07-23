@@ -1,7 +1,4 @@
-import 'package:delivery/view/pages/address/addressscreen.dart';
-import 'package:delivery/view/pages/auth/LoginScreenOTP.dart';
 import 'package:delivery/view/pages/auth/loginscreen.dart';
-import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:delivery/view/pages/auth/registerscreen.dart';
 import 'package:delivery/view/pages/choosedate/choosedatescreen.dart';
 import 'package:delivery/view/pages/home/indexscreen.dart';
