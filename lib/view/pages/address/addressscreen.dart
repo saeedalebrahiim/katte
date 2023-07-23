@@ -19,7 +19,6 @@ class MyAddressScreen extends StatefulWidget {
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
   bool visible = false;
-  List<AddressDto> myList = [];
   @override
   void initState() {
     super.initState();
@@ -28,22 +27,16 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
 
   getData() {
     address_controller.getAddresses(context: context).then((value) {
-      setState(() {
-        address_state.AddressIndexProvider().setAddresses(value.data!);
-      });
+      address_state.AddressIndexProvider().setAddresses(value.data!);
     });
   }
 
   addAddresses(AddressDto addressDto) {
-    address_controller.addAddress(context: context, dto: addressDto).then(
-      (value) {
-        setState(
-          () {
-            getData();
-          },
-        );
-      },
-    );
+    address_controller
+        .addAddress(context: context, dto: addressDto)
+        .then((value) {
+      getData();
+    });
   }
 
   @override
@@ -84,25 +77,28 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: const Duration(milliseconds: 500),
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                        horizontalOffset: 50.0,
-                        child: FadeInAnimation(child: widget)),
-                    children: [
-                      for (int index = 0; index < myList.length; index++)
-                        Consumer<AddressIndexProvider>(
-                          builder: (context, value, child) => Padding(
+                child: Consumer<AddressIndexProvider>(
+                  builder: (context, value, child) => Column(
+                    children: AnimationConfiguration.toStaggeredList(
+                      duration: const Duration(milliseconds: 500),
+                      childAnimationBuilder: (widget) => SlideAnimation(
+                          horizontalOffset: 50.0,
+                          child: FadeInAnimation(child: widget)),
+                      children: [
+                        for (int index = 0;
+                            index < AddressIndexProvider.allAddresses.length;
+                            index++)
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text('${myList[index].location}'),
+                            child: Text(
+                                '${AddressIndexProvider.allAddresses[index].location}'),
                           ),
-                        ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: Text('${myList[index].location}'),
-                      // ),
-                    ],
+                        // Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Text('${myList[index].location}'),
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),

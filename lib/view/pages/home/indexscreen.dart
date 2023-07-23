@@ -7,6 +7,7 @@ import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
+import 'package:delivery/view/pages/address/addressscreen.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +55,18 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       floatingActionButton: InkWell(
         onTap: () async {
-          getAddresses(context: context).then((value) {
-            if (value.isSuccess == true) {
-              buildShowListAddressDialog(context, value.data!);
-            }
-          });
+          getAddresses(context: context).then(
+            (value) {
+              if (value.isSuccess == true) {
+                //buildShowListAddressDialog(context, value.data!);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const MyAddressScreen(),
+                  ),
+                );
+              }
+            },
+          );
         },
         child: Container(
           width: 55,

@@ -1,6 +1,7 @@
 import 'package:delivery/initscreen.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/routs/routs.dart';
+import 'package:delivery/view/provider/address_state.dart';
 import 'package:delivery/view/provider/home_index.dart';
 import 'package:delivery/view/provider/index_card.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => IndexCardState()),
-        ChangeNotifierProvider(create: (_) => HomeIndexProvider())
+        ChangeNotifierProvider(create: (_) => HomeIndexProvider()),
+        ChangeNotifierProvider(create: (_) => AddressIndexProvider()),
       ],
       child: const MyApp(),
     ),
