@@ -73,36 +73,31 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AnimationLimiter(
-                child: Consumer<AddressIndexProvider>(
-                  builder: (context, value, child) => Column(
-                    children: AnimationConfiguration.toStaggeredList(
-                      duration: const Duration(milliseconds: 500),
-                      childAnimationBuilder: (widget) => SlideAnimation(
-                          horizontalOffset: 50.0,
-                          child: FadeInAnimation(child: widget)),
-                      children: [
-                        for (int index = 0;
-                            index < AddressIndexProvider.allAddresses.length;
-                            index++)
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                '${AddressIndexProvider.allAddresses[index].location}'),
-                          ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Text('${myList[index].location}'),
-                        // ),
-                      ],
+          child: Consumer<AddressIndexProvider>(
+            builder: (context, value, child) => Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: const Duration(milliseconds: 500),
+                childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: 50.0,
+                    child: FadeInAnimation(child: widget)),
+                children: [
+                  for (int index = 0;
+                      index < AddressIndexProvider.allAddresses.length;
+                      index++)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${AddressIndexProvider.allAddresses[index].location}',
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ),
-                  ),
-                ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text('${myList[index].location}'),
+                  // ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
