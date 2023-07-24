@@ -139,6 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 50,
                     width: 250,
                     child: TextFormField(
+                      controller: phonumberController,
                       textAlign: TextAlign.center,
                       cursorColor: Colors.grey,
                       decoration: InputDecoration(

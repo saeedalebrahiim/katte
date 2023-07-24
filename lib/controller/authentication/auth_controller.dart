@@ -44,14 +44,15 @@ Future<AccessToken> loginOtp({
   required LoginOtpDto body,
 }) async {
   print("login otpppppp");
+
   final api = Katte.create();
   final postResult = await api.apiV1AuthenticationLoginOtpPost(
     body: body,
   );
-  //print(LoginOtpDto().code);
+  print(body);
+  print(postResult.base.statusCode);
   print(postResult.body);
   print(postResult.error);
-  //postResult.body.token
 
   if (postResult.isSuccessful == true) {
     print("hey im after route");
@@ -60,6 +61,7 @@ Future<AccessToken> loginOtp({
     sp.setString("token", response.accessToken.toString());
     Navigator.of(context)
         .pushNamedAndRemoveUntil(indexScreen, (route) => false);
+    print("hey im after get token from shared preferences");
   } else {
     QuickAlert.show(
       context: context,
@@ -118,7 +120,7 @@ Future<StringApiResult> signup({
     AccessOriginHeader(),
     AccessOriginsHeader()
   ]);
-
+  print(body);
   final postResult = await api.apiV1AuthenticationSignUpPost(
     body: body,
   );

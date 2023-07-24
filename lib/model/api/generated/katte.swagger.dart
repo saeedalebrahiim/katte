@@ -449,9 +449,7 @@ abstract class Katte extends ChopperService {
   ///@param UserId
   ///@param Authority
   ///@param status
-  @Get(
-      path:
-          'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
+  @Get(path: 'http://103.75.197.248:90/api/v1/Payment/ProductPaymentConfirmation')
   Future<chopper.Response<ApiResult>>
       _apiV1PaymentProductPaymentConfirmationGet({
     @Query('ShopCardId') String? shopCardId,
@@ -651,13 +649,13 @@ class AccessToken {
   static const toJsonFactory = _$AccessTokenToJson;
   Map<String, dynamic> toJson() => _$AccessTokenToJson(this);
 
-  @JsonKey(name: 'access_token', includeIfNull: true)
+  @JsonKey(name: 'access_token', includeIfNull: false)
   final String? accessToken;
-  @JsonKey(name: 'refresh_token', includeIfNull: true)
+  @JsonKey(name: 'refresh_token', includeIfNull: false)
   final String? refreshToken;
-  @JsonKey(name: 'token_type', includeIfNull: true)
+  @JsonKey(name: 'token_type', includeIfNull: false)
   final String? tokenType;
-  @JsonKey(name: 'expires_in', includeIfNull: true)
+  @JsonKey(name: 'expires_in', includeIfNull: false)
   final int? expiresIn;
   static const fromJsonFactory = _$AccessTokenFromJson;
 
@@ -738,21 +736,21 @@ class AddressDto {
   static const toJsonFactory = _$AddressDtoToJson;
   Map<String, dynamic> toJson() => _$AddressDtoToJson(this);
 
-  @JsonKey(name: 'clientId', includeIfNull: true)
+  @JsonKey(name: 'clientId', includeIfNull: false)
   final String? clientId;
-  @JsonKey(name: 'clientPhoneNumber', includeIfNull: true)
+  @JsonKey(name: 'clientPhoneNumber', includeIfNull: false)
   final String? clientPhoneNumber;
-  @JsonKey(name: 'clientFname', includeIfNull: true)
+  @JsonKey(name: 'clientFname', includeIfNull: false)
   final String? clientFname;
-  @JsonKey(name: 'clientLname', includeIfNull: true)
+  @JsonKey(name: 'clientLname', includeIfNull: false)
   final String? clientLname;
-  @JsonKey(name: 'topic', includeIfNull: true)
+  @JsonKey(name: 'topic', includeIfNull: false)
   final String? topic;
-  @JsonKey(name: 'postalCode', includeIfNull: true)
+  @JsonKey(name: 'postalCode', includeIfNull: false)
   final String? postalCode;
-  @JsonKey(name: 'location', includeIfNull: true)
+  @JsonKey(name: 'location', includeIfNull: false)
   final String? location;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$AddressDtoFromJson;
 
@@ -861,18 +859,18 @@ class AddressDtoApiResult {
   static const toJsonFactory = _$AddressDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$AddressDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final AddressDto? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$AddressDtoApiResultFromJson;
 
@@ -945,18 +943,18 @@ class AddressDtoListApiResult {
   static const toJsonFactory = _$AddressDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$AddressDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <AddressDto>[])
+  @JsonKey(name: 'data', includeIfNull: false, defaultValue: <AddressDto>[])
   final List<AddressDto>? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$AddressDtoListApiResultFromJson;
 
@@ -1028,16 +1026,16 @@ class ApiResult {
   static const toJsonFactory = _$ApiResultToJson;
   Map<String, dynamic> toJson() => _$ApiResultToJson(this);
 
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$ApiResultFromJson;
 
@@ -1101,9 +1099,9 @@ class Card2Dto {
   static const toJsonFactory = _$Card2DtoToJson;
   Map<String, dynamic> toJson() => _$Card2DtoToJson(this);
 
-  @JsonKey(name: 'addressId', includeIfNull: true)
+  @JsonKey(name: 'addressId', includeIfNull: false)
   final String? addressId;
-  @JsonKey(name: 'payOnline', includeIfNull: true)
+  @JsonKey(name: 'payOnline', includeIfNull: false)
   final bool? payOnline;
   static const fromJsonFactory = _$Card2DtoFromJson;
 
@@ -1159,13 +1157,13 @@ class CategoryDto {
   static const toJsonFactory = _$CategoryDtoToJson;
   Map<String, dynamic> toJson() => _$CategoryDtoToJson(this);
 
-  @JsonKey(name: 'name', includeIfNull: true)
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'imageLink', includeIfNull: true)
+  @JsonKey(name: 'imageLink', includeIfNull: false)
   final String? imageLink;
-  @JsonKey(name: 'code', includeIfNull: true)
+  @JsonKey(name: 'code', includeIfNull: false)
   final int? code;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$CategoryDtoFromJson;
 
@@ -1234,18 +1232,18 @@ class CategoryDtoListApiResult {
   static const toJsonFactory = _$CategoryDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$CategoryDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <CategoryDto>[])
+  @JsonKey(name: 'data', includeIfNull: false, defaultValue: <CategoryDto>[])
   final List<CategoryDto>? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$CategoryDtoListApiResultFromJson;
 
@@ -1322,26 +1320,26 @@ class CommentDto {
   static const toJsonFactory = _$CommentDtoToJson;
   Map<String, dynamic> toJson() => _$CommentDtoToJson(this);
 
-  @JsonKey(name: 'text', includeIfNull: true)
+  @JsonKey(name: 'text', includeIfNull: false)
   final String? text;
-  @JsonKey(name: 'rate', includeIfNull: true)
+  @JsonKey(name: 'rate', includeIfNull: false)
   final double? rate;
-  @JsonKey(name: 'userId', includeIfNull: true)
+  @JsonKey(name: 'userId', includeIfNull: false)
   final String? userId;
-  @JsonKey(name: 'userFname', includeIfNull: true)
+  @JsonKey(name: 'userFname', includeIfNull: false)
   final String? userFname;
-  @JsonKey(name: 'userLname', includeIfNull: true)
+  @JsonKey(name: 'userLname', includeIfNull: false)
   final String? userLname;
-  @JsonKey(name: 'productsId', includeIfNull: true)
+  @JsonKey(name: 'productsId', includeIfNull: false)
   final String? productsId;
   @JsonKey(
     name: 'commentStatus',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: commentStatusToJson,
     fromJson: commentStatusFromJson,
   )
   final enums.CommentStatus? commentStatus;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$CommentDtoFromJson;
 
@@ -1445,18 +1443,18 @@ class CommentDtoApiResult {
   static const toJsonFactory = _$CommentDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$CommentDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final CommentDto? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$CommentDtoApiResultFromJson;
 
@@ -1529,18 +1527,18 @@ class CommentDtoListApiResult {
   static const toJsonFactory = _$CommentDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$CommentDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <CommentDto>[])
+  @JsonKey(name: 'data', includeIfNull: false, defaultValue: <CommentDto>[])
   final List<CommentDto>? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$CommentDtoListApiResultFromJson;
 
@@ -1611,9 +1609,9 @@ class ListChosedProductDto {
   static const toJsonFactory = _$ListChosedProductDtoToJson;
   Map<String, dynamic> toJson() => _$ListChosedProductDtoToJson(this);
 
-  @JsonKey(name: 'productId', includeIfNull: true)
+  @JsonKey(name: 'productId', includeIfNull: false)
   final String? productId;
-  @JsonKey(name: 'count', includeIfNull: true)
+  @JsonKey(name: 'count', includeIfNull: false)
   final int? count;
   static const fromJsonFactory = _$ListChosedProductDtoFromJson;
 
@@ -1665,9 +1663,9 @@ class LoginOtpDto {
   static const toJsonFactory = _$LoginOtpDtoToJson;
   Map<String, dynamic> toJson() => _$LoginOtpDtoToJson(this);
 
-  @JsonKey(name: 'phoneNumber', includeIfNull: true)
+  @JsonKey(name: 'phoneNumber', includeIfNull: false)
   final String? phoneNumber;
-  @JsonKey(name: 'code', includeIfNull: true)
+  @JsonKey(name: 'code', includeIfNull: false)
   final int? code;
   static const fromJsonFactory = _$LoginOtpDtoFromJson;
 
@@ -1726,21 +1724,21 @@ class NotificationDto {
   static const toJsonFactory = _$NotificationDtoToJson;
   Map<String, dynamic> toJson() => _$NotificationDtoToJson(this);
 
-  @JsonKey(name: 'topic', includeIfNull: true)
+  @JsonKey(name: 'topic', includeIfNull: false)
   final String? topic;
-  @JsonKey(name: 'text', includeIfNull: true)
+  @JsonKey(name: 'text', includeIfNull: false)
   final String? text;
-  @JsonKey(name: 'dateTimes', includeIfNull: true)
+  @JsonKey(name: 'dateTimes', includeIfNull: false)
   final DateTime? dateTimes;
-  @JsonKey(name: 'userId', includeIfNull: true)
+  @JsonKey(name: 'userId', includeIfNull: false)
   final String? userId;
-  @JsonKey(name: 'userPhoneNumber', includeIfNull: true)
+  @JsonKey(name: 'userPhoneNumber', includeIfNull: false)
   final String? userPhoneNumber;
-  @JsonKey(name: 'userFName', includeIfNull: true)
+  @JsonKey(name: 'userFName', includeIfNull: false)
   final String? userFName;
-  @JsonKey(name: 'userLName', includeIfNull: true)
+  @JsonKey(name: 'userLName', includeIfNull: false)
   final String? userLName;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$NotificationDtoFromJson;
 
@@ -1857,38 +1855,38 @@ class ProductDto {
   static const toJsonFactory = _$ProductDtoToJson;
   Map<String, dynamic> toJson() => _$ProductDtoToJson(this);
 
-  @JsonKey(name: 'code', includeIfNull: true)
+  @JsonKey(name: 'code', includeIfNull: false)
   final int? code;
-  @JsonKey(name: 'name', includeIfNull: true)
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'price', includeIfNull: true)
+  @JsonKey(name: 'price', includeIfNull: false)
   final int? price;
-  @JsonKey(name: 'imageLink', includeIfNull: true)
+  @JsonKey(name: 'imageLink', includeIfNull: false)
   final String? imageLink;
-  @JsonKey(name: 'discount', includeIfNull: true)
+  @JsonKey(name: 'discount', includeIfNull: false)
   final int? discount;
-  @JsonKey(name: 'percent', includeIfNull: true)
+  @JsonKey(name: 'percent', includeIfNull: false)
   final int? percent;
-  @JsonKey(name: 'count', includeIfNull: true)
+  @JsonKey(name: 'count', includeIfNull: false)
   final int? count;
-  @JsonKey(name: 'rate', includeIfNull: true)
+  @JsonKey(name: 'rate', includeIfNull: false)
   final double? rate;
-  @JsonKey(name: 'totalRate', includeIfNull: true)
+  @JsonKey(name: 'totalRate', includeIfNull: false)
   final double? totalRate;
-  @JsonKey(name: 'shortDetail', includeIfNull: true)
+  @JsonKey(name: 'shortDetail', includeIfNull: false)
   final String? shortDetail;
-  @JsonKey(name: 'longDetail', includeIfNull: true)
+  @JsonKey(name: 'longDetail', includeIfNull: false)
   final String? longDetail;
-  @JsonKey(name: 'creationDateTime', includeIfNull: true)
+  @JsonKey(name: 'creationDateTime', includeIfNull: false)
   final DateTime? creationDateTime;
-  @JsonKey(name: 'categorysId', includeIfNull: true)
+  @JsonKey(name: 'categorysId', includeIfNull: false)
   final String? categorysId;
   @JsonKey(
-      name: 'categories', includeIfNull: true, defaultValue: <CategoryDto>[])
+      name: 'categories', includeIfNull: false, defaultValue: <CategoryDto>[])
   final List<CategoryDto>? categories;
-  @JsonKey(name: 'comments', includeIfNull: true, defaultValue: <CommentDto>[])
+  @JsonKey(name: 'comments', includeIfNull: false, defaultValue: <CommentDto>[])
   final List<CommentDto>? comments;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$ProductDtoFromJson;
 
@@ -2057,18 +2055,18 @@ class ProductDtoApiResult {
   static const toJsonFactory = _$ProductDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$ProductDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final ProductDto? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$ProductDtoApiResultFromJson;
 
@@ -2141,18 +2139,18 @@ class ProductDtoListApiResult {
   static const toJsonFactory = _$ProductDtoListApiResultToJson;
   Map<String, dynamic> toJson() => _$ProductDtoListApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true, defaultValue: <ProductDto>[])
+  @JsonKey(name: 'data', includeIfNull: false, defaultValue: <ProductDto>[])
   final List<ProductDto>? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$ProductDtoListApiResultFromJson;
 
@@ -2231,25 +2229,25 @@ class ShopCardDetailDto {
   static const toJsonFactory = _$ShopCardDetailDtoToJson;
   Map<String, dynamic> toJson() => _$ShopCardDetailDtoToJson(this);
 
-  @JsonKey(name: 'price', includeIfNull: true)
+  @JsonKey(name: 'price', includeIfNull: false)
   final int? price;
-  @JsonKey(name: 'count', includeIfNull: true)
+  @JsonKey(name: 'count', includeIfNull: false)
   final int? count;
-  @JsonKey(name: 'disCount', includeIfNull: true)
+  @JsonKey(name: 'disCount', includeIfNull: false)
   final int? disCount;
-  @JsonKey(name: 'productsId', includeIfNull: true)
+  @JsonKey(name: 'productsId', includeIfNull: false)
   final String? productsId;
-  @JsonKey(name: 'productsPrice', includeIfNull: true)
+  @JsonKey(name: 'productsPrice', includeIfNull: false)
   final int? productsPrice;
-  @JsonKey(name: 'productsDiscount', includeIfNull: true)
+  @JsonKey(name: 'productsDiscount', includeIfNull: false)
   final int? productsDiscount;
-  @JsonKey(name: 'productsName', includeIfNull: true)
+  @JsonKey(name: 'productsName', includeIfNull: false)
   final String? productsName;
-  @JsonKey(name: 'productsImageLink', includeIfNull: true)
+  @JsonKey(name: 'productsImageLink', includeIfNull: false)
   final String? productsImageLink;
-  @JsonKey(name: 'creationDateTime', includeIfNull: true)
+  @JsonKey(name: 'creationDateTime', includeIfNull: false)
   final DateTime? creationDateTime;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$ShopCardDetailDtoFromJson;
 
@@ -2388,38 +2386,39 @@ class ShopCardDto {
   static const toJsonFactory = _$ShopCardDtoToJson;
   Map<String, dynamic> toJson() => _$ShopCardDtoToJson(this);
 
-  @JsonKey(name: 'userId', includeIfNull: true)
+  @JsonKey(name: 'userId', includeIfNull: false)
   final String? userId;
-  @JsonKey(name: 'addressId', includeIfNull: true)
+  @JsonKey(name: 'addressId', includeIfNull: false)
   final String? addressId;
-  @JsonKey(name: 'orderReportId', includeIfNull: true)
+  @JsonKey(name: 'orderReportId', includeIfNull: false)
   final String? orderReportId;
-  @JsonKey(name: 'orderReportTax', includeIfNull: true)
+  @JsonKey(name: 'orderReportTax', includeIfNull: false)
   final int? orderReportTax;
-  @JsonKey(name: 'orderReportPostCost', includeIfNull: true)
+  @JsonKey(name: 'orderReportPostCost', includeIfNull: false)
   final int? orderReportPostCost;
-  @JsonKey(name: 'userUserName', includeIfNull: true)
+  @JsonKey(name: 'userUserName', includeIfNull: false)
   final String? userUserName;
-  @JsonKey(name: 'userFName', includeIfNull: true)
+  @JsonKey(name: 'userFName', includeIfNull: false)
   final String? userFName;
-  @JsonKey(name: 'userLName', includeIfNull: true)
+  @JsonKey(name: 'userLName', includeIfNull: false)
   final String? userLName;
-  @JsonKey(name: 'totalPrice', includeIfNull: true)
+  @JsonKey(name: 'totalPrice', includeIfNull: false)
   final int? totalPrice;
-  @JsonKey(name: 'postPrice', includeIfNull: true)
+  @JsonKey(name: 'postPrice', includeIfNull: false)
   final int? postPrice;
-  @JsonKey(name: 'finalTotalPrice', includeIfNull: true)
+  @JsonKey(name: 'finalTotalPrice', includeIfNull: false)
   final int? finalTotalPrice;
-  @JsonKey(name: 'payOnline', includeIfNull: true)
+  @JsonKey(name: 'payOnline', includeIfNull: false)
   final bool? payOnline;
   @JsonKey(
       name: 'shopCardDetails',
-      includeIfNull: true,
+      includeIfNull: false,
       defaultValue: <ShopCardDetailDto>[])
   final List<ShopCardDetailDto>? shopCardDetails;
-  @JsonKey(name: 'addresses', includeIfNull: true, defaultValue: <AddressDto>[])
+  @JsonKey(
+      name: 'addresses', includeIfNull: false, defaultValue: <AddressDto>[])
   final List<AddressDto>? addresses;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$ShopCardDtoFromJson;
 
@@ -2590,18 +2589,18 @@ class ShopCardDtoApiResult {
   static const toJsonFactory = _$ShopCardDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$ShopCardDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final ShopCardDto? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$ShopCardDtoApiResultFromJson;
 
@@ -2675,15 +2674,15 @@ class SignUpDto {
   static const toJsonFactory = _$SignUpDtoToJson;
   Map<String, dynamic> toJson() => _$SignUpDtoToJson(this);
 
-  @JsonKey(name: 'fName', includeIfNull: true)
+  @JsonKey(name: 'fName', includeIfNull: false)
   final String? fName;
-  @JsonKey(name: 'lName', includeIfNull: true)
+  @JsonKey(name: 'lName', includeIfNull: false)
   final String? lName;
-  @JsonKey(name: 'phoneNumber', includeIfNull: true)
+  @JsonKey(name: 'phoneNumber', includeIfNull: false)
   final String? phoneNumber;
-  @JsonKey(name: 'otp', includeIfNull: true)
+  @JsonKey(name: 'otp', includeIfNull: false)
   final int? otp;
-  @JsonKey(name: 'id', includeIfNull: true)
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$SignUpDtoFromJson;
 
@@ -2763,18 +2762,18 @@ class StringApiResult {
   static const toJsonFactory = _$StringApiResultToJson;
   Map<String, dynamic> toJson() => _$StringApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final String? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$StringApiResultFromJson;
 
@@ -2846,13 +2845,13 @@ class SyncOrderDto {
   static const toJsonFactory = _$SyncOrderDtoToJson;
   Map<String, dynamic> toJson() => _$SyncOrderDtoToJson(this);
 
-  @JsonKey(name: 'totalPrice', includeIfNull: true)
+  @JsonKey(name: 'totalPrice', includeIfNull: false)
   final int? totalPrice;
-  @JsonKey(name: 'description', includeIfNull: true)
+  @JsonKey(name: 'description', includeIfNull: false)
   final String? description;
   @JsonKey(
       name: 'list_Chosed_Product',
-      includeIfNull: true,
+      includeIfNull: false,
       defaultValue: <ListChosedProductDto>[])
   final List<ListChosedProductDto>? listChosedProduct;
   static const fromJsonFactory = _$SyncOrderDtoFromJson;
@@ -2914,22 +2913,22 @@ class UserDto {
     this.student,
     this.name,
     this.managerName,
-    this.userName,
+    required this.userName,
     this.email,
     this.password,
     this.passwordConfirm,
-    this.fname,
-    this.lname,
-    this.gender,
-    this.nationalCode,
-    this.phoneNumber,
+    required this.fname,
+    required this.lname,
+    required this.gender,
+    required this.nationalCode,
+    required this.phoneNumber,
     this.code,
-    this.birthCertificateNumber,
-    this.birthDay,
-    this.birthCity,
-    this.certificateCity,
-    this.phone,
-    this.postalCode,
+    required this.birthCertificateNumber,
+    required this.birthDay,
+    required this.birthCity,
+    required this.certificateCity,
+    required this.phone,
+    required this.postalCode,
     this.id,
   });
 
@@ -2946,7 +2945,7 @@ class UserDto {
   @JsonKey(name: 'managerName', includeIfNull: false)
   final String? managerName;
   @JsonKey(name: 'userName', includeIfNull: false)
-  final String? userName;
+  final String userName;
   @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
   @JsonKey(name: 'password', includeIfNull: false)
@@ -2954,34 +2953,34 @@ class UserDto {
   @JsonKey(name: 'passwordConfirm', includeIfNull: false)
   final String? passwordConfirm;
   @JsonKey(name: 'fname', includeIfNull: false)
-  final String? fname;
+  final String fname;
   @JsonKey(name: 'lname', includeIfNull: false)
-  final String? lname;
+  final String lname;
   @JsonKey(
     name: 'gender',
     includeIfNull: false,
     toJson: genderTypeToJson,
     fromJson: genderTypeFromJson,
   )
-  final enums.GenderType? gender;
+  final enums.GenderType gender;
   @JsonKey(name: 'nationalCode', includeIfNull: false)
-  final String? nationalCode;
+  final String nationalCode;
   @JsonKey(name: 'phoneNumber', includeIfNull: false)
-  final String? phoneNumber;
+  final String phoneNumber;
   @JsonKey(name: 'code', includeIfNull: false)
   final String? code;
   @JsonKey(name: 'birthCertificateNumber', includeIfNull: false)
-  final String? birthCertificateNumber;
+  final String birthCertificateNumber;
   @JsonKey(name: 'birthDay', includeIfNull: false)
-  final String? birthDay;
+  final String birthDay;
   @JsonKey(name: 'birthCity', includeIfNull: false)
-  final String? birthCity;
+  final String birthCity;
   @JsonKey(name: 'certificateCity', includeIfNull: false)
-  final String? certificateCity;
+  final String certificateCity;
   @JsonKey(name: 'phone', includeIfNull: false)
-  final String? phone;
+  final String phone;
   @JsonKey(name: 'postalCode', includeIfNull: false)
-  final String? postalCode;
+  final String postalCode;
   @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
   static const fromJsonFactory = _$UserDtoFromJson;
@@ -3187,18 +3186,18 @@ class UserDtoApiResult {
   static const toJsonFactory = _$UserDtoApiResultToJson;
   Map<String, dynamic> toJson() => _$UserDtoApiResultToJson(this);
 
-  @JsonKey(name: 'data', includeIfNull: true)
+  @JsonKey(name: 'data', includeIfNull: false)
   final UserDto? data;
-  @JsonKey(name: 'isSuccess', includeIfNull: true)
+  @JsonKey(name: 'isSuccess', includeIfNull: false)
   final bool? isSuccess;
   @JsonKey(
     name: 'statusCode',
-    includeIfNull: true,
+    includeIfNull: false,
     toJson: apiResultStatusCodeToJson,
     fromJson: apiResultStatusCodeFromJson,
   )
   final enums.ApiResultStatusCode? statusCode;
-  @JsonKey(name: 'message', includeIfNull: true)
+  @JsonKey(name: 'message', includeIfNull: false)
   final String? message;
   static const fromJsonFactory = _$UserDtoApiResultFromJson;
 
@@ -3277,19 +3276,19 @@ class ApiV1AuthenticationFreeTokenPost$RequestBody {
   Map<String, dynamic> toJson() =>
       _$ApiV1AuthenticationFreeTokenPost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'grant_type', includeIfNull: true)
+  @JsonKey(name: 'grant_type', includeIfNull: false)
   final String? grantType;
-  @JsonKey(name: 'username', includeIfNull: true)
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
-  @JsonKey(name: 'password', includeIfNull: true)
+  @JsonKey(name: 'password', includeIfNull: false)
   final String? password;
-  @JsonKey(name: 'refresh_token', includeIfNull: true)
+  @JsonKey(name: 'refresh_token', includeIfNull: false)
   final String? refreshToken;
-  @JsonKey(name: 'scope', includeIfNull: true)
+  @JsonKey(name: 'scope', includeIfNull: false)
   final String? scope;
-  @JsonKey(name: 'client_id', includeIfNull: true)
+  @JsonKey(name: 'client_id', includeIfNull: false)
   final String? clientId;
-  @JsonKey(name: 'client_secret', includeIfNull: true)
+  @JsonKey(name: 'client_secret', includeIfNull: false)
   final String? clientSecret;
   static const fromJsonFactory =
       _$ApiV1AuthenticationFreeTokenPost$RequestBodyFromJson;
@@ -3391,7 +3390,7 @@ class ApiV1AuthenticationEditProfileImagePost$RequestBody {
   Map<String, dynamic> toJson() =>
       _$ApiV1AuthenticationEditProfileImagePost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'File', includeIfNull: true)
+  @JsonKey(name: 'File', includeIfNull: false)
   final String? file;
   static const fromJsonFactory =
       _$ApiV1AuthenticationEditProfileImagePost$RequestBodyFromJson;
