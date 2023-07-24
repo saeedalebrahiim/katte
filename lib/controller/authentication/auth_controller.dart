@@ -1,3 +1,4 @@
+import 'package:delivery/controller/services/cross_origin.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/routs/routs.dart';
 import 'package:flutter/material.dart';
@@ -111,7 +112,12 @@ Future<StringApiResult> signup({
 }) async {
   print('signup');
 
-  final api = Katte.create();
+  final api = Katte.create(interceptors: [
+    AccessHeader(),
+    AccessMethodHeader(),
+    AccessOriginHeader(),
+    AccessOriginsHeader()
+  ]);
 
   final postResult = await api.apiV1AuthenticationSignUpPost(
     body: body,

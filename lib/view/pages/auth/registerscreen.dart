@@ -1,13 +1,12 @@
-import 'package:delivery/controller/authentication/auth_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/pages/auth/LoginScreenOTP.dart';
-import 'package:delivery/view/pages/auth/registerotpscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delivery/controller/authentication/auth_controller.dart'
     as auth_controller;
+import 'package:uuid/uuid.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
@@ -186,11 +185,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               .signup(
                             context: context,
                             body: SignUpDto(
-                              id: '00000000-0000-0000-0000-000000000000',
-                              otp: 0,
                               fName: nameController.text,
                               lName: familyController.text,
                               phoneNumber: phonumberController.text,
+                              otp: 0,
+                              id: const Uuid().v1(),
                             ),
                           )
                               .then((value) {

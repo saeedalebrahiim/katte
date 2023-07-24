@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:chopper/chopper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
