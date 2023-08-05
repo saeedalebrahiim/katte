@@ -1,11 +1,9 @@
-import 'package:delivery/controller/addresses/address_controller.dart';
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_cardpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
-import 'package:delivery/view/pages/address/addressscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';

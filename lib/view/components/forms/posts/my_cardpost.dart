@@ -6,15 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 class MyCardPost extends StatefulWidget {
   final String imagePath, price, name, productId;
   final int count;
-  Function()? onDelete;
-  MyCardPost({
+  const MyCardPost({
     super.key,
     required this.imagePath,
     required this.price,
     required this.name,
     required this.count,
     required this.productId,
-    this.onDelete,
   });
 
   @override

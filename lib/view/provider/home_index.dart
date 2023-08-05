@@ -1,5 +1,4 @@
 import 'package:delivery/model/api/generated/katte.swagger.dart';
-import 'package:delivery/routs/routs.dart';
 import 'package:flutter/material.dart';
 
 class HomeIndexProvider extends ChangeNotifier {
