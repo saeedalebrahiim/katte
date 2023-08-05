@@ -2,7 +2,6 @@ import 'package:delivery/model/api/generated/katte.swagger.dart';
 import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/db/shop_card_entity.dart';
 import 'package:delivery/model/globals/globals.dart';
-import 'package:delivery/view/components/forms/dialogs/payment_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_cardpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
@@ -10,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_listener/hive_listener.dart';
-import 'package:delivery/controller/addresses/address_controller_dont_touch.dart'
-    as address_controller;
 
 class PaymentFirstScreen extends StatefulWidget {
   const PaymentFirstScreen({super.key});
@@ -47,6 +44,10 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
     shopCardItems = MyBox.shopCardBox.values.toList();
     setState(() {});
   }
+
+  // deleteDataFromDB(int index) async {
+  //   MyBox.shopCardBox.deleteAt(index);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +162,13 @@ class _PaymentFirstScreenState extends State<PaymentFirstScreen> {
                             name: box.values.toList()[index].producyName,
                             price: box.values.toList()[index].productPrice,
                             count: box.values.toList()[index].productCount,
+                            // onDelete: () {
+                            //   var item = box.values.firstWhere((element) =>
+                            //       element.id ==
+                            //       box.values.toList()[index].producytId);
+                            // var index2 =  box.values.toList().indexOf(item);
+                            // deleteDataFromDB(index2);
+                            // },
                           );
                         },
                       ),

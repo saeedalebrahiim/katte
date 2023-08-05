@@ -3,18 +3,25 @@ import 'package:delivery/view/components/forms/my_addtocard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyCardPost extends StatelessWidget {
+class MyCardPost extends StatefulWidget {
   final String imagePath, price, name, productId;
   final int count;
-  const MyCardPost({
+  Function()? onDelete;
+  MyCardPost({
     super.key,
     required this.imagePath,
     required this.price,
     required this.name,
     required this.count,
     required this.productId,
+    this.onDelete,
   });
 
+  @override
+  State<MyCardPost> createState() => _MyCardPostState();
+}
+
+class _MyCardPostState extends State<MyCardPost> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,7 +46,7 @@ class MyCardPost extends StatelessWidget {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Image(
-                    image: AssetImage(imagePath),
+                    image: AssetImage(widget.imagePath),
                     fit: BoxFit.cover,
                     width: 110,
                     height: 110,
@@ -48,8 +55,8 @@ class MyCardPost extends StatelessWidget {
                     width: 10,
                   ),
                   MyAddToCardTwo(
-                    count: count,
-                    productId: productId,
+                    count: widget.count,
+                    productId: widget.productId,
                   ),
                 ],
               ),
@@ -59,7 +66,7 @@ class MyCardPost extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  name,
+                  widget.name,
                   style: GoogleFonts.notoNaskhArabic(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
@@ -67,19 +74,19 @@ class MyCardPost extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  "$price T ",
+                  "${widget.price} T ",
                   style: GoogleFonts.notoNaskhArabic(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: IconButton(
-                icon: const Icon(Icons.delete_outlined),
-                onPressed: () {},
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 5),
+            //   child: IconButton(
+            //     icon: const Icon(Icons.delete_outlined),
+            //     onPressed: widget.onDelete,
+            //   ),
+            // ),
           ],
         ),
       ),

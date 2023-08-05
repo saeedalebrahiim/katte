@@ -189,7 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fName: nameController.text,
                               lName: familyController.text,
                               phoneNumber: phonumberController.text,
-                              otp: 0,
                               id: const Uuid().v1(),
                             ),
                           )

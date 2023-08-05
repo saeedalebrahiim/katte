@@ -1,10 +1,6 @@
 import 'package:delivery/controller/addresses/address_controller.dart';
 import 'package:delivery/model/api/generated/katte.swagger.dart';
-import 'package:delivery/model/db/box/box.dart';
 import 'package:delivery/model/globals/globals.dart';
-import 'package:delivery/view/components/address_dialog/list_address.dart';
-import 'package:delivery/view/components/address_dialog/show_address.dart';
-import 'package:delivery/view/components/forms/dialogs/address_dialog.dart';
 import 'package:delivery/view/components/forms/my_divider.dart';
 import 'package:delivery/view/components/forms/posts/my_foodpost.dart';
 import 'package:delivery/view/components/my_drawer.dart';
@@ -19,8 +15,6 @@ import 'package:delivery/controller/categories/categories_controller.dart'
     as ctg_controller;
 import 'package:delivery/controller/products/products_controller.dart'
     as products_controller;
-import 'package:delivery/controller/addresses/address_controller_dont_touch.dart'
-    as address_controller;
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
